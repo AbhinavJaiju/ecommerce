@@ -13,8 +13,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT wishLists.wishListId,wishLists.customerId,wishLists.productId,
-products.productName,products.price,
+$sql = "SELECT wishLists.wishListId,
+products.productName,
 productImage.fileName FROM wishLists
 INNER JOIN products ON wishLists.productid = products.productid
 LEFT JOIN productImage ON productImage.productid = products.productid";
@@ -122,7 +122,7 @@ $row = $result->fetch_assoc();
                             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
+                            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
                         </ul>
@@ -182,6 +182,11 @@ $row = $result->fetch_assoc();
                                                 </div>
                                             </div>
                                         </td>
+                                       
+                                        <td>
+                                                <button type="button" class="site-btn" id="add_to_cart" value="<?php echo $row["wishListId"]; ?>">Add to cart</button>
+                                        </td>
+                                       
                                         <td class="cart__close"><span class="icon_close" id="<?php echo $row["wishListId"]; ?>"></span></td>
                                     </tr>
                                 <?php
@@ -200,7 +205,7 @@ $row = $result->fetch_assoc();
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="cart__btn update__btn">
-                        <a id="add_to_cart" href="shop-cart.php"> Add to cart</a>
+                        <a href="shop-cart.php">View Cart</a>
                     </div>
                 </div>
             </div>
@@ -368,7 +373,6 @@ $row = $result->fetch_assoc();
 
 <!-- Scripts -->
 <script>
-
     // Delete from wishlist
     $('.icon_close').click(function() {
         let val = $(this).get(0).id;
@@ -395,8 +399,27 @@ $row = $result->fetch_assoc();
     });
 
     // Add to cart button
-    $('#add_to_cart').click(function() {
+    $('td').find('button').click(function() {
         
-    });
+        var val = $(this).val();
+        // console.log(val);
 
+        $.ajax({
+            url: 'php/add-to-cart.php',
+            type: 'POST',
+            data: {
+                id:val
+            },
+            success: function(data) {
+                // console.log(data)
+                if (data == 'success') {
+                    alert('Product added to cart successfully');
+                    // location.reload();
+                } else {
+                    alert('Something went wrong');
+                    console.log(data);
+                }
+            }
+        });
+    });
 </script>
