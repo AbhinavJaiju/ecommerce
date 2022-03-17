@@ -39,8 +39,7 @@ $row = $result->fetch_assoc();
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -66,11 +65,11 @@ $row = $result->fetch_assoc();
         <ul class="offcanvas__widget">
             <li><span class="icon_search search-switch"></span></li>
             <li><a href="#"><span class="icon_heart_alt"></span>
-                <div class="tip">2</div>
-            </a></li>
+                    <div class="tip">2</div>
+                </a></li>
             <li><a href="#"><span class="icon_bag_alt"></span>
-                <div class="tip">2</div>
-            </a></li>
+                    <div class="tip">2</div>
+                </a></li>
         </ul>
         <div class="offcanvas__logo">
             <a href="./index.php"><img src="img/logo.png" alt=""></a>
@@ -121,11 +120,11 @@ $row = $result->fetch_assoc();
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
+                                    <div class="tip">2</div>
+                                </a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
+                                    <div class="tip">2</div>
+                                </a></li>
                         </ul>
                     </div>
                 </div>
@@ -166,28 +165,28 @@ $row = $result->fetch_assoc();
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php
-        foreach ($result as $row) {
-            ?>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="newimages/<?php echo $row["fileName"]; ?>" alt="" height="80px" width="85px">
-                                        <div class="cart__product__item__title">
-                                            <h6><?php echo $row["productName"]; ?></h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
                                 <?php
-        }
-        ?>
+                                foreach ($result as $row) {
+                                ?>
+                                    <tr>
+                                        <td class="cart__product__item">
+                                            <img src="newimages/<?php echo $row["fileName"]; ?>" alt="" height="80px" width="85px">
+                                            <div class="cart__product__item__title">
+                                                <h6><?php echo $row["productName"]; ?></h6>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="cart__close"><span class="icon_close" id="<?php echo $row["wishListId"]; ?>"></span></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -201,7 +200,7 @@ $row = $result->fetch_assoc();
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="cart__btn update__btn">
-                        <a href="shop-cart.php"> Add to cart</a>
+                        <a id="add_to_cart" href="shop-cart.php"> Add to cart</a>
                     </div>
                 </div>
             </div>
@@ -276,7 +275,7 @@ $row = $result->fetch_assoc();
                             <a href="./index.php"><img src="img/logo.png" alt=""></a>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                        cilisis.</p>
+                            cilisis.</p>
                         <div class="footer__payment">
                             <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
                             <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
@@ -329,7 +328,9 @@ $row = $result->fetch_assoc();
                 <div class="col-lg-12">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <div class="footer__copyright__text">
-                        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                        <p>Copyright &copy; <script>
+                                document.write(new Date().getFullYear());
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
                     </div>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
@@ -363,3 +364,39 @@ $row = $result->fetch_assoc();
 </body>
 
 </html>
+
+
+<!-- Scripts -->
+<script>
+
+    // Delete from wishlist
+    $('.icon_close').click(function() {
+        let val = $(this).get(0).id;
+        // console.log(val);
+        if (confirm('Are you sure you want to remove this product?')) {
+            $.ajax({
+                url: 'php/delete-wish-list.php',
+                type: 'POST',
+                data: {
+                    id: val
+                },
+                success: function(data) {
+                    if (data == 'success') {
+                        alert('Product deleted successfully');
+                        location.reload();
+                    } else {
+                        alert('Something went wrong');
+                        console.log(data);
+
+                    }
+                }
+            });
+        }
+    });
+
+    // Add to cart button
+    $('#add_to_cart').click(function() {
+        
+    });
+
+</script>
