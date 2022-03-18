@@ -29,50 +29,11 @@ $(function() {
       fill: false
     }]
   };
-  var multiLineData = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [{
-        label: 'Dataset 1',
-        data: [12, 19, 3, 5, 2, 3],
-        borderColor: [
-          '#587ce4'
-        ],
-        borderWidth: 2,
-        fill: false
-      },
-      {
-        label: 'Dataset 2',
-        data: [5, 23, 7, 12, 42, 23],
-        borderColor: [
-          '#ede190'
-        ],
-        borderWidth: 2,
-        fill: false
-      },
-      {
-        label: 'Dataset 3',
-        data: [15, 10, 21, 32, 12, 33],
-        borderColor: [
-          '#f44252'
-        ],
-        borderWidth: 2,
-        fill: false
-      }
-    ]
-  };
   var options = {
     scales: {
       yAxes: [{
         ticks: {
           beginAtZero: true
-        },
-        gridLines: {
-          color: "rgba(204, 204, 204,0.1)"
-        }
-      }],
-      xAxes: [{
-        gridLines: {
-          color: "rgba(204, 204, 204,0.1)"
         }
       }]
     },
@@ -84,9 +45,8 @@ $(function() {
         radius: 0
       }
     }
-  };
 
-  
+  };
   var doughnutPieData = {
     datasets: [{
       data: [30, 40, 30],
@@ -153,72 +113,6 @@ $(function() {
       filler: {
         propagate: true
       }
-    },
-    scales: {
-      yAxes: [{
-        gridLines: {
-          color: "rgba(204, 204, 204,0.1)"
-        }
-      }],
-      xAxes: [{
-        gridLines: {
-          color: "rgba(204, 204, 204,0.1)"
-        }
-      }]
-    }
-  }
-
-  var multiAreaData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [{
-        label: 'Facebook',
-        data: [8, 11, 13, 15, 12, 13, 16, 15, 13, 19, 11, 14],
-        borderColor: ['rgba(255, 99, 132, 0.5)'],
-        backgroundColor: ['rgba(255, 99, 132, 0.5)'],
-        borderWidth: 1,
-        fill: true
-      },
-      {
-        label: 'Twitter',
-        data: [7, 17, 12, 16, 14, 18, 16, 12, 15, 11, 13, 9],
-        borderColor: ['rgba(54, 162, 235, 0.5)'],
-        backgroundColor: ['rgba(54, 162, 235, 0.5)'],
-        borderWidth: 1,
-        fill: true
-      },
-      {
-        label: 'Linkedin',
-        data: [6, 14, 16, 20, 12, 18, 15, 12, 17, 19, 15, 11],
-        borderColor: ['rgba(255, 206, 86, 0.5)'],
-        backgroundColor: ['rgba(255, 206, 86, 0.5)'],
-        borderWidth: 1,
-        fill: true
-      }
-    ]
-  };
-
-  var multiAreaOptions = {
-    plugins: {
-      filler: {
-        propagate: true
-      }
-    },
-    elements: {
-      point: {
-        radius: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        gridLines: {
-          display: false
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          display: false
-        }
-      }]
     }
   }
 
@@ -284,15 +178,7 @@ $(function() {
     scales: {
       xAxes: [{
         type: 'linear',
-        position: 'bottom',
-        gridLines: {
-          color: "rgba(204, 204, 204,0.1)"
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          color: "rgba(204, 204, 204,0.1)"
-        }
+        position: 'bottom'
       }]
     }
   }
@@ -313,24 +199,6 @@ $(function() {
       type: 'line',
       data: data,
       options: options
-    });
-  }
-
-  if ($("#linechart-multi").length) {
-    var multiLineCanvas = $("#linechart-multi").get(0).getContext("2d");
-    var lineChart = new Chart(multiLineCanvas, {
-      type: 'line',
-      data: multiLineData,
-      options: options
-    });
-  }
-
-  if ($("#areachart-multi").length) {
-    var multiAreaCanvas = $("#areachart-multi").get(0).getContext("2d");
-    var multiAreaChart = new Chart(multiAreaCanvas, {
-      type: 'line',
-      data: multiAreaData,
-      options: multiAreaOptions
     });
   }
 
@@ -367,15 +235,6 @@ $(function() {
       type: 'scatter',
       data: scatterChartData,
       options: scatterChartOptions
-    });
-  }
-
-  if ($("#browserTrafficChart").length) {
-    var doughnutChartCanvas = $("#browserTrafficChart").get(0).getContext("2d");
-    var doughnutChart = new Chart(doughnutChartCanvas, {
-      type: 'doughnut',
-      data: browserTrafficData,
-      options: doughnutPieOptions
     });
   }
 });

@@ -1,28 +1,12 @@
 /* Badges */
 
 .badge {
-  border-radius: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: initial;
+  border-radius: 0;
+  font-size: 12px;
   line-height: 1;
-  padding: 0.5rem 0.7rem;
-  font-weight: $font-weight-medium;
+  padding: .282rem .47rem;
+  font-weight: normal;
   &.badge-pill {
     border-radius: 10rem;
-  }
-}
-
-
-/*Badge variations*/
-@each $color, $value in $theme-colors {
-  .badge-#{$color} {
-    @include badge-variations($value);
-  }
-}
-
-/*Badge outlined variations*/
-@each $color, $value in $theme-colors {
-  .badge-outline-#{$color} {
-    @include badge-outline-variations($value);
   }
 }

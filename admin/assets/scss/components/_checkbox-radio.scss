@@ -3,29 +3,21 @@
 .form-check {
   position: relative;
   display: block;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-bottom: 10px;
   padding-left: 0;
 
   .form-check-label {
+    min-height: 18px;
     display: block;
-    padding-left: 0.625rem;
+    margin-left: 1.75rem;
     font-size: $default-font-size;
     line-height: 1.5;
-    color: $text-muted;
-    .rtl & {
-      padding-left: 0;
-      padding-right: 1.875rem;
-    }
 
     input {
       position: absolute;
       top: 0;
       left: 0;
-      .rtl & {
-        left: auto;
-        right: 0;
-      }
       margin-left: 0;
       margin-top: 0;
       z-index: 1;
@@ -47,8 +39,8 @@
         }
         &:before {
           content: "";
-          width: 16px;
-          height: 16px;
+          width: 18px;
+          height: 18px;
           border-radius: 2px;
           border: solid theme-color(primary);
           border-width: 2px;
@@ -56,10 +48,6 @@
           transition-duration: 0s;
           -webkit-transition-duration: 250ms;
           transition-duration: 250ms;
-          position: absolute;
-          top: 2px;
-          left: 0;
-
         }
   
         &:after {
@@ -75,10 +63,9 @@
           -o-transform: scale(0);
           transform: scale(0);
           content: '\F12C';
-          font-size: 0.875rem;
+          font-size: .9375rem;
           font-weight: bold;
           color: $white;
-          top: 1px;
         }
       }
       &:checked {
@@ -96,7 +83,6 @@
             -ms-transform: scale(1);
             -o-transform: scale(1);
             transform: scale(1);
-            color: black;
           }
         }
       }
@@ -125,10 +111,6 @@
           content: "";
           top: 0;
           left: 0;
-          .rtl & {
-            left: auto;
-            right: 0;
-          }
           border: solid theme-color(primary);
           border-width: 2px;
           width: 20px;
@@ -148,10 +130,6 @@
           border-radius: 50%;
           top: 6px;
           left: 6px;
-          .rtl & {
-            left: auto;
-            right: 6px;
-          }
           -webkit-transition: all;
           -o-transition: all;
           transition: all;
@@ -233,26 +211,3 @@
     }
   }
 }
-
-.form-check-muted {
-  &.form-check {
-    label {
-      input[type="checkbox"],
-      input[type="radio"] {
-        +.input-helper {
-          &:before {
-            border-color: $text-muted;
-          }
-        }
-        &:checked {
-          +.input-helper {
-            &:before {
-              background: $text-muted;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-

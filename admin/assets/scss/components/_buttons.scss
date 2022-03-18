@@ -3,15 +3,12 @@
 .btn {
   font-size: $btn-font-size;
   line-height: 1;
-  font-weight: normal;
+  font-weight: 400;
   i {
-    margin-right: .3125rem;
+    font-size: 1rem;
   }
   &.btn-rounded {
     @include border-radius(50px);
-  }
-  &.btn-fw {
-    min-width: $button-fixed-width;
   }
   &.btn-sm {
     font-size: $btn-font-size-sm;
@@ -32,10 +29,10 @@
   /* Buttons with icon and text */
   &.btn-icon-text {
     .btn-icon-prepend {
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
     .btn-icon-append {
-      margin-left: .5rem;
+      margin-left: 0.5rem;
     }
   }
   &.btn-social-icon {
@@ -43,15 +40,11 @@
     height: 50px;
     padding: 0;
   }
-  &.get-started-btn {
-    font-size: 0.75rem;
-    border: 1px solid rgba(#ffffff, 0.3);
-    font-weight: $font-weight-medium;
-    padding: 0.9375rem 1.0625rem;
-    @media (max-width: 576px) {
-      font-size: 0.6rem;
-      padding: 0.4375rem 0.6625rem;
-    }
+}
+.template-demo {
+  .btn {
+    margin-top: 1rem;
+    margin-right: 0.5rem;
   }
 }
 
@@ -60,12 +53,13 @@
     + .btn {
       border-left: 0;
     }
+    margin: 0;
   }
 }
 
 .btn-toolbar {
   .btn-group {
-    +.btn-group {
+    + .btn-group {
       @extend .ml-2;
     }
   }
@@ -85,18 +79,10 @@
     @include button-inverse-variant($value);
   }
   .btn-#{$color} {
-    &:not(.btn-light):not(.btn-secondary) {
-      color: $white;
-      &:hover,
-      &:focus,
-      &:active {
-        color: $white;
-      }
-      &:focus,
-      &:active {
-        background: $value;
-        border-color: $value;
-      }
+    &,
+    &:hover {
+      box-shadow: 0 2px 2px 0 rgba(theme-color($color), 0.14), 0 3px 1px -2px rgba(theme-color($color), 0.2),
+        0 1px 5px 0 rgba(theme-color($color), 0.12);
     }
   }
 }

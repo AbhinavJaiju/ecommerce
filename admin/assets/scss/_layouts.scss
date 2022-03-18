@@ -1,87 +1,65 @@
 /* Layouts */
 
-.navbar {
-  &.fixed-top {
-    + .page-body-wrapper {
-      padding-top: $navbar-height;
-    }
-  }
-}
-
 // Sidebar Icon Only
 .sidebar-icon-only {
   @media (min-width: 992px) {
-    .navbar {
-      left: $sidebar-width-icon;
-      .navbar-menu-wrapper {
-        width: 100%;
+    .page-body-wrapper {
+      width: calc(100% - #{$sidebar-width-icon});
+    }
+    .navbar-mini {
+      &.fixed-top {
+        left: $sidebar-width-icon;
       }
     }
     .sidebar {
       width: $sidebar-width-icon;
-      .sidebar-brand-wrapper {
-        width: $sidebar-width-icon;
-        .brand-logo {
-          display: none;
-        }
-        .brand-logo-mini {
-          display: inline-block;
-        }
+      > .nav {
+        margin-top: 1.8rem;
       }
       .nav {
         overflow: visible;
+        .sidebar-category {
+          margin: 1.2rem 2rem 0.4rem 2rem;
+          p {
+            display: none;
+          }
+          span {
+            width: 5px;
+            height: 5px;
+            display: block;
+            background: $white;
+            border-radius: 100%;
+          }
+        }
         .nav-item {
           position: relative;
-          padding: 0;
-          .profile-name {
-            display: none;
-          }
-          .mdi-dots-vertical {
-            display: none;
-          }
-          &.account-dropdown {
-            display: none;
-          }
           .nav-link {
+            display: block;
+            padding-left: .5rem;
+            padding-right: .5rem;            
             text-align: center;
+            position: static;
             .menu-title,
             .badge,.menu-sub-title {
               display: none;
             }
             .menu-title {
               @include border-radius(0 5px 5px 0px);
-              @at-root #{selector-append(".rtl", &)} {
-                @include border-radius(5px 0 0 5px);
-              }
             }
             i {
               &.menu-icon {
                 margin-right: 0;
                 margin-left: 0;
+                margin-bottom: 0;
               }
               &.menu-arrow {
                 display: none;
               }
             }
             &[aria-expanded] {
-              .menu-title{
+              .menu-title {
                 @include border-radius(0 5px 0 0px);
-                @at-root #{selector-append(".rtl", &)} {
-                  @include border-radius(5px 0 0 0);
-                }
               }
-            }
-          }
-          &.nav-profile {
-            display: none;
-          }
-          &.nav-category {
-            display: none;
-          }
-          &.nav-doc {
-            margin: 0;
-            i {
-              display: block;
             }
           }
           .collapse {
@@ -92,10 +70,7 @@
               .menu-title {
                 @include display-flex;
                 @include align-items(center);
-                background: $icon-only-menu-bg-light;
-                @at-root #{selector-append(".sidebar-dark", &)} {
-                    background: $sidebar-dark-menu-active-bg;
-                }
+                background: $icon-only-menu-bg-dark;
                 padding: 0.5rem 1.4rem;
                 left: $sidebar-width-icon;
                 position: absolute;
@@ -105,13 +80,14 @@
                 width: $icon-only-collapse-width;
                 z-index: 1;
                 line-height: 1.8;
-                @at-root #{selector-append(".rtl", &)} {
-                  left: auto;
-                  right: $sidebar-width-icon;
-                  text-align: left;
-                }
+                box-shadow: 4px 0px 7px 0px rgba(182, 185, 189, 0.25);
                 &:after {
                   display: none;
+                }
+              }
+              &:hover {
+                .menu-title {
+                  background: $icon-only-menu-bg-dark;
                 }
               }
             }
@@ -119,19 +95,12 @@
             .collapsing {
               display: block;
               padding: .5rem 0;
-              background: $icon-only-menu-bg-light;
+              background: $icon-only-menu-bg-dark;
               @include border-radius(0 0 5px 0);
-              @at-root #{selector-append(".sidebar-dark", &)} {
-                  background: $sidebar-dark-bg;
-              }
               position: absolute;
               left: $sidebar-width-icon;
               width: $icon-only-collapse-width;
-              @at-root #{selector-append(".rtl", &)} {
-                  left: auto;
-                  right:$sidebar-width-icon;
-                  @include border-radius(0 0 0 5px);
-              }
+              box-shadow: 4px 4px 7px 0px rgba(182, 185, 189, 0.25);
             }
           }
         }
@@ -141,58 +110,11 @@
             .nav-link {
               text-align: left;
               padding-left: 20px;
-              &:before {
-                content: "";
-                display: inline-block;
-                width: 5px;
-                height: 5px;
-                border-radius: 50%;
-                background-color: $sidebar-dark-submenu-color;
-                position: absolute;
-                left: 0;
-            }
-            &:hover {
-              &:before {
-                background-color: white;
-              }
-            }
-            }
-          }
-          @at-root #{selector-append(".rtl", &)} {
-            .nav-item {
-              margin-left: 0;
-              .nav-link {
-                text-align: right;
-                &:before{
-                  left: 0;
-                  right: unset;
-                }
-              }
-            }
-          }
-        }
-      }
-      .sidebar-actions {
-        display: none;
-      }
-    }
-    &.rtl {
-      .sidebar {
-        .nav {
-          .nav-item {
-            &.profile {
-              padding-right: 0;
             }
           }
         }
       }
     }
-    .page-body-wrapper {
-      width: calc(100% - #{$sidebar-width-icon});
-      transition: all $action-transition-duration $action-transition-timing-function;
-      -webkit-transition: all $action-transition-duration $action-transition-timing-function;
-      -moz-transition: all $action-transition-duration $action-transition-timing-function;
-      -ms-transition: all $action-transition-duration $action-transition-timing-function;
-    }
+
   }
 }
