@@ -172,11 +172,11 @@ if ($conn->connect_error) {
 if (isset($_POST['delete'])) {
 
 
-    echo $did = $_POST['cid'];
-    echo "inside delete"."$did";
+    $did = $_POST['cid'];
+    
 
 
-    echo $query = "DELETE FROM productCarts WHERE productCartId=$did";
+    $query = "DELETE FROM productCarts WHERE productCartId=$did";
     //echo "hello";
     
 
@@ -258,8 +258,7 @@ if (isset($_POST['delete'])) {
                                    
 
                                     echo"
-                                    <td class=\"cart__total\">$rowtotal</td>
-                                    <td class=\"cart__total\">{$row["productCartId"]}</td>
+                                    <td class=\"cart__total\">₹$rowtotal</td>
                                     
                                     <td class=\"cart__close\">
                                     <form method='POST'>
@@ -279,7 +278,7 @@ if (isset($_POST['delete'])) {
                                 $sum+=$rowtotal;
 
                             }}else{
-                                echo "No products in cart";
+                                echo "No items in cart";
                             }
                             echo"
                             </tbody>
@@ -329,7 +328,7 @@ if (isset($_POST['delete'])) {
                     <?php
                     //if (isset($_POST['updateCart'])) {
                
-                            echo" $sum";
+                            echo"₹$sum";
                             //}
                ?>
                </span></li>

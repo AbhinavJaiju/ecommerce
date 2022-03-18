@@ -183,7 +183,7 @@
                  while ($row = $result->fetch_assoc()) {
                      echo"  <div class='card'>
                                         <div class='card-heading active'>
-                                            <a href=\"http://localhost/ashion-master/shop.php?id={$row["categoryId"]}\">{$row["categoryName"]}</a>
+                                            <a href=\"shop.php?id={$row["categoryId"]}\">{$row["categoryName"]}</a>
                                         </div>
                                     </div>
                                     ";
@@ -335,7 +335,7 @@
                                 <form method=\"POST\">
                                 
                                 <div class='product__item__text'>
-                                    <h6><a href='http://localhost/ashion-master/product-details.php?id={$row["productId"]}'>{$row["productName"]}</a></h6>
+                                    <h6><a href='product-details.php?id={$row["productId"]}'>{$row["productName"]}</a></h6>
                                     <div class='rating'>
                                         <i class='fa fa-star'></i>
                                         <i class='fa fa-star'></i>
@@ -381,30 +381,7 @@
                 // header("Location: http://localhost/Projects/productEdit.php?id=" . $var);
             }
             ?>
-
-            
-
-
-                    
-
-
-                        
-
-
-
-                       
-                        
-                        
-                        
-                        
-                        
-                        
-                       
-
-
-
-
-                        <div class="col-lg-12 text-center">
+                       <div class="col-lg-12 text-center">
                             <div class="pagination__option">
                                 <a href="#">1</a>
                                 <a href="#">2</a>
