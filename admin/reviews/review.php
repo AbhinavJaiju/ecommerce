@@ -1,3 +1,15 @@
+<?php $servername = "localhost";
+$username = "alfina";
+$password = "Alfinamemysql@123";
+$dbname = "ecommerce";
+
+/// Create connection
+$conn = new mysqli($servername, $username,$password,$dbname);//;
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,17 +17,17 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Spica Admin</title>
+  <title>Reviews</title>
   <!-- base:css -->
-  <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="assets/images/favicon.png" />
+  <link rel="shortcut icon" href="../assets/images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller d-flex">
@@ -267,7 +279,59 @@
       </nav>
 
 <!-- body -->
+<div class="col-lg-12 grid-margin mt-5 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Manage Reviews</h4>
+        <p class="card-description"> Review Request
+        </p>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Product</th>
+                <th>Posted at</th>
+                <th>Status</th>
+                <th>View</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+             
+              $query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
+                      cust.email,prod.productId,prod.productName
+                      FROM reviews rev
+                      JOIN customers cust ON cust.customerId = rev.customerId
+                      JOIN products prod ON prod.productId = rev.productId";
 
+              $result = $conn->query($query);
+
+              while ($row = mysqli_fetch_array($result)) {
+
+              ?>
+                <tr>
+                <?php  $button2 = '<form method="post" action="reviewdata.php?id=$row[productId]" ><input type="hidden" name="view_id" value="' . $row['productId'] . '"><input type="submit" value="View"></form>';?>
+                 
+                  <td><?php echo $row['customerName']; ?></td>
+                  <td><?php echo $row['productName'] ?? ''; ?></td>
+                  <td><?php echo $row['createdDate'] ?? ''; ?></td>
+                  <td><?php echo $row['status'] ?? ''; ?></td>
+                  <?php echo  "<td bgcolor='whitesmoke'><a type='button' href='reviewdata.php?id=$row[productId]'><font color='black'>Edit <i class='bi bi-eye-fill'></i></a> </td>";  ?>
+                </tr>
+
+                <tr>
+                  <td colspan="8">
+                  </td>
+                <tr>
+                <?php
+              } ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <!-- body ends -->
     </div>
@@ -276,20 +340,20 @@
   <!-- container-scroller -->
 
   <!-- base:js -->
-  <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
-  <script src="assets/vendors/chart.js/Chart.min.js"></script>
+  <script src="../assets/vendors/chart.js/Chart.min.js"></script>
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="assets/js/off-canvas.js"></script>
-  <script src="assets/js/hoverable-collapse.js"></script>
-  <script src="assets/js/template.js"></script>
+  <script src="../assets/js/off-canvas.js"></script>
+  <script src="../assets/js/hoverable-collapse.js"></script>
+  <script src="../assets/js/template.js"></script>
   <!-- endinject -->
   <!-- plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
-  <script src="assets/js/dashboard.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
 

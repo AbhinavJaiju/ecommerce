@@ -1,3 +1,49 @@
+
+<?php 
+$servername = "localhost";
+$username = "alfina";
+$password = "Alfinamemysql@123";
+$dbname = "ecommerce";
+
+/// Create connection
+$conn = new mysqli($servername, $username,$password,$dbname);//;
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+$id = $_GET['id'];
+
+$query ="SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
+cust.email,prod.productId,prod.productName
+FROM reviews rev  
+JOIN customers cust ON cust.customerId = rev.customerId
+JOIN products prod ON prod.productId = rev.productId
+WHERE rev.productId=$id
+";
+
+$result = $conn->query($query);
+
+if (empty($result)) {
+  echo "no data found";
+}
+else{
+  //echo $result['productName'];
+  $res=mysqli_fetch_array($result);
+  if($res!=null){
+    $productName = $res['productName'];
+    $customerName = $res['customerName'];
+    $review = $res['review'];
+    $createdDate = $res['createdDate'];
+    $status = $res['status'];
+    $email = $res['email'];
+    $productId = $res['productId'];
+
+  }
+  
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,17 +51,17 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Spica Admin</title>
+  <title>Reviews</title>
   <!-- base:css -->
-  <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="assets/images/favicon.png" />
+  <link rel="shortcut icon" href="../assets/images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller d-flex">
@@ -265,9 +311,32 @@
           </ul>
         </div>
       </nav>
-
 <!-- body -->
 
+<div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title"><?php echo $productName; ?></h4>
+                  <p class="card-description">
+                    Add tags <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> or class <code>.h1</code> to <code>.h6</code>
+                  </p>
+                  <div class="template-demo">
+                    <h1>h1. Heading</h1>
+                    <h2>h2. Heading</h2>
+                    <h3>h3. Heading</h3>
+                    <h4>h4. Heading</h4>
+                    <h5>h5. Heading</h5>
+                    <h6>h6. Heading</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
 
 <!-- body ends -->
     </div>
@@ -276,20 +345,20 @@
   <!-- container-scroller -->
 
   <!-- base:js -->
-  <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
-  <script src="assets/vendors/chart.js/Chart.min.js"></script>
+  <script src="../assets/vendors/chart.js/Chart.min.js"></script>
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="assets/js/off-canvas.js"></script>
-  <script src="assets/js/hoverable-collapse.js"></script>
-  <script src="assets/js/template.js"></script>
+  <script src="../assets/js/off-canvas.js"></script>
+  <script src="../assets/js/hoverable-collapse.js"></script>
+  <script src="../assets/js/template.js"></script>
   <!-- endinject -->
   <!-- plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
-  <script src="assets/js/dashboard.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
 
