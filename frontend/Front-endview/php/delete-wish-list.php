@@ -2,10 +2,7 @@
 $id = $_POST['id'];
 
 
-$servername = "localhost";
-$username = "gazni";
-$password = "password";
-$dbname = "ecommerce";
+require "config.php";
 
 //Create connection
 try {

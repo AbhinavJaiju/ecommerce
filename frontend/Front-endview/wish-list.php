@@ -1,10 +1,7 @@
 <!-- PHP => Get wish list from database -->
 <?php
 
-$servername = "localhost";
-$username = "gazni";
-$password = "password";
-$dbname = "ecommerce";
+include "config.php";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -391,7 +388,7 @@ $row = $result->fetch_assoc();
                     } else {
                         alert('Something went wrong');
                         console.log(data);
-
+                        location.reload();
                     }
                 }
             });
@@ -419,7 +416,8 @@ $row = $result->fetch_assoc();
                     alert('Something went wrong');
                     console.log(data);
                 }
-            }
+            
+        }
         });
     });
 </script>
