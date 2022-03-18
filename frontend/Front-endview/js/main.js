@@ -188,8 +188,8 @@ Created: Colorib
         maxamount.val('$' + ui.values[1]);
         }
     });
-    minamount.val('$' + rangeSlider.slider("values", 0));
-    maxamount.val('$' + rangeSlider.slider("values", 1));
+    minamount.val('' + rangeSlider.slider("values", 0));
+    maxamount.val('' + rangeSlider.slider("values", 1));
 
     /*------------------
 		Single Product
