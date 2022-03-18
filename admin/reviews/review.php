@@ -8,7 +8,11 @@ $conn = new mysqli($servername, $username,$password,$dbname);//;
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
-} ?>
+} 
+
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -293,7 +297,7 @@ if ($conn->connect_error) {
                 <th>Product</th>
                 <th>Posted at</th>
                 <th>Status</th>
-                <th>View</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -311,13 +315,14 @@ if ($conn->connect_error) {
 
               ?>
                 <tr>
-                <?php  $button2 = '<form method="post" action="reviewdata.php?id=$row[productId]" ><input type="hidden" name="view_id" value="' . $row['productId'] . '"><input type="submit" value="View"></form>';?>
-                 
                   <td><?php echo $row['customerName']; ?></td>
                   <td><?php echo $row['productName'] ?? ''; ?></td>
                   <td><?php echo $row['createdDate'] ?? ''; ?></td>
                   <td><?php echo $row['status'] ?? ''; ?></td>
-                  <?php echo  "<td bgcolor='whitesmoke'><a type='button' href='reviewdata.php?id=$row[productId]'><font color='black'>Edit <i class='bi bi-eye-fill'></i></a> </td>";  ?>
+                  <td><?php echo "<a type='button' class='btn btn-icon btn-lg' href='reviewdata.php?id=$row[productId]'>" ?><i class="mdi mdi-eye"></i></td>
+                  <!-- <td><button type="button" class="btn btn-primary btn-rounded btn-icon" onClick="document.location.href='reviewdata.php'" > -->
+                  <!-- <i class=" mdi mdi-eye "></i>
+                      </button></td> -->
                 </tr>
 
                 <tr>

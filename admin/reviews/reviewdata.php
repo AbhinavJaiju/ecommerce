@@ -1,24 +1,25 @@
-
-<?php 
+<?php
 $servername = "localhost";
 $username = "alfina";
 $password = "Alfinamemysql@123";
 $dbname = "ecommerce";
 
 /// Create connection
-$conn = new mysqli($servername, $username,$password,$dbname);//;
+$conn = new mysqli($servername, $username, $password, $dbname); //;
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
 $id = $_GET['id'];
+// $id = $_SESSION['id'];
 
-$query ="SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
-cust.email,prod.productId,prod.productName
+$query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
+cust.email,prod.productId,prod.productName, cat.categoryId, cat.categoryName
 FROM reviews rev  
 JOIN customers cust ON cust.customerId = rev.customerId
 JOIN products prod ON prod.productId = rev.productId
+JOIN categories cat ON cat.categoryId = prod.categoryId
 WHERE rev.productId=$id
 ";
 
@@ -26,11 +27,10 @@ $result = $conn->query($query);
 
 if (empty($result)) {
   echo "no data found";
-}
-else{
+} else {
   //echo $result['productName'];
-  $res=mysqli_fetch_array($result);
-  if($res!=null){
+  $res = mysqli_fetch_array($result);
+  if ($res != null) {
     $productName = $res['productName'];
     $customerName = $res['customerName'];
     $review = $res['review'];
@@ -38,9 +38,9 @@ else{
     $status = $res['status'];
     $email = $res['email'];
     $productId = $res['productId'];
-
+    $categoryId = $res['categoryId'];
+    $categoryName = $res['categoryName'];
   }
-  
 }
 ?>
 
@@ -51,7 +51,7 @@ else{
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Reviews</title>
+  <title>Review by <?php echo $customerName; ?></title>
   <!-- base:css -->
   <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
@@ -62,7 +62,10 @@ else{
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../assets/images/favicon.png" />
+  <!-- custom style -->
+  <link rel="stylesheet" href="reviewstyle.css">
 </head>
+
 <body>
   <div class="container-scroller d-flex">
     <!-- partial:./partials/_sidebar.html -->
@@ -150,7 +153,7 @@ else{
             <span class="menu-title">Documentation</span>
           </a>
         </li>
-        
+
       </ul>
     </nav>
     <!-- partial -->
@@ -162,8 +165,8 @@ else{
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo" /></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">Welcome back, Brandon Haynes</h4>
           <ul class="navbar-nav navbar-nav-right">
@@ -179,7 +182,7 @@ else{
                 <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                    <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">David Grey
@@ -191,7 +194,7 @@ else{
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                    <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
@@ -203,7 +206,7 @@ else{
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                    <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
@@ -279,7 +282,7 @@ else{
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src="images/faces/face5.jpg" alt="profile"/>
+                <img src="images/faces/face5.jpg" alt="profile" />
                 <span class="nav-profile-name">Eleanor Richardson</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
@@ -311,34 +314,76 @@ else{
           </ul>
         </div>
       </nav>
-<!-- body -->
+      <!-- body -->
 
-<div class="main-panel">
+      <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+            <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title"><?php echo $productName; ?></h4>
                   <p class="card-description">
-                    Add tags <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> or class <code>.h1</code> to <code>.h6</code>
+                    <?php echo "Product Id : " . $productId;  ?> <br />
+                    <?php echo "Category Id : " . $categoryId; ?> <br />
+                    <?php echo "Category Name : " . $categoryName;  ?> <br />
                   </p>
-                  <div class="template-demo">
-                    <h1>h1. Heading</h1>
-                    <h2>h2. Heading</h2>
-                    <h3>h3. Heading</h3>
-                    <h4>h4. Heading</h4>
-                    <h5>h5. Heading</h5>
-                    <h6>h6. Heading</h6>
+                  <br />
+
+                  <address>
+                    <?php echo "Customer Name : " . $customerName;  ?> <br />
+                    <?php echo "Customer Email : " . $email;  ?> <br />
+                    <?php echo "Posted At: "; echo date_format($createdDate,"Y/m/d H:i:s")?><br/>
+                  </address>
+
+                  <br />
+                  <div class="card-body">
+
+                    <h4 class="card-title text-primary" style="align-content: flex-start;">Review </h4>
+
+                    <blockquote class="blockquote">
+                      <input id="inp" type="text" value=" <?php echo $review; ?>" disabled style="border: none;outline:none">
+                    </blockquote>
                   </div>
+                  <form method="post">
+                   
+                      <label class="text-danger" for="status">Status</label>
+                      <select class="form-control form-control-sm" id="status" name="status">
+                        <option>Add</option>
+                        <option>Drop</option>
+                        <option>Pending</option>
+                      </select>
+                      <br />
+                      <button type="button" name="update" id="update" class="btn btn-primary btn-icon-text" style="float: right;">
+                        <i class="mdi mdi-file-check btn-icon-prepend"></i>
+                        Submit
+                      </button>
+                    
+                  </form>
+                  <?php
+                  
+                  if (isset($_POST['update'])) {
+                    $id = $_GET['id'];
+                    echo $id;
+                    $status = $_POST['status'];
+                    echo $status;
+
+                    $sql = "UPDATE reviews SET 'status'='$status' WHERE productId=$id";
+
+                    // Prepare statement
+                    $stmt = $conn->prepare($sql);
+
+                    // execute the query
+                    $stmt->execute();
+                  } ?>
                 </div>
               </div>
             </div>
           </div>
         </div>
-</div>
+      </div>
 
-<!-- body ends -->
+      <!-- body ends -->
     </div>
     <!-- page-body-wrapper ends -->
   </div>
@@ -354,6 +399,12 @@ else{
   <script src="../assets/js/off-canvas.js"></script>
   <script src="../assets/js/hoverable-collapse.js"></script>
   <script src="../assets/js/template.js"></script>
+  <script>
+    var el = document.getElementById('edit');
+    el.addEventListener('click', function() {
+      document.getElementById('inp').disabled = false;
+    });
+  </script>
   <!-- endinject -->
   <!-- plugin js for this page -->
   <!-- End plugin js for this page -->
