@@ -2,6 +2,7 @@
 session_start();
 include "config.php";
 
+$id = $_SESSION['cutomerId'];
 // Check user login or not
 // if(!isset($_SESSION['uname'])){
 //     header('Location: index.php');

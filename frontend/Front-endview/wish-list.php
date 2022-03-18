@@ -167,7 +167,7 @@ $row = $result->fetch_assoc();
                                 ?>
                                     <tr>
                                         <td class="cart__product__item">
-                                            <img src="newimages/<?php echo $row["fileName"]; ?>" alt="" height="80px" width="85px">
+                                            <img src="img/shop/<?php echo $row["fileName"]; ?>" alt="" height="80px" width="80px">
                                             <div class="cart__product__item__title">
                                                 <h6><?php echo $row["productName"]; ?></h6>
                                                 <div class="rating">

@@ -90,7 +90,7 @@ $strValue = $_GET['id'];
                             <li><a href="./index.html">Home</a></li>
                             <li><a href="#">Women’s</a></li>
                             <li><a href="#">Men’s</a></li>
-                            <li class="active"><a href="./shop.html">Shop</a></li>
+                            <li class="active"><a href="shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./product-details.html">Product Details</a></li>
@@ -112,10 +112,10 @@ $strValue = $_GET['id'];
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
+                            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
+                            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
                         </ul>
@@ -212,7 +212,7 @@ $strValue = $_GET['id'];
                             <a type=\"button\" href='shop-cart.php'class=\"cart-btn\"><span class=\"icon_bag_alt\"></span> Add to cart</a>
                         </form>
                             <ul>
-                                <li><a href=\"#\"><span class=\"icon_heart_alt\"></span></a></li>
+                                <li><a class='wishList' id='$strValue'><span class=\"icon_heart_alt\"></span></a></li>
                                 <li><a href=\"#\"><span class=\"icon_adjust-horiz\"></span></a></li>
                             </ul>
                         </div>
@@ -489,3 +489,27 @@ $strValue = $_GET['id'];
 </body>
 
 </html>
+
+<script>
+    // Adding products to wishlist
+    $('.wishList').click(function() {
+        var product_id = $(this).attr('id');
+        $('.toast').toast('show');
+        // console.log(product_id);
+        $.ajax({
+            url: "php/add-to-wishlist.php",
+            method: "POST",
+            data: {
+                productId: product_id
+            },
+            success: function(data) {
+                if (data == 'success') {
+                    alert('Product added to wishlist');
+                } else {
+                    alert("Something went wrong");
+                    console.log(data);
+                }
+            }
+        });
+    });
+</script>
