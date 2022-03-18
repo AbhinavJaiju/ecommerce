@@ -202,7 +202,6 @@ $catnam = $_SESSION["Category"];
                         <div class=\"product__details__price\">₹$rs <span>₹ $oldvalue</span></div>
                         <p>{$row["productDescription"]}</p>
                         <div class=\"product__details__button\">
-
                         <form method=\"POST\">
                             <div class=\"quantity\">
                                 <span>Quantity:</span>
