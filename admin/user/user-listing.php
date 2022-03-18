@@ -1,16 +1,3 @@
-<?php $servername = "localhost";
-    $username = "abhinav.jaiju";
-    $password = "experion@123";
-    $dbname = "User";
-
-    //create connection
-    $conn = new mysqli($servername,$username,$password, $dbname);
-
-    //check connection
-    if($conn -> connect_error){
-        die("Connection Failed:" . $conn->connect_error);
-} ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -280,59 +267,80 @@
       </nav>
 
 <!-- body -->
-<div class="col-lg-12 grid-margin mt-5 stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Manage Reviews</h4>
-        <p class="card-description"> Review Request
-        </p>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Product</th>
-                <th>Posted at</th>
-                <th>Status</th>
-                <th>View</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-             
-              $query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
-                      cust.email,prod.productId,prod.productName
-                      FROM reviews rev
-                      JOIN customers cust ON cust.customerId = rev.customerId
-                      JOIN products prod ON prod.productId = rev.productId";
+<div class="content-wrapper">
+            <div class="page-header">
+              
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">Users</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Users</h4>
+                    <p class="card-description"> List of Users
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th> # </th>
+                            <th> Name </th>
+                            <th> Email </th>
+                            <th> Password </th>
+                            <th> PhoneNumber </th>
+                            <th> Gender </th>
+                            <th> Action </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                include_once 'config.php';
+                                $sql = "SELECT * FROM users";
+                                $result = $conn->query($sql);
 
-              $result = $conn->query($query);
+                                while($row = $result->fetch_assoc()){
 
-              while ($row = mysqli_fetch_array($result)) {
-
-              ?>
-                <tr>
-                <?php  $button2 = '<form method="post" action="reviewdata.php?id=$row[productId]" ><input type="hidden" name="view_id" value="' . $row['productId'] . '"><input type="submit" value="View"></form>';?>
-                 
-                  <td><?php echo $row['customerName']; ?></td>
-                  <td><?php echo $row['productName'] ?? ''; ?></td>
-                  <td><?php echo $row['createdDate'] ?? ''; ?></td>
-                  <td><?php echo $row['status'] ?? ''; ?></td>
-                  <?php echo  "<td bgcolor='whitesmoke'><a type='button' href='reviewdata.php?id=$row[productId]'><font color='black'>Edit <i class='bi bi-eye-fill'></i></a> </td>";  ?>
-                </tr>
-
-                <tr>
-                  <td colspan="8">
-                  </td>
-                <tr>
-                <?php
-              } ?>
-            </tbody>
-          </table>
+                            ?>
+                          <tr>
+                            <td> <?php echo $row['userId'] ?> </td>
+                            <td> <?php echo $row['userName'] ?> </td>
+                            <td> <?php echo $row['email'] ?></td>
+                            <td> <?php echo $row['passwords'] ?> </td>
+                            <td> <?php echo $row['phoneNumber'] ?> </td>
+                            <td> <?php echo $row['gender'] ?> </td>
+                            <td>
+                                <div>
+                                    <form action='user-remove.php?userId="<?php echo $row['userId'];?>"'method ="post" >
+                                        <input type="hidden" name="userId" value = "<?php echo $row['userId'];?>">
+                                        <button type="submit" class="btn btn-danger" onClick="return confirm('Are you Sure?')" name = "delete" >
+                                        <i class="bi bi-trash">Delete</i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div >
+                                    <a href='user-edit.php?userId=<?php echo $row[userId]?>&fn=<?php echo $row[userName];?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords]?>&ph=<?php echo $row[phoneNumber]?>&gd=<?php echo $row[gender]?>' >
+                                        <input type="hidden" name ="userId" value = "<?php echo $row['userId'];?>">
+                                        <button type="submit" class="btn btn-primary" name="edit" onClick = "return Confirm('Are you Sure?')">
+                                        <i class="bi bi-file-earmark-medical">Edit</i>
+                                        </button>   
+                                </a>
+                                </div>
+                            </td>
+                          </tr>
+                                    <?php
+                                }
+                                ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>                  
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
 
 <!-- body ends -->
     </div>

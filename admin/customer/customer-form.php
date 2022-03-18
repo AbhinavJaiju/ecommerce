@@ -1,16 +1,3 @@
-<?php $servername = "localhost";
-    $username = "abhinav.jaiju";
-    $password = "experion@123";
-    $dbname = "User";
-
-    //create connection
-    $conn = new mysqli($servername,$username,$password, $dbname);
-
-    //check connection
-    if($conn -> connect_error){
-        die("Connection Failed:" . $conn->connect_error);
-} ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +16,9 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../assets/images/favicon.png" />
+  <!--Bootstrap cdn -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container-scroller d-flex">
@@ -129,8 +119,8 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo" href="index.html"><img src="../images/logo.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../images/logo-mini.svg" alt="logo"/></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">Welcome back, Brandon Haynes</h4>
           <ul class="navbar-nav navbar-nav-right">
@@ -280,59 +270,90 @@
       </nav>
 
 <!-- body -->
-<div class="col-lg-12 grid-margin mt-5 stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Manage Reviews</h4>
-        <p class="card-description"> Review Request
-        </p>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Product</th>
-                <th>Posted at</th>
-                <th>Status</th>
-                <th>View</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-             
-              $query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
-                      cust.email,prod.productId,prod.productName
-                      FROM reviews rev
-                      JOIN customers cust ON cust.customerId = rev.customerId
-                      JOIN products prod ON prod.productId = rev.productId";
+<!-----------------------------------Main Form------------------------------------------------->
+<script type="text/javascript" src="js/jquery.js"></script>
+<div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Basic form elements</h4>
+                  <p class="card-description">
+                    Basic form elements
+                  </p>
+                  <form class="forms-sample">
+                    <div class="form-group">
+                      <label for="exampleInputName1">Name</label>
+                      <input type="text" class="form-control" id="name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">Email address</label>
+                      <input type="email" class="form-control" id="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputName1">PhoneNumber</label>
+                      <input type="number" class="form-control" id="number" placeholder="PhoneNumber">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword4">Password</label>
+                      <input type="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">Gender</label>
+                        <select class="form-control" id="gender">
+                          <option>Male</option>
+                          <option>Female</option>
+                        </select>
+                      </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Button</button>
+                            <input type="file" class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload" id="image">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">Address</label>
+                      <textarea class="form-control" id="address" rows="4"></textarea>
+                    </div>
+                    <button type="submit" id="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light" id="cancel">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+              <script>
+                  $(document).ready(function(){
+                      $('#submit').click(function(){
+                          var name = $('#name').val();
+                          var email = $('#email').val();
+                          var password = $('password').val();
+                          var phonenumber = $('#phoneNumber').val();
+                          var gender = $('#gender').val();
+                          if(name =="" || email=="" || password ==""|| phonenumber ==""){
+                            $('#response').fadeIn();
+                            $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
+                            }else{
+                                //$('#response').html($('#submit_form').serialize());
+                                $.ajax({
+                                url: "user-insertion.php",
+                                type:"POST",
+                                data : $('#submit_form').serialize(),
+                                success: function(data){
+                                    $('#submit_form').trigger("reset");
+                                    $('#response').fadeIn();
+                                    $('#response').removeClass('error-msg').addClass('success-msg').html(data);
+                                    // setTimeout(() => {
+                                    //     $('#response').fadeOut("slow");
+                                    // }, 4000);
+                                }
+                            })
+                        }
+                      })
+                      $('#cancel').click(function(){
+                          window.location.href = 'user-insertion.php';
+                      })
+                  })
+              </script>
+<!-----------------------------------------------End-------------------------------------------->
 
-              $result = $conn->query($query);
-
-              while ($row = mysqli_fetch_array($result)) {
-
-              ?>
-                <tr>
-                <?php  $button2 = '<form method="post" action="reviewdata.php?id=$row[productId]" ><input type="hidden" name="view_id" value="' . $row['productId'] . '"><input type="submit" value="View"></form>';?>
-                 
-                  <td><?php echo $row['customerName']; ?></td>
-                  <td><?php echo $row['productName'] ?? ''; ?></td>
-                  <td><?php echo $row['createdDate'] ?? ''; ?></td>
-                  <td><?php echo $row['status'] ?? ''; ?></td>
-                  <?php echo  "<td bgcolor='whitesmoke'><a type='button' href='reviewdata.php?id=$row[productId]'><font color='black'>Edit <i class='bi bi-eye-fill'></i></a> </td>";  ?>
-                </tr>
-
-                <tr>
-                  <td colspan="8">
-                  </td>
-                <tr>
-                <?php
-              } ?>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
 
 <!-- body ends -->
     </div>

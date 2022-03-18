@@ -1,16 +1,3 @@
-<?php $servername = "localhost";
-    $username = "abhinav.jaiju";
-    $password = "experion@123";
-    $dbname = "User";
-
-    //create connection
-    $conn = new mysqli($servername,$username,$password, $dbname);
-
-    //check connection
-    if($conn -> connect_error){
-        die("Connection Failed:" . $conn->connect_error);
-} ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -280,59 +267,80 @@
       </nav>
 
 <!-- body -->
-<div class="col-lg-12 grid-margin mt-5 stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Manage Reviews</h4>
-        <p class="card-description"> Review Request
-        </p>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Product</th>
-                <th>Posted at</th>
-                <th>Status</th>
-                <th>View</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-             
-              $query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
-                      cust.email,prod.productId,prod.productName
-                      FROM reviews rev
-                      JOIN customers cust ON cust.customerId = rev.customerId
-                      JOIN products prod ON prod.productId = rev.productId";
-
-              $result = $conn->query($query);
-
-              while ($row = mysqli_fetch_array($result)) {
-
-              ?>
-                <tr>
-                <?php  $button2 = '<form method="post" action="reviewdata.php?id=$row[productId]" ><input type="hidden" name="view_id" value="' . $row['productId'] . '"><input type="submit" value="View"></form>';?>
-                 
-                  <td><?php echo $row['customerName']; ?></td>
-                  <td><?php echo $row['productName'] ?? ''; ?></td>
-                  <td><?php echo $row['createdDate'] ?? ''; ?></td>
-                  <td><?php echo $row['status'] ?? ''; ?></td>
-                  <?php echo  "<td bgcolor='whitesmoke'><a type='button' href='reviewdata.php?id=$row[productId]'><font color='black'>Edit <i class='bi bi-eye-fill'></i></a> </td>";  ?>
-                </tr>
-
-                <tr>
-                  <td colspan="8">
-                  </td>
-                <tr>
-                <?php
-              } ?>
-            </tbody>
-          </table>
+<!-----------------------------------Main Form------------------------------------------------->
+<script type="text/javascript" src="js/jquery.js"></script>
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">User Registration</h4>
+                <p class="card-description"> User Registration </p>
+                <form id="submit_form">
+                    <div class="form-group">
+                        <label for="exampleInputName1">Name</label>
+                        <input type="text" class="form-control" id="userName" name="userName" >
+                    </div>
+                    <div class="form-group" id="submit_form">
+                        <label for="exampleInputEmail3">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword4">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" >
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleSelectGender">Gender</label>
+                            <select class="form-control" id="gender" name="gender">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputCity1">Phone Number</label>
+                        <input type="number" class="form-control" id="phoneNUmber" name="phoneNumber">
+                      </div>
+                        <input type="button" class="btn btn-primary mr-2" name="submit" id="submit" value="Submit">
+                        <button type="button" class="btn btn-danger" name = "cancel" id="cancel" > cancel</button>
+                    </form>
+                    <div id="response"></div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+              <script>
+                  $(document).ready(function(){
+                      $('#submit').click(function(){
+                          var name = $('#userName').val();
+                          var email = $('#email').val();
+                          var password = $('password').val();
+                          var phonenumber = $('#phoneNUmber').val();
+                          var gender = $('#gender').val();
+                          if(name =="" || email=="" || password ==""|| phonenumber ==""){
+                            $('#response').fadeIn();
+                            $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
+                            }else{
+                                //$('#response').html($('#submit_form').serialize());
+                                $.ajax({
+                                url: "user-insertion.php",
+                                type:"POST",
+                                data : $('#submit_form').serialize(),
+                                success: function(data){
+                                    $('#submit_form').trigger("reset");
+                                    $('#response').fadeIn();
+                                    $('#response').removeClass('error-msg').addClass('success-msg').html(data);
+                                    // setTimeout(() => {
+                                    //     $('#response').fadeOut("slow");
+                                    // }, 4000);
+                                }
+                            })
+                        }
+                      })
+                      $('#cancel').click(function(){
+                          window.location.href = 'user-insertion.php';
+                      })
+                  })
+              </script>
+<!-----------------------------------------------End-------------------------------------------->
+
 
 <!-- body ends -->
     </div>
