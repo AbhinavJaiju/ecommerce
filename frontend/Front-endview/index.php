@@ -1,3 +1,18 @@
+<?php
+session_start();
+include "config.php";
+
+// Check user login or not
+if(!isset($_SESSION['uname'])){
+    header('Location: index.php');
+}
+
+// logout
+if(isset($_POST['but_logout'])){
+    session_destroy();
+    header('Location: login.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -13,7 +28,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -87,9 +103,22 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
+                            <?php
+                            if($_SESSION['uname']){
+                                
+                               // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
+                            
+                            echo $_SESSION['uname'];
+                            }
+                            else{
+                                echo  '<a href="http://localhost/ecommerce/frontend/Front-endview/login.php">Login</a>
+                                <a href="#">Register</a>';
+                            }
+                           
+                            ?>
+                           
                         </div>
+                        
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="#"><span class="icon_heart_alt"></span>
@@ -98,9 +127,14 @@
                             <li><a href="#"><span class="icon_bag_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
+                            <li><form method='post' action="" style="margin-left:1%">
+                               <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
+                               </form></li>
                         </ul>
                     </div>
+                    
                 </div>
+                
             </div>
             <div class="canvas__open">
                 <i class="fa fa-bars"></i>
