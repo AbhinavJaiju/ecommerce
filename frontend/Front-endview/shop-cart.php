@@ -1,5 +1,29 @@
+<?php
+session_start();
+//get category id from session
+$categoryId = 3;
+$userId=2;
+$sum=0;
+$categoryId = $_SESSION["CategoryId"];
+
+include "config.php";
+
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+//$strValue = $_GET['id'];
+
+//echo $strValue;
+?>
+
+
 <!DOCTYPE html>
-<html lang="zxx">
+<html >
 
 <head>
     <meta charset="UTF-8">
@@ -45,7 +69,7 @@
             </a></li>
         </ul>
         <div class="offcanvas__logo">
-            <a href="./index.php"><img src="img/logo.png" alt=""></a>
+            <a href="./index.html"><img src="img/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
@@ -61,26 +85,26 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.php">Home</a></li>
+                            <li class="active"><a href="./index.html">Home</a></li>
                             <li><a href="#">Women’s</a></li>
                             <li><a href="#">Men’s</a></li>
-                            <li><a href="./shop.php">Shop</a></li>
+                            <li><a href="./shop.html">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a href="./product-details.php">Product Details</a></li>
-                                    <li><a href="./shop-cart.php">Shop Cart</a></li>
-                                    <li><a href="./checkout.php">Checkout</a></li>
-                                    <li><a href="./blog-details.php">Blog Details</a></li>
+                                    <li><a href="./product-details.html">Product Details</a></li>
+                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
+                                    <li><a href="./checkout.html">Checkout</a></li>
+                                    <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./blog.php">Blog</a></li>
-                            <li><a href="./contact.php">Contact</a></li>
+                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -115,7 +139,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="./index.php"><i class="fa fa-home"></i> Home</a>
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
                         <span>Shopping cart</span>
                     </div>
                 </div>
@@ -141,131 +165,182 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="img/shop-cart/cp-1.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Chain bucket bag</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
+
+                            <?php
+
+if (isset($_POST['delete'])) {
+
+
+    $did = $_POST['cid'];
+    
+
+
+    $query = "DELETE FROM productCarts WHERE productCartId=$did";
+    //echo "hello";
+    
+
+
+
+
+
+    if ($conn->query($query) === TRUE ) {
+        echo '<script type="text/javascript">toastr.success("Product details deleted successfully",
+        { timeOut: 1 },{positionClass: \'toast-bottom-right\'})</script>';
+        //echo "Record deleted successfully";
+    } else {
+        // echo "Error deleting record: " . $conn->error;
+
+        echo '<script type="text/javascript"> ';
+
+        echo ' alert("Error deleting product details")';
+        echo '</script>';
+    }
+
+
+}
+
+                        $sql = "SELECT * FROM productCarts where customerId=$userId";
+                        $result = $conn->query($sql);
+                        
+                        if ($result->num_rows > 0 ) {
+                            //echo "inside if";
+                           
+                            while ($row = $result->fetch_assoc()) {
+                                //echo "inside while";
+                                $productid = $row["productId"];
+                                
+                                
+                                //echo $id;
+                                $productssql = "SELECT * FROM products
+                                WHERE productId=$productid";
+                               $productresult = $conn->query($productssql);
+                                $products = $productresult->fetch_assoc();
+                            
+           
+           
+                               $sql2 = "SELECT fileName FROM productImage
+                                WHERE productId=$productid";
+                               $result1 = $conn->query($sql2);
+                                $file = $result1->fetch_assoc();
+                                
+                                $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
+                               $rs= $fmt->format($products["price"]);
+
+                               
+                               
+
+
+
+
+                             echo"   <tr>
+                                    <td class=\"cart__product__item\">
+                                        <img src=\"img/shop/{$file["fileName"]}\" alt=\"{$products["productName"]}\" style=\"height: 110px;
+                                        width: 90px;\">
+                                        <div class=\"cart__product__item__title\">
+                                            <h5>{$products["productName"]}</h5>
+                                            <p>{$products["shortDescription"]}</p>
+                                            
                                         </div>
                                     </td>
-                                    <td class="cart__price">$ 150.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
+                                    <td class=\"cart__price\" id=\"priceid\">₹ $rs</td>";
+                                   
+                                    echo"
+                                    <td class=\"cart__quantity\">
+                                        <div >
+                                            <p id=\"qty\">{$row["quantity"]}</p>
                                         </div>
+                                    </td>";
+
+                                    
+                                    
+                                    $rowtotal=(int)$products["price"]*(int)$row["quantity"];
+                                   
+
+                                    echo"
+                                    <td class=\"cart__total\">₹$rowtotal</td>
+                                    
+                                    <td class=\"cart__close\">
+                                    <form method='POST'>
+                                    <input type=hidden name=cid value= {$row["productCartId"]} >
+                                    <input type=submit value=X name=delete 
+                                    class='btn btn-danger btn-xs me-3 text-black'
+                                    onclick=\"return confirm('Remove item?')\"
+                                        ></form>
+                                    
+                                    
+    
                                     </td>
-                                    <td class="cart__total">$ 300.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="img/shop-cart/cp-2.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Zip-pockets pebbled tote briefcase</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 170.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 170.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="img/shop-cart/cp-3.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Black jean</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 85.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 170.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="img/shop-cart/cp-4.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Cotton Shirt</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 55.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 110.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
+                                    
+                                    
+                                    
+                                </tr>";
+                                $sum+=$rowtotal;
+
+                            }}else{
+                                echo "No items in cart";
+                            }
+                            echo"
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn">
-                        <a href="#">Continue Shopping</a>
+            <div class=\"row\">
+                <div class=\"col-lg-6 col-md-6 col-sm-6\">
+                    <div class=\"cart__btn\">
+                        <a href=\"#\">Continue Shopping</a>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn update__btn">
-                        <a href="#"><span class="icon_loading"></span> Update cart</a>
+                <div class=\"col-lg-6 col-md-6 col-sm-6\">
+                    <div class=\"cart__btn update__btn\">
+
+
+                        
+                       
                     </div>
                 </div>
-            </div>
+            </div>";
+
+
+           
+
+
+                                
+                              ?> 
+                               <!-- <form method=\"POST\">
+                        
+                        <input type=\"submit\" style=\"height: 50%; width: 35%;\" name=\"updateCart\" value=\" Update cart\" >
+                        </form> -->
+                              
+                                
+                            
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="discount__content">
-                        <h6>Discount codes</h6>
-                        <form action="#">
-                            <input type="text" placeholder="Enter your coupon code">
-                            <button type="submit" class="site-btn">Apply</button>
-                        </form>
-                    </div>
+                    
                 </div>
                 <div class="col-lg-4 offset-lg-2">
                     <div class="cart__total__procced">
-                        <h6>Cart total</h6>
+                        <!-- <h6>Cart total</h6> -->
                         <ul>
-                            <li>Subtotal <span>$ 750.0</span></li>
-                            <li>Total <span>$ 750.0</span></li>
+                            <li>Total <span>
+
+                    <?php
+                    //if (isset($_POST['updateCart'])) {
+               
+                            echo"₹$sum";
+                            //}
+               ?>
+               </span></li>
+           
+                            
+
+
+
+
+                            
+
+
+
                         </ul>
                         <a href="#" class="primary-btn">Proceed to checkout</a>
                     </div>
@@ -339,7 +414,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-7">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         cilisis.</p>

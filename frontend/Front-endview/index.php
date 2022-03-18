@@ -3,9 +3,9 @@ session_start();
 include "config.php";
 
 // Check user login or not
-if(!isset($_SESSION['uname'])){
-    header('Location: index.php');
-}
+// if(!isset($_SESSION['uname'])){
+//     header('Location: index.php');
+// }
 
 // logout
 if(isset($_POST['but_logout'])){
