@@ -35,7 +35,7 @@ if(isset($_POST['but_submit'])){
         if($count > 0){
             $_SESSION['uname'] = $uname;
             $_SESSION['cutomerId'] = $custId;
-            header('Location:http://localhost/ecommerce/frontend/Front-endview/index.php');
+            header('Location:index.php');
         }else{
             echo "Invalid username and password";
         }

@@ -4,6 +4,8 @@ $customerId = $_SESSION["CustomerId"];
 $categoryId = 3;
 //$categoryId = $_SESSION["CategoryId"];
 include "config.php";
+$customerId = $_SESSION["CustomerId"];
+$categoryId = 3;
 
 
 
@@ -114,10 +116,10 @@ $catnam = $_SESSION["Category"];
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
+                            <li><a href="#"><span class="icon_heart_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
-                            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
+                            <li><a href="#"><span class="icon_bag_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
                         </ul>
@@ -233,7 +235,7 @@ $catnam = $_SESSION["Category"];
                         echo "   
                         
                             <ul>
-                                <li><a class='wishList' id='$strValue'><span class=\"icon_heart_alt\"></span></a></li>
+                                <li><a href=\"#\"><span class=\"icon_heart_alt\"></span></a></li>
                                 <li><a href=\"#\"><span class=\"icon_adjust-horiz\"></span></a></li>
                             </ul>
                         </div>
@@ -509,44 +511,3 @@ $catnam = $_SESSION["Category"];
 </body>
 
 </html>
-
-<script>
-    // Adding products to wishlist
-    $('.wishList').click(function() {
-        var product_id = $(this).attr('id');
-        // $('.toast').toast('show');
-
-        // console.log(product_id);
-        $.ajax({
-            url: "php/add-to-wishlist.php",
-            method: "POST",
-            data: {
-                productId: product_id
-            },
-            dataType: 'json',
-            success: function(response) {
-                // console.log(response);
-                if (response.result == "exists") {
-                    alert('Product already in wishlist');
-                } else if (response.result == "success") {
-                    $('.toast').toast('show');
-                } else {
-                    alert("Something went wrong");
-                    console.log(response);
-                }
-
-            }
-        });
-    });
-</script>
-
-<style>
-    .toast {
-	position: absolute;
-	color: red;
-	background: none;
-	font-size: 50px;
-	bottom: 45%;
-    left: 85%; 
-}
-</style>

@@ -2,8 +2,8 @@
 <?php
 session_start();
 $servername = "localhost";
-$username = "gazni";
-$password = "password";
+$username = "binitha";
+$password = "Bini@1997";
 $dbname = "ecommerce";
 
 $conn = mysqli_connect($servername, $username, $password,$dbname);
