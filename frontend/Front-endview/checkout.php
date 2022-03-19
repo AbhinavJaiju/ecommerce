@@ -92,10 +92,10 @@
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
+                            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
+                            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
                         </ul>
@@ -133,85 +133,43 @@
                     here to enter your code.</h6>
                 </div>
             </div>
-            <form action="#" class="checkout__form">
+            <form action="" class="checkout__form">
                 <div class="row">
                     <div class="col-lg-8">
                         <h5>Billing detail</h5>
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-lg-12">
                                 <div class="checkout__form__input">
-                                    <p>First Name <span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="checkout__form__input">
-                                    <p>Last Name <span>*</span></p>
-                                    <input type="text">
+                                    <p>Customer Name <span>*</span></p>
+                                    <input type="text" name="customerName">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="checkout__form__input">
-                                    <p>Country <span>*</span></p>
-                                    <input type="text">
-                                </div>
-                                <div class="checkout__form__input">
                                     <p>Address <span>*</span></p>
-                                    <input type="text" placeholder="Street Address">
-                                    <input type="text" placeholder="Apartment. suite, unite ect ( optinal )">
-                                </div>
-                                <div class="checkout__form__input">
-                                    <p>Town/City <span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="address" placeholder="Street Address">
                                 </div>
                                 <div class="checkout__form__input">
                                     <p>Country/State <span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="country">
                                 </div>
                                 <div class="checkout__form__input">
                                     <p>Postcode/Zip <span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="pincode">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Phone <span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="phoneNumber">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Email <span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="email">
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="checkout__form__checkbox">
-                                    <label for="acc">
-                                        Create an acount?
-                                        <input type="checkbox" id="acc">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <p>Create am acount by entering the information below. If you are a returing
-                                        customer login at the <br />top of the page</p>
-                                    </div>
-                                    <div class="checkout__form__input">
-                                        <p>Account Password <span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                    <div class="checkout__form__checkbox">
-                                        <label for="note">
-                                            Note about your order, e.g, special noe for delivery
-                                            <input type="checkbox" id="note">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="checkout__form__input">
-                                        <p>Oder notes <span>*</span></p>
-                                        <input type="text"
-                                        placeholder="Note about your order, e.g, special noe for delivery">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-lg-4">

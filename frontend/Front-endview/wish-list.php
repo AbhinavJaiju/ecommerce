@@ -1,10 +1,7 @@
 <!-- PHP => Get wish list from database -->
 <?php
 
-$servername = "localhost";
-$username = "gazni";
-$password = "password";
-$dbname = "ecommerce";
+include "config.php";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -13,15 +10,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT wishLists.wishListId,wishLists.customerId,wishLists.productId,
-products.productName,products.price,
+$sql = "SELECT wishLists.wishListId,wishLists.productId,
+products.productName,
 productImage.fileName FROM wishLists
 INNER JOIN products ON wishLists.productid = products.productid
 LEFT JOIN productImage ON productImage.productid = products.productid";
 
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
-print_r($row);
+// print_r($row);
 // print_r($result);
 
 ?>
@@ -39,8 +36,7 @@ print_r($row);
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -66,11 +62,11 @@ print_r($row);
         <ul class="offcanvas__widget">
             <li><span class="icon_search search-switch"></span></li>
             <li><a href="#"><span class="icon_heart_alt"></span>
-                <div class="tip">2</div>
-            </a></li>
+                    <div class="tip">2</div>
+                </a></li>
             <li><a href="#"><span class="icon_bag_alt"></span>
-                <div class="tip">2</div>
-            </a></li>
+                    <div class="tip">2</div>
+                </a></li>
         </ul>
         <div class="offcanvas__logo">
             <a href="./index.php"><img src="img/logo.png" alt=""></a>
@@ -121,11 +117,11 @@ print_r($row);
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
+                                    <div class="tip">2</div>
+                                </a></li>
+                            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
+                                    <div class="tip">2</div>
+                                </a></li>
                         </ul>
                     </div>
                 </div>
@@ -161,33 +157,46 @@ print_r($row);
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Your Wish List</th>
-                                    <th></th>
+                                    <th>Products</th>
+                                    <th>Quantity</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php
-        foreach ($result as $row) {
-            ?>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="newimages/<?php echo $row["fileName"]; ?>" alt="" height="80px" width="85px">
-                                        <div class="cart__product__item__title">
-                                            <h6><?php echo $row["productName"]; ?></h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
                                 <?php
-        }
-        ?>
+                                foreach ($result as $row) {
+                                ?>
+                                    <tr>
+                                        <td class="cart__product__item">
+                                            <img src="img/shop/<?php echo $row["fileName"]; ?>" alt="" height="80px" width="80px">
+                                            <div class="cart__product__item__title">
+                                            <h6>
+                                                <a style="color: black;" href='product-details.php?id=<?php echo $row["productId"]; ?>'><?php echo $row["productName"]; ?></a>
+                                            </h6>
+
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="cart__quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" value="1">
+                                            </div>
+                                        </td>
+
+                                    <td class="cart__close">
+                                        <button class="btn btn-outline-danger" id="<?php echo $row["productId"]; ?>"><i class="fa fa-light fa-cart-plus"></i></button>
+                                    </td>
+
+                                        <td class="cart__close"><span class="icon_close" id="<?php echo $row["wishListId"]; ?>"></span></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -201,7 +210,7 @@ print_r($row);
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="cart__btn update__btn">
-                        <a href="shop-cart.php"> Add to cart</a>
+                        <a href="shop-cart.php">View Cart</a>
                     </div>
                 </div>
             </div>
@@ -276,7 +285,7 @@ print_r($row);
                             <a href="./index.php"><img src="img/logo.png" alt=""></a>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                        cilisis.</p>
+                            cilisis.</p>
                         <div class="footer__payment">
                             <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
                             <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
@@ -329,7 +338,9 @@ print_r($row);
                 <div class="col-lg-12">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <div class="footer__copyright__text">
-                        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                        <p>Copyright &copy; <script>
+                                document.write(new Date().getFullYear());
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
                     </div>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
@@ -363,3 +374,80 @@ print_r($row);
 </body>
 
 </html>
+
+
+<!-- Scripts -->
+<script>
+    // Delete from wishlist
+    $('.icon_close').click(function() {
+        let val = $(this).get(0).id;
+        // console.log(val);
+        if (confirm('Are you sure you want to remove this product?')) {
+            $.ajax({
+                url: 'php/delete-wish-list.php',
+                type: 'POST',
+                data: {
+                    id: val
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.result == 'success') {
+                        alert('Product deleted successfully');
+                        location.reload();
+                    } else {
+                        alert('Something went wrong');
+                        console.log(data);
+                        // location.reload();
+                    }
+                }
+            });
+        }
+    });
+
+    // Add to cart button
+    $('td').find('button').click(function() {
+
+        var prodId = $(this).attr('id');
+        var qty = $('.pro-qty').find('input').val();
+        // console.log(val);
+        // console.log(qty);
+
+        $.ajax({
+            url: 'php/add-to-cart.php',
+            type: 'POST',
+            data: {
+                id: prodId,
+                quantity: qty
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data.result)
+                if (data.result == 'success') {
+                    alert('Product added to cart successfully');
+                    // location.reload();
+                } else if(data.result == 'exists'){
+                    alert('Product already in cart');
+                }
+                 else {
+                    alert('Something went wrong');
+                    console.log(data);
+                }
+
+            }
+        });
+    });
+</script>
+
+<style>
+    .btn {
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        font-size: 20px;
+        /* line-height: 44px; */
+        text-align: center;
+        display: inline-block;
+        font-weight: 600;
+        cursor: pointer;
+    }
+</style>

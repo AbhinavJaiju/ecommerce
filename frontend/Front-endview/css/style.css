@@ -31,6 +31,7 @@
 /* Template default CSS
 /*----------------------------------------*/
 
+
 html,
 body {
 	height: 100%;
@@ -142,6 +143,7 @@ ol {
 	padding-top: 100px;
 	padding-bottom: 100px;
 }
+
 
 .text-white h1,
 .text-white h2,
@@ -303,6 +305,27 @@ ol {
 	transform: rotate(45deg);
 	display: -webkit-box;
 	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.toast {
+	position: absolute;
+	color: red;
+	background: none;
+	text-align: center;
+	font-size: 50px;
+	/* line-height: 100px; */
+	bottom: 100px;
+	cursor: pointer;
+	
+	/* display: -webkit-box; */
+	/* display: -ms-flexbox; */
 	display: flex;
 	-webkit-box-align: center;
 	-ms-flex-align: center;

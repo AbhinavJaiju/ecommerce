@@ -1,16 +1,13 @@
 <?php
 session_start();
-$ProductId=$_SESSION["ProductId"];
-
 //get category id from session
 $categoryId = 3;
-$userId=$_SESSION["CustomerId"];
+$userId=2;
 $sum=0;
 $categoryId = $_SESSION["CategoryId"];
-$servername = "localhost";
-$username = "binitha";
-$password = "Bini@1997";
-$dbname = "ecommerce";
+
+include "config.php";
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -19,6 +16,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+//$strValue = $_GET['id'];
+
+//echo $strValue;
 ?>
 
 
@@ -116,10 +116,10 @@ if ($conn->connect_error) {
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
+                            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
+                            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
                         </ul>
@@ -167,16 +167,34 @@ if ($conn->connect_error) {
                             <tbody>
 
                             <?php
-                            if (isset($_POST['delete'])) {
-                                $did = $_POST['cid'];
-                                $query = "DELETE FROM productCarts WHERE productCartId=$did";
-                                if ($conn->query($query) === TRUE ) {
-                                    } 
-                                else {
-                                    echo '<script type="text/javascript"> ';
-                                    echo ' alert("Error deleting product details")';
-                                    echo '</script>';
-                            }
+
+if (isset($_POST['delete'])) {
+
+
+    $did = $_POST['cid'];
+    
+
+
+    $query = "DELETE FROM productCarts WHERE productCartId=$did";
+    //echo "hello";
+    
+
+
+
+
+
+    if ($conn->query($query) === TRUE ) {
+        echo '<script type="text/javascript">toastr.success("Product details deleted successfully",
+        { timeOut: 1 },{positionClass: \'toast-bottom-right\'})</script>';
+        //echo "Record deleted successfully";
+    } else {
+        // echo "Error deleting record: " . $conn->error;
+
+        echo '<script type="text/javascript"> ';
+
+        echo ' alert("Error deleting product details")';
+        echo '</script>';
+    }
 
 
 }
@@ -191,16 +209,17 @@ if ($conn->connect_error) {
                                 //echo "inside while";
                                 $productid = $row["productId"];
                                 
-                               //echo $id;
+                                
+                                //echo $id;
                                 $productssql = "SELECT * FROM products
                                 WHERE productId=$productid";
-
                                $productresult = $conn->query($productssql);
                                 $products = $productresult->fetch_assoc();
-
-                              $sql2 = "SELECT fileName FROM productImage
+                            
+           
+           
+                               $sql2 = "SELECT fileName FROM productImage
                                 WHERE productId=$productid";
-
                                $result1 = $conn->query($sql2);
                                 $file = $result1->fetch_assoc();
                                 
@@ -238,7 +257,8 @@ if ($conn->connect_error) {
                                    
 
                                     echo"
-                                    <td class=\"cart__total\">₹$rowtotal</td>                                   
+                                    <td class=\"cart__total\">₹$rowtotal</td>
+                                    
                                     <td class=\"cart__close\">
                                     <form method='POST'>
                                     <input type=hidden name=cid value= {$row["productCartId"]} >
@@ -256,8 +276,7 @@ if ($conn->connect_error) {
                                 </tr>";
                                 $sum+=$rowtotal;
 
-                            }}
-                            else{
+                            }}else{
                                 echo "No items in cart";
                             }
                             echo"
@@ -280,8 +299,20 @@ if ($conn->connect_error) {
                        
                     </div>
                 </div>
-            </div>";                
-                              ?>                
+            </div>";
+
+
+           
+
+
+                                
+                              ?> 
+                               <!-- <form method=\"POST\">
+                        
+                        <input type=\"submit\" style=\"height: 50%; width: 35%;\" name=\"updateCart\" value=\" Update cart\" >
+                        </form> -->
+                              
+                                
                             
             <div class="row">
                 <div class="col-lg-6">
@@ -294,12 +325,23 @@ if ($conn->connect_error) {
                             <li>Total <span>
 
                     <?php
+                    //if (isset($_POST['updateCart'])) {
                
                             echo"₹$sum";
-                       
+                            //}
                ?>
-               </span>
-            </li> </ul>
+               </span></li>
+           
+                            
+
+
+
+
+                            
+
+
+
+                        </ul>
                         <a href="#" class="primary-btn">Proceed to checkout</a>
 
 
