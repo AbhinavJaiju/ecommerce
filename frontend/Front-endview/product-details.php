@@ -6,6 +6,7 @@ $categoryId = 3;
 include "config.php";
 
 
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -88,10 +89,10 @@ $catnam = $_SESSION["Category"];
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li>
-                            <li class="active"><a href="shop.php">Shop</a></li>
+                            <li><a href="./index.php">Home</a></li>
+                            <!-- <li><a href="#">Women’s</a></li>
+                            <li><a href="#">Men’s</a></li> -->
+                            <li class="active"><a href="./shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./product-details.php">Product Details</a></li>
@@ -179,15 +180,14 @@ $catnam = $_SESSION["Category"];
                         $reviewcountvalue = $conn->query($reviewcount);
                         $rcount = $reviewcountvalue->fetch_assoc();
                         $count = $rcount["count"];
-                        
 
                         echo "
                         <div class='toast'>
                             <i class='fa fa-solid fa-heart'></i>
                         </div>
                         <div class=\"product__details__slider__content\">
-                        <div class=\"product__details__pic__slider owl-carousel\">
-                        <img data-hash=\"product-1\" class=\"product__big__img\" src=\"img/shop/{$file["fileName"]}\" alt=\"\">     
+                       <div class=\"product__details__pic__slider owl-carousel\">
+                        <img data-hash=\"product-1\" class=\"product__big__img\" src=\"img/shop/{$file["fileName"]}\" alt=\"\">          
                         </div>
                         </div>
                         </div>
@@ -206,6 +206,7 @@ $catnam = $_SESSION["Category"];
                         <div class=\"product__details__price\">₹$rs <span>₹ $oldvalue</span></div>
                         <p>{$row["productDescription"]}</p>
                         <div class=\"product__details__button\">
+
                         <form method=\"POST\">
                             <div class=\"quantity\">
                                 <span>Quantity:</span>
@@ -230,7 +231,7 @@ $catnam = $_SESSION["Category"];
                             }
                         }
                         echo "   
-                         </form>
+                        
                             <ul>
                                 <li><a class='wishList' id='$strValue'><span class=\"icon_heart_alt\"></span></a></li>
                                 <li><a href=\"#\"><span class=\"icon_adjust-horiz\"></span></a></li>
@@ -256,8 +257,6 @@ $catnam = $_SESSION["Category"];
                         </div>
                     </div>
                 </div>
-
-                
                 <div class=\"col-lg-12\">
                     <div class=\"product__details__tab\">
                         <ul class=\"nav nav-tabs\" role=\"tablist\">
