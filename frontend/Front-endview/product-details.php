@@ -178,18 +178,22 @@ $strValue = $_GET['id'];
                         $reviewcountvalue = $conn->query($reviewcount);
                         $rcount = $reviewcountvalue->fetch_assoc();
                         $count = $rcount["count"];
+                        
 
                         echo "
+                        <div class='toast'>
+                            <i class='fa fa-solid fa-heart'></i>
+                        </div>
                         <div class=\"product__details__slider__content\">
                         <div class=\"product__details__pic__slider owl-carousel\">
-                        <img data-hash=\"product-1\" class=\"product__big__img\" src=\"img/shop/{$file["fileName"]}\" alt=\"\">          
+                        <img data-hash=\"product-1\" class=\"product__big__img\" src=\"img/shop/{$file["fileName"]}\" alt=\"\">     
                         </div>
                         </div>
                         </div>
                         </div>
                 <div class=\"col-lg-6\">
                     <div class=\"product__details__text\">
-                        <h3>{$row["productName"]} <span>Brand: {$row["productName"]}</span></h3>
+               <h3>{$row["productName"]} <span>Brand: {$row["productName"]}</span></h3>
                         <div class=\"rating\">
                             <i class=\"fa fa-star\"></i>
                             <i class=\"fa fa-star\"></i>
@@ -236,6 +240,8 @@ $strValue = $_GET['id'];
                         </div>
                     </div>
                 </div>
+
+                
                 <div class=\"col-lg-12\">
                     <div class=\"product__details__tab\">
                         <ul class=\"nav nav-tabs\" role=\"tablist\">
@@ -494,7 +500,8 @@ $strValue = $_GET['id'];
     // Adding products to wishlist
     $('.wishList').click(function() {
         var product_id = $(this).attr('id');
-        $('.toast').toast('show');
+        // $('.toast').toast('show');
+
         // console.log(product_id);
         $.ajax({
             url: "php/add-to-wishlist.php",
@@ -502,14 +509,30 @@ $strValue = $_GET['id'];
             data: {
                 productId: product_id
             },
-            success: function(data) {
-                if (data == 'success') {
-                    alert('Product added to wishlist');
+            dataType: 'json',
+            success: function(response) {
+                // console.log(response);
+                if (response.result == "exists") {
+                    alert('Product already in wishlist');
+                } else if (response.result == "success") {
+                    $('.toast').toast('show');
                 } else {
                     alert("Something went wrong");
-                    console.log(data);
+                    console.log(response);
                 }
+
             }
         });
     });
 </script>
+
+<style>
+    .toast {
+	position: absolute;
+	color: red;
+	background: none;
+	font-size: 50px;
+	bottom: 45%;
+    left: 85%; 
+}
+</style>

@@ -381,14 +381,15 @@ $row = $result->fetch_assoc();
                 data: {
                     id: val
                 },
+                dataType: 'json',
                 success: function(data) {
-                    if (data == 'success') {
+                    if (data.result == 'success') {
                         alert('Product deleted successfully');
                         location.reload();
                     } else {
                         alert('Something went wrong');
                         console.log(data);
-                        location.reload();
+                        // location.reload();
                     }
                 }
             });

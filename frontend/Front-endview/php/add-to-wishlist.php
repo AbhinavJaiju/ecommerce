@@ -28,13 +28,13 @@ try {
         }
     }
     if ($check == 'true') {
-        echo "exists";
+        echo json_encode(array("result"=> "exists"));
     } else {
         // Inserting data into the database products table
         $sql = "INSERT INTO wishLists (customerId,productId)
-        //     VALUES ('$custId', '$prodId')";
+           VALUES ('$custId', '$prodId')";
     $conn->exec($sql);
-        echo "success";
+    echo json_encode(array("result"=> "success"));
     }
 }
  catch (PDOException $e) {

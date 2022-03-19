@@ -12,7 +12,8 @@ try {
   // sql to delete a record
   $sql = "DELETE FROM wishLists WHERE wishListId=$id";
   $conn->exec($sql);
-  echo "success";
+  echo json_encode(array("result"=> "success"));
+
 } catch (PDOException $e) {
     echo "<br>" . $sql . "<br>" . $e->getMessage();
 }

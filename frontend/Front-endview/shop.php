@@ -565,7 +565,7 @@ if ($conn->connect_error) {
     // Adding products to wishlist
     $('.wishList').click(function() {
         var product_id = $(this).attr('id');
-        $('.toast').toast('show');
+        
         // console.log(product_id);
         $.ajax({
             url: "php/add-to-wishlist.php",
@@ -573,18 +573,20 @@ if ($conn->connect_error) {
             data: {
                 productId: product_id
             },
+            dataType: 'json',
             success: function(response) {
                 // console.log(response);
-                if(response == "exists"){
+                if(response.result == "exists"){
                     alert('Product already in wishlist');
                 }
-                else if(response == "success"){
-                    alert('Product added to wishlist');
+                else if(response.result == "success"){
+                    $('.toast').toast('show');
                 }
                 else{
                     alert("Something went wrong");
                     console.log(response);
                 }
+                
             }
         });
     });
