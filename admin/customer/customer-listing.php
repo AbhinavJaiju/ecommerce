@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Reviews</title>
+  
   <!-- base:css -->
   <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
@@ -267,80 +268,86 @@
       </nav>
 
 <!-- body -->
-<!-----------------------------------Main Form------------------------------------------------->
-<script type="text/javascript" src="js/jquery.js"></script>
-    <div class="col-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">User Registration</h4>
-                <p class="card-description"> User Registration </p>
-                <form id="submit_form">
-                    <div class="form-group">
-                        <label for="exampleInputName1">Name</label>
-                        <input type="text" class="form-control" id="userName" name="userName" >
+<div class="content-wrapper">
+            <div class="page-header">
+              
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">Users</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Customers</h4>
+                    <p class="card-description"> List of Customers
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th> # </th>
+                            <th> Name </th>
+                            <th> Email </th>
+                            <th> Address </th>
+                            <th> PhoneNumber </th>
+                            <th> Gender </th>
+                            <th> Profile Picture</th>
+                            <th> Action </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                include_once 'config.php';
+                                $sql = "SELECT * FROM customers";
+                                $result = $conn->query($sql);
+
+                                while($row = $result->fetch_assoc()){
+
+                            ?>
+                          <tr>
+                            <td> <?php echo $row['customerId'] ?> </td>
+                            <td> <?php echo $row['customerName'] ?> </td>
+                            <td> <?php echo $row['email'] ?></td>
+                            <td> <?php echo $row['addresss'] ?> </td>
+                            <td> <?php echo $row['phoneNumber'] ?> </td>
+                            <td> <?php echo $row['gender'] ?> </td>
+                            <td> <img src="Images/<?php echo $row['profilePicture']?>" alt="" srcset=""> </td>
+                            <td>
+                                <div>
+                                    <form action='customer-remove.php?customerId="<?php echo $row['customerId'];?>"'method ="post" >
+                                        <input type="hidden" name="customerId" value = "<?php echo $row['customerId'];?>">
+                                        <button type="submit" class="btn btn-danger" onClick="return confirm('Are you Sure?')" name = "delete" >
+                                        <i class="bi bi-trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                </svg>
+                                                Delete
+                                            </i>
+                                    </form>
+                                </div>
+                                <div >
+                                    <a href='customer-edit.php?customerId=<?php echo $row[customerId]?>&fn=<?php echo $row[customerName];?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords]?>&ph=<?php echo $row[phoneNumber]?>&gd=<?php echo $row[gender]?>&ad=<?php echo $row[addresss]?>&im=<?php echo row[profilePicture]?>' >
+                                        <input type="hidden" name ="customerId" value = "<?php echo $row['customerId'];?>">
+                                        <button type="submit" class="btn btn-primary" name="edit" onClick = "return Confirm('Are you Sure?')">
+                                        <i class="bi bi-file-earmark-medical">Edit</i>
+                                        </button>   
+                                </a>
+                                </div>
+                            </td>
+                          </tr>
+                                    <?php
+                                }
+                                ?>
+                        </tbody>
+                      </table>
                     </div>
-                    <div class="form-group" id="submit_form">
-                        <label for="exampleInputEmail3">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword4">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" >
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleSelectGender">Gender</label>
-                            <select class="form-control" id="gender" name="gender">
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Other</option>
-                            </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputCity1">Phone Number</label>
-                        <input type="number" class="form-control" id="phoneNUmber" name="phoneNumber">
-                      </div>
-                        <input type="button" class="btn btn-primary mr-2" name="submit" id="submit" value="Submit">
-                        <button type="button" class="btn btn-danger" name = "cancel" id="cancel" > cancel</button>
-                    </form>
-                    <div id="response"></div>
+                  </div>
                 </div>
+              </div>                  
             </div>
         </div>
-              <script>
-                  $(document).ready(function(){
-                      $('#submit').click(function(){
-                          var name = $('#userName').val();
-                          var email = $('#email').val();
-                          var password = $('#password').val();
-                          var phonenumber = $('#phoneNUmber').val();
-                          var gender = $('#gender').val();
-                          if(name =="" || email=="" || password ==""|| phonenumber ==""){
-                            $('#response').fadeIn();
-                            $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
-                            }else{
-                                //$('#response').html($('#submit_form').serialize());
-                                $.ajax({
-                                url: "user-insertion.php",
-                                type:"POST",
-                                data : $('#submit_form').serialize(),
-                                success: function(data){
-                                    $('#submit_form').trigger("reset");
-                                    $('#response').fadeIn();
-                                    $('#response').removeClass('error-msg').addClass('success-msg').html(data);
-                                    // setTimeout(() => {
-                                    //     $('#response').fadeOut("slow");
-                                    // }, 4000);
-                                }
-                            })
-                        }
-                      })
-                      $('#cancel').click(function(){
-                          window.location.href = 'user-insertion.php';
-                      })
-                  })
-              </script>
-<!-----------------------------------------------End-------------------------------------------->
-
 
 <!-- body ends -->
     </div>

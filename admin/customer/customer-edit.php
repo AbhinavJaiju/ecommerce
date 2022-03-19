@@ -1,5 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+    <?php
+    include("config.php");
+    $id = $_GET['customerId'];
+    $name = $_GET['fn'];
+    $email = $_GET['em'];
+    $password = $_GET['ps'];
+    $number = $_GET['ph'];
+    $gender = $_GET['gd'];
+    $address = $_GET['ad'];
+    $image = $_GET['im'];
+
+
+?>
 
 <head>
   <!-- Required meta tags -->
@@ -16,6 +29,9 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../assets/images/favicon.png" />
+  <!--Bootstrap cdn -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container-scroller d-flex">
@@ -116,8 +132,8 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo" href="index.html"><img src="../assets/images/logo.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../assets/images/logo-mini.svg" alt="logo"/></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">Welcome back, Brandon Haynes</h4>
           <ul class="navbar-nav navbar-nav-right">
@@ -133,7 +149,7 @@
                 <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                      <img src="../assets/images/faces/face4.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">David Grey
@@ -145,7 +161,7 @@
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                      <img src="../assets/images/faces/face2.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
@@ -157,7 +173,7 @@
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                      <img src="../assets/images/faces/face3.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
@@ -233,7 +249,7 @@
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src="images/faces/face5.jpg" alt="profile"/>
+                <img src="../assets/images/faces/face5.jpg" alt="profile"/>
                 <span class="nav-profile-name">Eleanor Richardson</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
@@ -269,60 +285,84 @@
 <!-- body -->
 <!-----------------------------------Main Form------------------------------------------------->
 <script type="text/javascript" src="js/jquery.js"></script>
-    <div class="col-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">User Registration</h4>
-                <p class="card-description"> User Registration </p>
-                <form id="submit_form">
-                    <div class="form-group">
-                        <label for="exampleInputName1">Name</label>
-                        <input type="text" class="form-control" id="userName" name="userName" >
-                    </div>
-                    <div class="form-group" id="submit_form">
-                        <label for="exampleInputEmail3">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email">
+<div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+
+                  <p class="card-description">
+                    Add Customer
+                  </p>
+                  <form id="submit_form">
+                  <div class="form-group">
+                      <input hidden type="text" class="form-control" id="customerId" name="customerId" value = "<?php echo $id ?>">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword4">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" >
+                      <label for="exampleInputName1">Name</label>
+                      <input type="text" class="form-control" id="username" name="username" value = "<?php echo $name ?>" >
+                      <input type="text" hidden class="form-control" id="image1" name="image1" value = "<?php echo $image ?>" >
                     </div>
                     <div class="form-group">
-                        <label for="exampleSelectGender">Gender</label>
-                            <select class="form-control" id="gender" name="gender">
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Other</option>
-                            </select>
+                      <label for="exampleInputEmail3">Email address</label>
+                      <input type="email" class="form-control" id="email" name="email" value = "<?php echo $email ?>">
+                    </div>
+                    <div class="form-group">
+                      <label for="number">PhoneNumber</label>
+                      <input type="number" class="form-control" id="number" name="number" value = "<?php echo $number ?>">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword4">Password</label>
+                      <input type="password" class="form-control" id="password" name="password" >
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">Gender</label>
+                        <select class="form-control" id="gender" name="gender">
+                            <option value="<?php echo $gender ?>"><?php echo $gender ?></option>
+                          <option>Male</option>
+                          <option>Female</option>
+                        </select>
                       </div>
-                      <div class="form-group">
-                        <label for="exampleInputCity1">Phone Number</label>
-                        <input type="number" class="form-control" id="phoneNUmber" name="phoneNumber">
-                      </div>
-                        <input type="button" class="btn btn-primary mr-2" name="submit" id="submit" value="Submit">
-                        <button type="button" class="btn btn-danger" name = "cancel" id="cancel" > cancel</button>
-                    </form>
-                    <div id="response"></div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="file" required class="form-control" id="image" name="image" 
+                            aria-describedby="inputGroupFileAddon03" aria-label="Upload" value="<?php echo $image ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">Address</label>
+                      <textarea class="form-control" id="address" name="address" rows="2"><?php echo $address ?></textarea>
+                    </div>
+                    <input type="submit" name="submit" id="submit" class="btn btn-primary mr-2" value="Submit">
+                    <button type="button" class="btn btn-light" id="cancel">Cancel</button>
+                  </form>
+                  <div id="response"></div>
                 </div>
+              </div>
             </div>
-        </div>
               <script>
                   $(document).ready(function(){
-                      $('#submit').click(function(){
-                          var name = $('#userName').val();
+                      $('#submit_form').on("submit",function(e){
+                            e.preventDefault();
+                            var formData = new FormData(this);
+                          var img = $('#image').val().split('\\').pop();
+                          console.log(img);
+                          var name = $('#username').val();
                           var email = $('#email').val();
                           var password = $('#password').val();
-                          var phonenumber = $('#phoneNUmber').val();
+                          var phonenumber = $('#number').val();
+                          console.log(phonenumber);
                           var gender = $('#gender').val();
-                          if(name =="" || email=="" || password ==""|| phonenumber ==""){
+                          var address = $('#address').val();
+                          if(name =="" || email=="" || password ==""|| phonenumber =="" || address==""){
                             $('#response').fadeIn();
                             $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
                             }else{
                                 //$('#response').html($('#submit_form').serialize());
                                 $.ajax({
-                                url: "user-insertion.php",
-                                type:"POST",
-                                data : $('#submit_form').serialize(),
+                                url: "customer-editfunction.php",
+                                type:"POST",                            
+                                data : formData,
+                                contentType : false,
+                                processData:false,
                                 success: function(data){
                                     $('#submit_form').trigger("reset");
                                     $('#response').fadeIn();
@@ -335,12 +375,11 @@
                         }
                       })
                       $('#cancel').click(function(){
-                          window.location.href = 'user-insertion.php';
+                          window.location.href = 'customer-listing.php';
                       })
                   })
               </script>
 <!-----------------------------------------------End-------------------------------------------->
-
 
 <!-- body ends -->
     </div>

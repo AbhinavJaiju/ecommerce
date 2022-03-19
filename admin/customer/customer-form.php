@@ -119,8 +119,8 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="index.html"><img src="../images/logo.svg" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../images/logo-mini.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo" href="index.html"><img src="../assets/images/logo.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../assets/images/logo-mini.svg" alt="logo"/></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">Welcome back, Brandon Haynes</h4>
           <ul class="navbar-nav navbar-nav-right">
@@ -136,7 +136,7 @@
                 <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                      <img src="../assets/images/faces/face4.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">David Grey
@@ -148,7 +148,7 @@
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                      <img src="../assets/images/faces/face2.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
@@ -160,7 +160,7 @@
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                      <img src="../assets/images/faces/face3.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
@@ -236,7 +236,7 @@
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src="images/faces/face5.jpg" alt="profile"/>
+                <img src="../assets/images/faces/face5.jpg" alt="profile"/>
                 <span class="nav-profile-name">Eleanor Richardson</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
@@ -275,67 +275,76 @@
 <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Basic form elements</h4>
+
                   <p class="card-description">
-                    Basic form elements
+                    Add Customer
                   </p>
-                  <form class="forms-sample">
+                  <form id="submit_form">
                     <div class="form-group">
                       <label for="exampleInputName1">Name</label>
-                      <input type="text" class="form-control" id="name" placeholder="Name">
+                      <input type="text" class="form-control" id="username" name="username" >
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail3">Email address</label>
-                      <input type="email" class="form-control" id="email" placeholder="Email">
+                      <input type="email" class="form-control" id="email" name="email" >
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputName1">PhoneNumber</label>
-                      <input type="number" class="form-control" id="number" placeholder="PhoneNumber">
+                      <label for="number">PhoneNumber</label>
+                      <input type="number" class="form-control" id="number" name="number" >
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword4">Password</label>
-                      <input type="password" class="form-control" id="password" placeholder="Password">
+                      <input type="password" class="form-control" id="password" name="password" >
                     </div>
                     <div class="form-group">
                       <label for="exampleSelectGender">Gender</label>
-                        <select class="form-control" id="gender">
+                        <select class="form-control" id="gender" name="gender">
                           <option>Male</option>
                           <option>Female</option>
                         </select>
                       </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Button</button>
-                            <input type="file" class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload" id="image">
+                            <input type="file" required class="form-control" id="image" name="image" 
+                            aria-describedby="inputGroupFileAddon03" aria-label="Upload">
                         </div>
                     </div>
                     <div class="form-group">
                       <label for="exampleTextarea1">Address</label>
-                      <textarea class="form-control" id="address" rows="4"></textarea>
+                      <textarea class="form-control" id="address" name="address" rows="2"></textarea>
                     </div>
-                    <button type="submit" id="submit" class="btn btn-primary mr-2">Submit</button>
-                    <button class="btn btn-light" id="cancel">Cancel</button>
+                    <input type="submit" name="submit" id="submit" class="btn btn-primary mr-2" value="Submit">
+                    <button type="button" class="btn btn-light" id="cancel">Cancel</button>
                   </form>
+                  <div id="response"></div>
                 </div>
               </div>
             </div>
               <script>
                   $(document).ready(function(){
-                      $('#submit').click(function(){
-                          var name = $('#name').val();
+                      $('#submit_form').on("submit",function(e){
+                            e.preventDefault();
+                            var formData = new FormData(this);
+                          var img = $('#image').val().split('\\').pop();
+                          console.log(img);
+                          var name = $('#username').val();
                           var email = $('#email').val();
-                          var password = $('password').val();
-                          var phonenumber = $('#phoneNumber').val();
+                          var password = $('#password').val();
+                          var phonenumber = $('#number').val();
+                          console.log(phonenumber);
                           var gender = $('#gender').val();
-                          if(name =="" || email=="" || password ==""|| phonenumber ==""){
+                          var address = $('#address').val();
+                          if(name =="" || email=="" || password ==""|| phonenumber =="" || address==""){
                             $('#response').fadeIn();
                             $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
                             }else{
                                 //$('#response').html($('#submit_form').serialize());
                                 $.ajax({
-                                url: "user-insertion.php",
-                                type:"POST",
-                                data : $('#submit_form').serialize(),
+                                url: "customer-insertion.php",
+                                type:"POST",                            
+                                data : formData,
+                                contentType : false,
+                                processData:false,
                                 success: function(data){
                                     $('#submit_form').trigger("reset");
                                     $('#response').fadeIn();
@@ -353,7 +362,6 @@
                   })
               </script>
 <!-----------------------------------------------End-------------------------------------------->
-
 
 <!-- body ends -->
     </div>
