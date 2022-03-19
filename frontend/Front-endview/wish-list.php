@@ -154,8 +154,6 @@ $row = $result->fetch_assoc();
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shop__cart__table">
-                        <h3 style="text-align: center;">Your Wish List</h3>
-                        <hr>
                         <table>
                             <thead>
                                 <tr>
@@ -171,7 +169,10 @@ $row = $result->fetch_assoc();
                                         <td class="cart__product__item">
                                             <img src="img/shop/<?php echo $row["fileName"]; ?>" alt="" height="80px" width="80px">
                                             <div class="cart__product__item__title">
-                                                <h6><?php echo $row["productName"]; ?></h6>
+                                            <h6>
+                                                <a style="color: black;" href='product-details.php?id=<?php echo $row["productId"]; ?>'><?php echo $row["productName"]; ?></a>
+                                            </h6>
+
                                                 <div class="rating">
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
@@ -187,7 +188,7 @@ $row = $result->fetch_assoc();
                                             </div>
                                         </td>
 
-                                    <td >
+                                    <td class="cart__close">
                                         <button class="btn btn-outline-danger" id="<?php echo $row["productId"]; ?>"><i class="fa fa-light fa-cart-plus"></i></button>
                                     </td>
 
@@ -407,7 +408,7 @@ $row = $result->fetch_assoc();
     $('td').find('button').click(function() {
 
         var prodId = $(this).attr('id');
-        var qty = $('.pro-qty').find('input').val()
+        var qty = $('.pro-qty').find('input').val();
         // console.log(val);
         // console.log(qty);
 
