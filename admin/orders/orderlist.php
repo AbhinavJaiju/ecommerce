@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>orders</title>
+    <title>Enquiries</title>
     <!-- base:css -->
     <link rel="stylesheet" href="../../admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../admin/assets/vendors/css/vendor.bundle.base.css">
@@ -17,9 +17,12 @@
     <link rel="stylesheet" href="../../admin/assets/css/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="../../admin/assets/images/favicon.png" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -287,7 +290,7 @@
                   </p> -->
                                     <div class="table-responsive">
                                         <table class="table table-hover">
-                                            <thead>
+                                        <thead>
                                                 <tr>
                                                     <th>orderId</th>
                                                     <th>Customer Name</th>
@@ -295,22 +298,22 @@
                                                     <th>Total</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
-                                                    <th>xxx</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
 
-                                            <?php
+                                                <?php
 
-                                            $sql = "SELECT orders.orderId, customers.customerName, orders.orderdate,orders.totalprice,orders.orderStatus
+                                                $sql = "SELECT orders.orderId, customers.customerName, orders.orderdate,orders.totalprice,orders.orderStatus
                                                     FROM orders
                                                     INNER JOIN customers ON orders.customerId=customers.customerId
                                                     ORDER BY orders.orderId DESC;";
-                                            $result = $conn->query($sql);
+                                                $result = $conn->query($sql);
 
-                                            while ($row = $result->fetch_assoc()) {
-                                                $id = $row["orderId"];
-                                                echo "
+                                                while ($row = $result->fetch_assoc()) {
+                                                    $id = $row["orderId"];
+                                                    echo "
                                                 <tr>
                                                 <td scope='col'>{$row["orderId"]}</td>
                                                 <td scope='col'>{$row["customerName"]}</td>
@@ -334,72 +337,77 @@
                                                 >
                                                 </form>
                                                 </td>
-                                                <td scope='col'>
-                                                <form method='POST'>
-                                                <input type=hidden name=id value=" . $row["orderId"] . " >
-                                                <input type=submit value=view name=view
-                                                class='btn btn-info btn-xs me-3 text-white '
+                                               
                                                 
-                                                >
-                                                </form>
-                                                </td>
                                                 
-                                                <td>
-                                                <button type='button'   class='toggle-btn'>Slide Toggle Paragraphs</button> 
-                                                <p>This is a paragraph.</p>
-                                                <p>This is another paragraph.</p>
-                                                </td>                                            
+
+                                                <td><button name='view' value='view' id= {$row['orderId']} class='btn btn-info btn-xs 
+                                                    view_data'>view</button></td>
+
+                                                 </td>                                          
 
                                                 </tr>";
-                                            }
+                                                }
 
-                                            if (isset($_POST['edit'])) {
-                                                //echo $id; //last id
-                                                echo $eid=$_POST['id'];
-                                                echo $nstatus=$_POST['status'];
-                                                $update="UPDATE orders
+                                                if (isset($_POST['edit'])) {
+                                                    echo "<meta http-equiv='refresh' content='0'>";
+                                                    //echo $id; //last id
+                                                    echo $eid = $_POST['id'];
+                                                    echo $nstatus = $_POST['status'];
+                                                    $update = "UPDATE orders
                                                          SET orderStatus ='$nstatus'
                                                          WHERE orderId = $eid;";
-                                                $uresult = $conn->query($update);
-                                                $row1 = $uresult->fetch_assoc();
+                                                    $uresult = $conn->query($update);
+                                                    $row1 = $uresult->fetch_assoc();
+                                                    
+                                                    //echo "<meta http-equiv='refresh' content='0'>";
+                                                }
+
+
+                                                ?>
                                                 
 
-                                            }
-                                            
-
-                                            if(isset($_POST['view'])){
-                                                $view="SELECT e.orderDetailsId, e.price,e.quantity, s.productName, d.orderId 
-                                                       FROM (orderDetails e JOIN products s ON e.productId = s.productId) 
-                                                       JOIN orders d ON e.orderId = d.orderId";
-                                                $vresult = $conn->query($view);
-                                                $row2 = $vresult->fetch_assoc();
-
-                                                          echo '<script type="text/javascript"> 
-                                                          alert("Product Name")
-                                                           alert("Product Name".{$row2["productName"]})
-                                                          </script>';
-
-                                                
-                                            }
-
-
-
-                                            ?>
-                                               <script>
-                                                $(document).ready(function(){
-                                                 // Toggles paragraphs display with sliding
-                                                 $('.toggle-btn').click(function(){
-                                                 $('p').slideToggle();
-                                                });
-                                                });
-                                                </script>
-                                            
                                             </tbody>
                                         </table>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div id="dataModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"></button>
+                                        <h4 class="modal-title">Order details</h4>
+                                    </div>
+                                    <div class="modal-body" id="employee_detail">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            $(document).ready(function() {
+                                $('.view_data').click(function() {
+                                    var order_id = $(this).attr("id");
+                                    $.ajax({
+                                        url: "details.php",
+                                        method: "post",
+                                        data: {
+                                            order_id: order_id
+                                        },
+                                        success: function(data) {
+                                            $('#employee_detail').html(data);
+                                            $('#dataModal').modal("show");
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
                         <!-- -------------------------------------------------------------------------------------------- -->
 
 
@@ -425,9 +433,12 @@
                 <!-- Custom js for this page-->
                 <script src="../../admin/assets/js/dashboard.js"></script>
                 <!-- End custom js for this page-->
-                <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-                
+                <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 </body>
 
 </html>
+<!-- <td scope='col'>
+                                                <button type='button' class='toggle-btn'>view details</button> 
+                                                <p>{$row["message"]}</p>
+                                                
+                                                </td> -->

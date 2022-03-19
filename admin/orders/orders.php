@@ -17,11 +17,14 @@
     <link rel="stylesheet" href="../../admin/assets/css/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="../../admin/assets/images/favicon.png" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -302,7 +305,7 @@
                                                     <th>Total</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
-                                                    <th>xxx</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -341,18 +344,9 @@
                                                 >
                                                 </form>
                                                 </td>
-                                                <td scope='col'>
-                                                <form method='POST'>
-                                                <input type=hidden name=id value=" . $row["orderId"] . " >
-                                                <input type=submit value=view name=view
-                                                class='btn btn-info btn-xs me-3 text-white '
+                                               
                                                 
-                                                >
-                                                </form>
-                                                </td>
                                                 
-                                                <!-- The Modal -->
-                                                <td>
 
                                                 <td><button name='view' value='view' id= {$row['orderId']} class='btn btn-info btn-xs 
                                                     view_data'>view</button></td>
@@ -363,6 +357,7 @@
                                                 }
 
                                                 if (isset($_POST['edit'])) {
+                                                    echo "<meta http-equiv='refresh' content='0'>";
                                                     //echo $id; //last id
                                                     echo $eid = $_POST['id'];
                                                     echo $nstatus = $_POST['status'];
@@ -371,30 +366,25 @@
                                                          WHERE orderId = $eid;";
                                                     $uresult = $conn->query($update);
                                                     $row1 = $uresult->fetch_assoc();
+                                                    
+                                                    //echo "<meta http-equiv='refresh' content='0'>";
                                                 }
 
 
-                                                if (isset($_POST['view'])) {
-                                                    $view = "SELECT e.orderDetailsId, e.price,e.quantity, s.productName, d.orderId 
-                                                       FROM (orderDetails e JOIN products s ON e.productId = s.productId) 
-                                                       JOIN orders d ON e.orderId = d.orderId";
-                                                    $vresult = $conn->query($view);
-                                                    $row2 = $vresult->fetch_assoc();
+                                                // if (isset($_POST['view'])) {
+                                                //     $view = "SELECT e.orderDetailsId, e.price,e.quantity, s.productName, d.orderId 
+                                                //        FROM (orderDetails e JOIN products s ON e.productId = s.productId) 
+                                                //        JOIN orders d ON e.orderId = d.orderId";
+                                                //     $vresult = $conn->query($view);
+                                                //     $row2 = $vresult->fetch_assoc();
 
                                                     
-                                                }
+                                                // }
 
 
 
                                                 ?>
-                                                <!-- <script>
-                                                    $(document).ready(function() {
-                                                        // Toggles paragraphs display with sliding
-                                                        $('.toggle-btn').click(function() {
-                                                            $('p').slideToggle();
-                                                        });
-                                                    });
-                                                </script> -->
+                                                
 
                                             </tbody>
                                         </table>
@@ -407,7 +397,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <button type="button" class="close" data-dismiss="modal"></button>
                                         <h4 class="modal-title">order Details</h4>
                                     </div>
                                     <div class="modal-body" id="employee_detail">
@@ -422,12 +412,12 @@
                         <script>
                             $(document).ready(function() {
                                 $('.view_data').click(function() {
-                                    var employee_id = $(this).attr("id");
+                                    var order_id = $(this).attr("id");
                                     $.ajax({
                                         url: "details.php",
                                         method: "post",
                                         data: {
-                                            employee_id: employee_id
+                                            order_id: order_id
                                         },
                                         success: function(data) {
                                             $('#employee_detail').html(data);
@@ -462,7 +452,7 @@
                 <!-- Custom js for this page-->
                 <script src="../../admin/assets/js/dashboard.js"></script>
                 <!-- End custom js for this page-->
-                <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 
 
 </body>

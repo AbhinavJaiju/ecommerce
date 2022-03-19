@@ -19,6 +19,10 @@
     <link rel="shortcut icon" href="../../admin/assets/images/favicon.png" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -280,7 +284,7 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Orders</h4>
+                                    <h4 class="card-title">Enquiries</h4>
                                     <!-- <p class="card-description">
                     
                   </p> -->
@@ -312,16 +316,13 @@
                                                 <td scope='col'>{$row["name"]}</td>
                                                 <td scope='col'>{$row["email"]}</td>
                                                 <td scope='col'>{$row["phoneNumber"]}</td>
-                                                <td>{$row["message"]}</td>
+                                                
 
-                                                
-                                                <td scope='col'>
-                                                <form name='emsg' method='post'>
-                                                <input type=hidden name=eid value=" . $row["message"] . " >
-                                                <input type='submit' name='msg' class='toggle-btn' value='view' > 
-                                                
-                                                </form>
-                                                </td>";
+                                                <td><button name='view' value='view' id= {$row['enquiryId']} class='btn btn-info btn-xs 
+                                                view_data'>view</button></td>
+
+                                             </td>
+                                               ";
                                                 
                                             }
                                             
@@ -358,24 +359,40 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <script>
-                                $(function() {
-                                              $(document ).on("click","#sTable72 button.iAddbutton",function() {
-                                                     let tr = $(this).closest('tr');
-                                                     let a = tr.find('input[name="fullname"]').val();
-                                                    let b = tr.find('input[name="instrument"]').val(); 
-                                                      alert('Table 2: ' + a + ' ' + b);    
-                                                     });
-                                                });
-                        </script> -->
-                        <!-- <script>
-                                                $(document).ready(function(){
-                                                 // Toggles paragraphs display with sliding
-                                                 $('.toggle-btn').click(function(){
-                                                 $('p').slideToggle();
-                                                });
-                                                });
-                                                </script> -->
+                        <div id="dataModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"></button>
+                                        <h4 class="modal-title">Message</h4>
+                                    </div>
+                                    <div class="modal-body" id="employee_detail">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            $(document).ready(function() {
+                                $('.view_data').click(function() {
+                                    var enquiry_id = $(this).attr("id");
+                                    $.ajax({
+                                        url: "message.php",
+                                        method: "post",
+                                        data: {
+                                            enquiry_id: enquiry_id
+                                        },
+                                        success: function(data) {
+                                            $('#employee_detail').html(data);
+                                            $('#dataModal').modal("show");
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
                         <!-- -------------------------------------------------------------------------------------------- -->
 
 
