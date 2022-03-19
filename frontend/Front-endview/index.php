@@ -61,7 +61,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                 </a></li>
         </ul>
         <div class="offcanvas__logo">
-            <a href="./index.php"><img src="img/logo.png" alt=""></a>
+            <a href="./index.php"><img src="img/logo3.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
@@ -77,7 +77,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.php"><img src="img/logo3.png" alt="" style="height: 35px;width: 100px;"></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
@@ -107,7 +107,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
+                            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span>
@@ -129,7 +129,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6 p-0">
-                    <div class="categories__item categories__large__item set-bg" data-setbg="img/categories/laptopbanner.jpg">
+                    <div class="categories__item categories__large__item set-bg" data-setbg="img/categories/lappic3.jpeg" style="margin-left:.5em;">
                         <div class="categories__text">
                             <h1 style="color: white;">Laptop</h1>
                             <p style="font-weight: bold;">Get All the Latest High Specification Laptops</p>
@@ -215,6 +215,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
         </div>
         <div class="row1">
             <?php
+            $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
             if ($result = $conn->query($sql)) {
                 while ($row = $result->fetch_assoc()) {
 
@@ -224,6 +225,8 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                     <div class=" column1" style="float: left;width:25%;padding: 5px;">
 
                         <div class="product__item">
+
+
 
                             <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 60%;">
                                 <div class="label new">New</div>
@@ -780,8 +783,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                         <div class="footer__logo">
                             <a href="./index.php"><img src="img/logo.png" alt=""></a>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            cilisis.</p>
+                        <p>We provide the products from the best brands with the offer that you will not expect.</p>
                         <div class="footer__payment">
                             <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
                             <a href="#"><img src="img/payment/payment-2.png" alt=""></a>

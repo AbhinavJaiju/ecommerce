@@ -1,35 +1,30 @@
-<!--php starts-->
-
+<!-- PHP => Get wish list from database -->
 <?php
-session_start();
-$customerId = 2;
-$_SESSION["CustomerId"] = $customerId;
-//get category id from session
-//get category name from session
-$catnam="Camera";
 
-$strValue = $_GET['id'];
-if ($strValue > 0) {
-    $categoryId = $strValue;
-} else {
-    $categoryId = 3;
-}
-$_SESSION["CategoryId"] = $strValue;
-
-//new connection
 $servername = "localhost";
-$username = "binitha";
-$password = "Bini@1997";
+$username = "gazni";
+$password = "password";
 $dbname = "ecommerce";
+
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+$sql = "SELECT wishLists.wishListId,wishLists.customerId,wishLists.productId,
+products.productName,products.price,
+productImage.fileName FROM wishLists
+INNER JOIN products ON wishLists.productid = products.productid
+LEFT JOIN productImage ON productImage.productid = products.productid";
+
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+print_r($row);
+// print_r($result);
+
 ?>
-
-<!--php ends here-->
-
-<!--html starts here-->
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -40,11 +35,12 @@ if ($conn->connect_error) {
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ashion | Template</title>
+    <title>Wish List</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -55,12 +51,10 @@ if ($conn->connect_error) {
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-
 </head>
 
 <body>
     <!-- Page Preloder -->
-
     <div id="preloder">
         <div class="loader"></div>
     </div>
@@ -72,14 +66,14 @@ if ($conn->connect_error) {
         <ul class="offcanvas__widget">
             <li><span class="icon_search search-switch"></span></li>
             <li><a href="#"><span class="icon_heart_alt"></span>
-                    <div class="tip">2</div>
-                </a></li>
+                <div class="tip">2</div>
+            </a></li>
             <li><a href="#"><span class="icon_bag_alt"></span>
-                    <div class="tip">2</div>
-                </a></li>
+                <div class="tip">2</div>
+            </a></li>
         </ul>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            <a href="./index.php"><img src="img/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
@@ -89,23 +83,22 @@ if ($conn->connect_error) {
     </div>
     <!-- Offcanvas Menu End -->
 
-
     <!-- Header Section Begin -->
     <header class="header">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="index.php">Home</a></li>
-                            <!-- <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li> -->
-                            <li class="active"><a href="./shop.php">Shop</a></li>
+                            <li class="active"><a href="./index.php">Home</a></li>
+                            <li><a href="#">Women’s</a></li>
+                            <li><a href="#">Men’s</a></li>
+                            <li><a href="./shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./product-details.php">Product Details</a></li>
@@ -127,12 +120,12 @@ if ($conn->connect_error) {
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
-                                    <div class="tip">2</div>
-                                </a></li>
+                            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
+                                <div class="tip">2</div>
+                            </a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span>
-                                    <div class="tip">2</div>
-                                </a></li>
+                                <div class="tip">2</div>
+                            </a></li>
                         </ul>
                     </div>
                 </div>
@@ -150,8 +143,8 @@ if ($conn->connect_error) {
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="index.php"><i class="fa fa-home"></i> Home</a>
-                        <span><?php echo $catnam ?></span>
+                        <a href="./index.php"><i class="fa fa-home"></i> Home</a>
+                        <span>Wish List</span>
                     </div>
                 </div>
             </div>
@@ -159,123 +152,62 @@ if ($conn->connect_error) {
     </div>
     <!-- Breadcrumb End -->
 
-    <!-- Shop Section Begin -->
-    <section class="shop spad">
+    <!-- Wish List Section Begin -->
+    <section class="shop-cart spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-3">
-                    <div class="shop__sidebar">
-                        <div class="sidebar__categories">
-                            <div class="section-title">
-                                <h4>Categories</h4>
-                            </div>
-                            <div class="categories__accordion">
-                                <div class="accordion" id="accordionExample">
-                                    <?php
-                                    $sql = "SELECT * FROM categories ";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "  <div class='card'>
-                                                 <div class='card-heading active'>
-                                                 <a href=\"shop.php?id={$row["categoryId"]}\">{$row["categoryName"]}</a>
-                                                 </div>
-                                                 </div>";
-                                        }
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sidebar__filter">
-                            <div class="section-title">
-                                <h4>Shop by price</h4>
-                            </div>
-                            <div class="filter-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" 
-                                
+                <div class="col-lg-12">
+                    <div class="shop__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Your Wish List</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+        foreach ($result as $row) {
+            ?>
+                                <tr>
+                                    <td class="cart__product__item">
+                                        <img src="newimages/<?php echo $row["fileName"]; ?>" alt="" height="80px" width="85px">
+                                        <div class="cart__product__item__title">
+                                            <h6><?php echo $row["productName"]; ?></h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cart__close"><span class="icon_close"></span></td>
+                                </tr>
                                 <?php
-                                $minsql = "SELECT MIN(price) as min FROM products where categoryId=$categoryId";
-                                $min = $conn->query($minsql);
-                                $val= $min->fetch_assoc();
-                                $minval=(int)$val["min"];
-                                $maxsql = "SELECT MAX(price) as max FROM products where categoryId=$categoryId";
-                                $max = $conn->query($maxsql);
-                                $val2= $max->fetch_assoc();
-                                $maxval=(int)$val2["max"];
-                                echo"data-min=$minval
-                                data-max=$maxval";
-                                ?> 
-                                ></div>
-                                <div class="range-slider">
-                                    <div class="price-input">
-                                        <p>PRICE</p>
-                                        <input type="text " id="minamount">
-                                        <input type="text" id="maxamount">
-                                    </div>
-                                </div>
-                            </div><a href="#">FILTER</a>
-                        </div>
+        }
+        ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-9">
-                    <div class="row">
-                        <?php
-                        $sql = "SELECT * FROM products where categoryId=$categoryId";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                $id = $row["productId"];
-                                $sql2 = "SELECT fileName FROM productImage
-                                WHERE productId=$id";
-                                $result1 = $conn->query($sql2);
-                                $file = $result1->fetch_assoc();
-                                $location = "Images\\";
-                                $filename = $location . $file["fileName"];
-                                $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
-                                $rs = $fmt->format($row["price"]);
-                                echo "<div class='col-lg-4 col-md-6'>
-                                <div class='product__item'>
-                                <div class='product__item__pic set-bg' data-setbg='img/shop/{$file["fileName"]}'>
-                                    <ul class='product__hover'>
-                                        <li><a href=\"img/shop/{$file["fileName"]}\" class='image-popup'><span class='arrow_expand'></span></a></li>
-                                        <li><a href='#'><span class='icon_heart_alt'></span></a></li>
-                                        <li><a href='#'><span class='icon_bag_alt'></span></a></li>
-                                    </ul>
-                                </div>
-                                <form method=\"POST\">
-                                <div class='product__item__text'>
-                                    <h6><a href='product-details.php?id={$row["productId"]}'>{$row["productName"]}</a></h6>
-                                    <div class='rating'>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                    </div>
-                                    <div class='product__price'>₹$rs</div>
-                                </div>
-                            </div>
-                        </div>";
-                            }
-                        } else {
-                            echo "0 results";
-                        }
-                        ?>
-                        <div class="col-lg-12 text-center">
-                            <div class="pagination__option">
-                                <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#"><i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn">
+                        <a href="shop.php">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn update__btn">
+                        <a href="shop-cart.php"> Add to cart</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Shop Section End -->
+    <!-- Shop Cart Section End -->
 
     <!-- Instagram Begin -->
     <div class="instagram">
@@ -341,10 +273,10 @@ if ($conn->connect_error) {
                 <div class="col-lg-4 col-md-6 col-sm-7">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                            <a href="./index.php"><img src="img/logo.png" alt=""></a>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            cilisis.</p>
+                        cilisis.</p>
                         <div class="footer__payment">
                             <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
                             <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
@@ -397,9 +329,7 @@ if ($conn->connect_error) {
                 <div class="col-lg-12">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <div class="footer__copyright__text">
-                        <p>Copyright &copy; <script>
-                                document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
                     </div>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
@@ -433,4 +363,3 @@ if ($conn->connect_error) {
 </body>
 
 </html>
-<!--html ends here-->
