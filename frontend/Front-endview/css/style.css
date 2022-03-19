@@ -319,9 +319,9 @@ ol {
 	color: red;
 	background: none;
 	text-align: center;
-	font-size: 100px;
-	line-height: 100px;
-	top: 80%;
+	font-size: 50px;
+	/* line-height: 100px; */
+	bottom: 100px;
 	cursor: pointer;
 	
 	/* display: -webkit-box; */

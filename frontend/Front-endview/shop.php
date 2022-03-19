@@ -318,14 +318,25 @@ if ($conn->connect_error) {
                     <div class='col-lg-4 col-md-6'>
                             <div class='product__item'>
                                 <div class='product__item__pic set-bg' data-setbg='img/shop/{$file["fileName"]}'>
+                                
+                                <!-- Toaster Begins -->
+                                <ul class='product__hover'>
+                                <li>  <div class='d-flex align-items-center justify-content-center'>
+                                <div class='toast'>
+                                    <i class='fa fa-solid fa-heart'></i>
+                                </div>
+                                </div></li>
+                                </ul>
 
+                                <!-- Toaster Ends -->
 
-    
                                     <ul class='product__hover'>
                                         <li><a href=\"img/shop/{$file["fileName"]}\" class='image-popup'><span class='arrow_expand'></span></a></li>
                                         <li><a class='wishList' id='{$row["productId"]}'><span class='icon_heart_alt'></span></a></li>
                                         <li><a href='#'><span class='icon_bag_alt'></span></a></li>
                                     </ul>
+                        
+                                  
                                 </div>
                                 <form method=\"POST\">
                                 
@@ -339,8 +350,6 @@ if ($conn->connect_error) {
                                         <i class='fa fa-star'></i>
                                     </div>
                                     <div class='product__price'>₹$rs</div>
-
-                                   
                                 </div>
                             </div>
                         </div>
@@ -522,14 +531,6 @@ if ($conn->connect_error) {
     </footer>
     <!-- Footer Section End -->
 
-    <!-- Toaster -->
-    <div class='d-flex align-items-center justify-content-center'>
-    <div class='toast' id='{$row["productId"]}>
-        <span class='toaster' >
-        <i class='fa fa-solid fa-heart'></i>
-        </span>
-    </div>
-    </div>
 
     <!-- Search Begin -->
     <div class="search-model">
@@ -566,21 +567,21 @@ if ($conn->connect_error) {
         var product_id = $(this).attr('id');
         $('.toast').toast('show');
         // console.log(product_id);
-        $.ajax({
-            url: "php/add-to-wishlist.php",
-            method: "POST",
-            data: {
-                productId: product_id
-            },
-            success: function(data) {
-                if(data == 'success'){
-                    alert('Product added to wishlist');
-                }
-                else{
-                    alert("Something went wrong");
-                    console.log(data);
-                }
-            }
-        });
+        // $.ajax({
+        //     url: "php/add-to-wishlist.php",
+        //     method: "POST",
+        //     data: {
+        //         productId: product_id
+        //     },
+        //     success: function(data) {
+        //         if(data == 'success'){
+        //             alert('Product added to wishlist');
+        //         }
+        //         else{
+        //             alert("Something went wrong");
+        //             console.log(data);
+        //         }
+        //     }
+        // });
     });
 </script>

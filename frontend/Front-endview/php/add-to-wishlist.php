@@ -1,7 +1,6 @@
 <?php
 session_start();
 $custId = $_SESSION['cutomerId'];
-
 $prodId = $_POST['productId'];
 
 include "config.php";
@@ -16,8 +15,8 @@ try {
     $conn->exec($sql);
     echo "success";
 }
-catch(PDOException $e) {
-    echo "Error: " . $e->getMessage();
+catch (PDOException $e) {
+    echo "<br>" . $sql . "<br>" . $e->getMessage();
 }
 
 ?>
