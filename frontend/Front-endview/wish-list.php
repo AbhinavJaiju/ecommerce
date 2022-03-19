@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT wishLists.wishListId,
+$sql = "SELECT wishLists.wishListId,wishLists.productId,
 products.productName,
 productImage.fileName FROM wishLists
 INNER JOIN products ON wishLists.productid = products.productid
@@ -154,11 +154,13 @@ $row = $result->fetch_assoc();
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shop__cart__table">
+                        <h3 style="text-align: center;">Your Wish List</h3>
+                        <hr>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Your Wish List</th>
-                                    <th></th>
+                                    <th>Products</th>
+                                    <th>Quantity</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -179,11 +181,16 @@ $row = $result->fetch_assoc();
                                                 </div>
                                             </div>
                                         </td>
-                                       
-                                        <td>
-                                                <button type="button" class="site-btn" id="add_to_cart" value="<?php echo $row["wishListId"]; ?>">Add to cart</button>
+                                        <td class="cart__quantity">
+                                            <div class="pro-qty">
+                                                <input type="text" value="1">
+                                            </div>
                                         </td>
-                                       
+
+                                    <td >
+                                        <button class="btn btn-outline-danger" id="<?php echo $row["productId"]; ?>"><i class="fa fa-light fa-cart-plus"></i></button>
+                                    </td>
+
                                         <td class="cart__close"><span class="icon_close" id="<?php echo $row["wishListId"]; ?>"></span></td>
                                     </tr>
                                 <?php
@@ -398,27 +405,48 @@ $row = $result->fetch_assoc();
 
     // Add to cart button
     $('td').find('button').click(function() {
-        
-        var val = $(this).val();
+
+        var prodId = $(this).attr('id');
+        var qty = $('.pro-qty').find('input').val()
         // console.log(val);
+        // console.log(qty);
 
         $.ajax({
             url: 'php/add-to-cart.php',
             type: 'POST',
             data: {
-                id:val
+                id: prodId,
+                quantity: qty
             },
+            dataType: 'json',
             success: function(data) {
-                // console.log(data)
-                if (data == 'success') {
+                console.log(data.result)
+                if (data.result == 'success') {
                     alert('Product added to cart successfully');
                     // location.reload();
-                } else {
+                } else if(data.result == 'exists'){
+                    alert('Product already in cart');
+                }
+                 else {
                     alert('Something went wrong');
                     console.log(data);
                 }
-            
-        }
+
+            }
         });
     });
 </script>
+
+<style>
+    .btn {
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        font-size: 20px;
+        /* line-height: 44px; */
+        text-align: center;
+        display: inline-block;
+        font-weight: 600;
+        cursor: pointer;
+    }
+</style>

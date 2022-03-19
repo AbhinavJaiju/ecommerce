@@ -38,7 +38,8 @@ try {
     }
 }
  catch (PDOException $e) {
-    echo "<br>" . $sql . "<br>" . $e->getMessage();
+    echo json_encode(array("result"=> "Error: " . $e->getMessage()));
+
 }
  $conn = null;
 ?>
