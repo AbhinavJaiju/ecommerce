@@ -1,21 +1,31 @@
 <!DOCTYPE html>
+
+<?php
+    include("config.php");
+    $id = $_GET['userId'];
+    $name =  $_GET['fn'];
+    $email = $_GET['em'];
+    $password = $_GET['ps'];
+    $number = $_GET['ph'];
+    $gender = $_GET['gd'];
+?>
 <html lang="en">
 
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Spica Admin</title>
+  <title>Reviews</title>
   <!-- base:css -->
-  <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="assets/images/favicon.png" />
+  <link rel="shortcut icon" href="../assets/images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller d-flex">
@@ -267,6 +277,84 @@
       </nav>
 
 <!-- body -->
+<script type="text/javascript" src="js/jquery.js"></script>
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">User Registration</h4>
+                <p class="card-description"> User Registration </p>
+                <form id="submit_form">
+                    <div class="form-group">
+                        <label for="exampleInputName1"></label>
+                        <input type="number" class="form-control" id="userId" name="userId" value="<?php echo $id?>" hidden>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName1">Name</label>
+                        <input type="text" class="form-control" id="userName" name="userName" value="<?php echo $name?>" >
+                    </div>
+                    <div class="form-group" id="submit_form">
+                        <label for="exampleInputEmail3">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" value="<?php echo $email?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword4">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleSelectGender">Gender</label>
+                            <select class="form-control" id="gender" name="gender">
+                                <option value="<?php echo $gender ?>"><?php echo $gender ?></option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputCity1">Phone Number</label>
+                        <input type="number" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php echo $number?>">
+                      </div>
+                        <input type="button" class="btn btn-primary mr-2" name="submit" id="submit" value="Submit">
+                        <button type="button" class="btn btn-danger" name = "cancel" id="cancel" > cancel</button>
+                    </form>
+                    <div id="response"></div>
+                </div>
+            </div>
+        </div>
+              <script>
+                  $(document).ready(function(){
+                      $('#submit').click(function(){
+                          var name = $('#userName').val();
+                          var email = $('#email').val();
+                          var password = $('#password').val();
+                          var phonenumber = $('#phoneNUmber').val();
+                          var gender = $('#gender').val();
+                          if(name =="" || email=="" || password ==""|| phonenumber ==""){
+                            $('#response').fadeIn();
+                            $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
+                            }else{
+                                //$('#response').html($('#submit_form').serialize());
+                                $.ajax({
+                                url: "user-editfunction.php",
+                                type:"POST",
+                                data : $('#submit_form').serialize(),
+                                success: function(data){
+                                    $('#submit_form').trigger("reset");
+                                    $('#response').fadeIn();
+                                    $('#response').removeClass('error-msg').addClass('success-msg').html(data);
+                                    window.location.href='user-listing.php';
+                                    // setTimeout(() => {
+                                    //     $('#response').fadeOut("slow");
+                                    // }, 4000);
+                                }
+                            })
+                        }
+                      })
+                      $('#cancel').click(function(){
+                          window.location.href = 'user-listing.php';
+                      })
+                  })
+              </script>
+<!-----------------------------------------------End-------------------------------------------->
 
 
 <!-- body ends -->
@@ -276,20 +364,20 @@
   <!-- container-scroller -->
 
   <!-- base:js -->
-  <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
-  <script src="assets/vendors/chart.js/Chart.min.js"></script>
+  <script src="../assets/vendors/chart.js/Chart.min.js"></script>
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="assets/js/off-canvas.js"></script>
-  <script src="assets/js/hoverable-collapse.js"></script>
-  <script src="assets/js/template.js"></script>
+  <script src="../assets/js/off-canvas.js"></script>
+  <script src="../assets/js/hoverable-collapse.js"></script>
+  <script src="../assets/js/template.js"></script>
   <!-- endinject -->
   <!-- plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
-  <script src="assets/js/dashboard.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
 

@@ -2,20 +2,21 @@
 <html lang="en">
 
 <head>
+
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Spica Admin</title>
+  <title>Reviews</title>
   <!-- base:css -->
-  <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="assets/images/favicon.png" />
+  <link rel="shortcut icon" href="../assets/images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller d-flex">
@@ -267,7 +268,85 @@
       </nav>
 
 <!-- body -->
+<div class="content-wrapper">
+            <div class="page-header">
+              
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">Users</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Users</h4>
+                    <p class="card-description"> List of Users
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th> # </th>
+                            <th> Name </th>
+                            <th> Email </th>
+                            <th> Password </th>
+                            <th> PhoneNumber </th>
+                            <th> Gender </th>
+                            <th> Action </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                include_once 'config.php';
+                                $sql = "SELECT * FROM users";
+                                $result = $conn->query($sql);
 
+                                while($row = $result->fetch_assoc()){
+
+                            ?>
+                          <tr>
+                            <td> <?php echo $row['userId'] ?> </td>
+                            <td> <?php echo $row['userName'] ?> </td>
+                            <td> <?php echo $row['email'] ?></td>
+                            <td> <?php echo $row['passwords'] ?> </td>
+                            <td> <?php echo $row['phoneNumber'] ?> </td>
+                            <td> <?php echo $row['gender'] ?> </td>
+                            <td>
+                                <div>
+                                    <form action='user-remove.php?userId="<?php echo $row['userId'];?>"'method ="post" >
+                                        <input type="hidden" name="userId" value = "<?php echo $row['userId'];?>">
+                                        <button type="submit" class="btn btn-danger" onClick="return confirm('Are you Sure?')" name = "delete" >
+                                            <i class="bi bi-trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                </svg>
+                                                Delete
+                                            </i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div >
+                                    <a href='user-edit.php?userId=<?php echo $row[userId]?>&fn=<?php echo $row[userName];?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords]?>&ph=<?php echo $row[phoneNumber]?>&gd=<?php echo $row[gender]?>' >
+                                        <input type="hidden" name ="userId" value = "<?php echo $row['userId'];?>">
+                                        <button type="submit" class="btn btn-primary" name="edit" onClick = "return Confirm('Are you Sure?')">
+                                        <i class="bi bi-file-earmark-medical">Edit</i>
+                                        </button>   
+                                </a>
+                                </div>
+                            </td>
+                          </tr>
+                                    <?php
+                                }
+                                ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>                  
+            </div>
+        </div>
 
 <!-- body ends -->
     </div>
@@ -276,20 +355,20 @@
   <!-- container-scroller -->
 
   <!-- base:js -->
-  <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
-  <script src="assets/vendors/chart.js/Chart.min.js"></script>
+  <script src="../assets/vendors/chart.js/Chart.min.js"></script>
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="assets/js/off-canvas.js"></script>
-  <script src="assets/js/hoverable-collapse.js"></script>
-  <script src="assets/js/template.js"></script>
+  <script src="../assets/js/off-canvas.js"></script>
+  <script src="../assets/js/hoverable-collapse.js"></script>
+  <script src="../assets/js/template.js"></script>
   <!-- endinject -->
   <!-- plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
-  <script src="assets/js/dashboard.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
 
