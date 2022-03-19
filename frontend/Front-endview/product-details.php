@@ -1,19 +1,20 @@
 <?php
 session_start();
-//get category id from session
+$customerId = $_SESSION["CustomerId"];
 $categoryId = 3;
 //$categoryId = $_SESSION["CategoryId"];
 include "config.php";
 
 
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 $strValue = $_GET['id'];
+$_SESSION["ProductId"] = $strValue;
+$catnam = $_SESSION["Category"];
 
 ?>
 
@@ -66,7 +67,7 @@ $strValue = $_GET['id'];
                 </a></li>
         </ul>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            <a href="./index.php"><img src="img/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
@@ -88,20 +89,20 @@ $strValue = $_GET['id'];
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li>
-                            <li class="active"><a href="shop.php">Shop</a></li>
+                            <li><a href="./index.php">Home</a></li>
+                            <!-- <li><a href="#">Women’s</a></li>
+                            <li><a href="#">Men’s</a></li> -->
+                            <li class="active"><a href="./shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a href="./product-details.html">Product Details</a></li>
-                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
-                                    <li><a href="./checkout.html">Checkout</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    <li><a href="./product-details.php">Product Details</a></li>
+                                    <li><a href="./shop-cart.php">Shop Cart</a></li>
+                                    <li><a href="./checkout.php">Checkout</a></li>
+                                    <li><a href="./blog-details.php">Blog Details</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a href="./blog.php">Blog</a></li>
+                            <li><a href="./contact.php">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -136,8 +137,8 @@ $strValue = $_GET['id'];
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="#">Women’s </a>
+                        <a href="./index.php"><i class="fa fa-home"></i> Home</a>
+                        <a href="#"><?php echo $catnam; ?> </a>
                         <span>Essential structured blazer</span>
                     </div>
                 </div>
@@ -179,22 +180,21 @@ $strValue = $_GET['id'];
                         $reviewcountvalue = $conn->query($reviewcount);
                         $rcount = $reviewcountvalue->fetch_assoc();
                         $count = $rcount["count"];
-                        
 
                         echo "
                         <div class='toast'>
                             <i class='fa fa-solid fa-heart'></i>
                         </div>
                         <div class=\"product__details__slider__content\">
-                        <div class=\"product__details__pic__slider owl-carousel\">
-                        <img data-hash=\"product-1\" class=\"product__big__img\" src=\"img/shop/{$file["fileName"]}\" alt=\"\">     
+                       <div class=\"product__details__pic__slider owl-carousel\">
+                        <img data-hash=\"product-1\" class=\"product__big__img\" src=\"img/shop/{$file["fileName"]}\" alt=\"\">          
                         </div>
                         </div>
                         </div>
                         </div>
-                <div class=\"col-lg-6\">
-                    <div class=\"product__details__text\">
-               <h3>{$row["productName"]} <span>Brand: {$row["productName"]}</span></h3>
+                        <div class=\"col-lg-6\">
+                            <div class=\"product__details__text\">
+                        <h3>{$row["productName"]} <span>Brand: {$row["productName"]}</span></h3>
                         <div class=\"rating\">
                             <i class=\"fa fa-star\"></i>
                             <i class=\"fa fa-star\"></i>
@@ -206,16 +206,32 @@ $strValue = $_GET['id'];
                         <div class=\"product__details__price\">₹$rs <span>₹ $oldvalue</span></div>
                         <p>{$row["productDescription"]}</p>
                         <div class=\"product__details__button\">
+
                         <form method=\"POST\">
                             <div class=\"quantity\">
                                 <span>Quantity:</span>
                                 <div class=\"pro-qty\">
-                                    <input type=\"text\" value=\"1\">
+                                    <input type=\"text\" value=\"1\" name=\"quantity\">
                                 </div>
                             </div>
-                           
-                            <a type=\"button\" href='shop-cart.php'class=\"cart-btn\"><span class=\"icon_bag_alt\"></span> Add to cart</a>
+                            <input type=\"submit\" name=\"qtysubmit\" value=\"Add to cart\" class=\"cart-btn\" >
                         </form>
+                        ";
+
+                        if (isset($_POST['qtysubmit'])) {
+                            $qty = $_POST['quantity'];
+                            $_SESSION["Quantity"] = $qty;
+                            if ($customerId > 0) {
+                                $insert = "INSERT into productCarts(quantity, customerId, productId)
+                            VALUES ($qty, $customerId, $strValue);";
+                                $conn->query($insert);
+                                echo "<script type=\"text/javascript\">toastr.success(\"Product added to cart ,
+                            { timeOut: 1 },{positionClass: \'toast-bottom-right\'}\")</script>";
+                                echo "<script>alert(\"Product added to cart\")</script>";
+                            }
+                        }
+                        echo "   
+                        
                             <ul>
                                 <li><a class='wishList' id='$strValue'><span class=\"icon_heart_alt\"></span></a></li>
                                 <li><a href=\"#\"><span class=\"icon_adjust-horiz\"></span></a></li>
@@ -227,7 +243,7 @@ $strValue = $_GET['id'];
                                     <span>Availability:</span>
                                     <div class=\"stock__checkbox\">
                                         <label for=\"stockin\">
-                                        $availability
+                                            $availability
                                             <input type=\"checkbox\" id=\"stockin\">
                                             <span class=\"checkmark\"></span>
                                         </label>
@@ -241,8 +257,6 @@ $strValue = $_GET['id'];
                         </div>
                     </div>
                 </div>
-
-                
                 <div class=\"col-lg-12\">
                     <div class=\"product__details__tab\">
                         <ul class=\"nav nav-tabs\" role=\"tablist\">
@@ -275,8 +289,8 @@ $strValue = $_GET['id'];
                                 $nameresult = $conn->query($name);
                                 $customer = $nameresult->fetch_assoc();
                                 echo "
-                                <input type=\"checkbox\" id=\"stockin\">&nbsp;&nbsp;{$customer["customerName"]}&nbsp;&nbsp;{$customer["createdDate"]}
-                                <p>{$row["review"]}</p>";
+                                        <input type=\"checkbox\" id=\"stockin\">&nbsp;&nbsp;{$customer["customerName"]}&nbsp;&nbsp;{$customer["createdDate"]}
+                                        <p>{$row["review"]}</p>";
                             }
                         } else {
                             echo "No Reviews ";
@@ -295,41 +309,40 @@ $strValue = $_GET['id'];
             <?php
             $strValue;
             $sql = "SELECT *  FROM products where categoryId=$categoryId
-        AND  productId <> $strValue 
-        limit 4 ";
+                                    AND  productId <> $strValue 
+                                    limit 4 ";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $id = $row["productId"];
                     $sql2 = "SELECT fileName FROM productImage
-                    WHERE productId=$id";
+                                    WHERE productId=$id";
                     $result1 = $conn->query($sql2);
                     $file = $result1->fetch_assoc();
                     $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
                     $rs = $fmt->format($row["price"]);
                     echo " <div class=\"col-lg-3 col-md-4 col-sm-6\">
-                        <div class=\"product__item\">
-                        <div class=\"product__item__pic set-bg\" data-setbg=\"img/shop/{$file["fileName"]}\">
-                        
-                            <ul class=\"product__hover\">
-                                <li><a href=\"img/shop/{$file["fileName"]}\" class=\"image-popup\"><span class=\"arrow_expand\"></span></a></li>
-                                <li><a href=\"#\"><span class=\"icon_heart_alt\"></span></a></li>
-                                <li><a href=\"#\"><span class=\"icon_bag_alt\"></span></a></li>
-                            </ul>
-                            </div>
-                            <div class=\"product__item__text\">
-                            <h6><a href='product-details.php?id={$row["productId"]}'> {$row["productName"]}</a></h6>
-                            <div class=\"rating\">
-                                <i class=\"fa fa-star\"></i>
-                                <i class=\"fa fa-star\"></i>
-                                <i class=\"fa fa-star\"></i>
-                                <i class=\"fa fa-star\"></i>
-                                <i class=\"fa fa-star\"></i>
-                            </div>
-                            <div class=\"product__price\">₹$rs</div>
-                        </div>
-                    </div>
-                </div>";
+                                    <div class=\"product__item\">
+                                    <div class=\"product__item__pic set-bg\" data-setbg=\"img/shop/{$file["fileName"]}\">
+                                        <ul class=\"product__hover\">
+                                            <li><a href=\"img/shop/{$file["fileName"]}\" class=\"image-popup\"><span class=\"arrow_expand\"></span></a></li>
+                                            <li><a href=\"#\"><span class=\"icon_heart_alt\"></span></a></li>
+                                            <li><a href=\"#\"><span class=\"icon_bag_alt\"></span></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class=\"product__item__text\">
+                                    <h6><a href='product-details.php?id={$row["productId"]}'> {$row["productName"]}</a></h6>
+                                    <div class=\"rating\">
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    </div>
+                                    <div class=\"product__price\">₹$rs</div>
+                                    </div>
+                                    </div>
+                                </div>";
                 }
             } else {
                 echo "No results";
