@@ -126,7 +126,7 @@ $sql = "SELECT productImage.fileName,productImage.pImageId ,products.productId,p
                             echo $_SESSION['uname'];
                             }
                             else{
-                                echo  '<a href="http://localhost/ecommerce/frontend/Front-endview/login.php">Login</a>
+                                echo  '<a href="login.php">Login</a>
                                 <a href="#">Register</a>';
                             }
                            
