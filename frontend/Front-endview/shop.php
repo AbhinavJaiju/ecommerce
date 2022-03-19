@@ -74,7 +74,7 @@ if ($conn->connect_error) {
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
-            <a href="#">Login</a>
+            <a href="login.php">Login</a>
             <a href="#">Register</a>
         </div>
     </div>
@@ -113,7 +113,7 @@ if ($conn->connect_error) {
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="#">Login</a>
+                            <a href="login.php">Login</a>
                             <a href="#">Register</a>
                         </div>
                         <ul class="header__right__widget">
@@ -567,21 +567,25 @@ if ($conn->connect_error) {
         var product_id = $(this).attr('id');
         $('.toast').toast('show');
         // console.log(product_id);
-        // $.ajax({
-        //     url: "php/add-to-wishlist.php",
-        //     method: "POST",
-        //     data: {
-        //         productId: product_id
-        //     },
-        //     success: function(data) {
-        //         if(data == 'success'){
-        //             alert('Product added to wishlist');
-        //         }
-        //         else{
-        //             alert("Something went wrong");
-        //             console.log(data);
-        //         }
-        //     }
-        // });
+        $.ajax({
+            url: "php/add-to-wishlist.php",
+            method: "POST",
+            data: {
+                productId: product_id
+            },
+            success: function(response) {
+                // console.log(response);
+                if(response == "exists"){
+                    alert('Product already in wishlist');
+                }
+                else if(response == "success"){
+                    alert('Product added to wishlist');
+                }
+                else{
+                    alert("Something went wrong");
+                    console.log(response);
+                }
+            }
+        });
     });
 </script>
