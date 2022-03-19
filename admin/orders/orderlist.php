@@ -285,9 +285,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Orders</h4>
-                                    <!-- <p class="card-description">
-                    
-                  </p> -->
+                                   
                                     <div class="table-responsive">
                                         <table class="table table-hover">
                                         <thead>
@@ -308,7 +306,7 @@
                                                 $sql = "SELECT orders.orderId, customers.customerName, orders.orderdate,orders.totalprice,orders.orderStatus
                                                     FROM orders
                                                     INNER JOIN customers ON orders.customerId=customers.customerId
-                                                    ORDER BY orders.orderId DESC;";
+                                                    ORDER BY orders.orderId DESC LIMIT 10";
                                                 $result = $conn->query($sql);
 
                                                 while ($row = $result->fetch_assoc()) {
@@ -437,8 +435,3 @@
 </body>
 
 </html>
-<!-- <td scope='col'>
-                                                <button type='button' class='toggle-btn'>view details</button> 
-                                                <p>{$row["message"]}</p>
-                                                
-                                                </td> -->
