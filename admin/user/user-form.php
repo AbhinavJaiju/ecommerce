@@ -311,7 +311,7 @@
                       $('#submit').click(function(){
                           var name = $('#userName').val();
                           var email = $('#email').val();
-                          var password = $('password').val();
+                          var password = $('#password').val();
                           var phonenumber = $('#phoneNUmber').val();
                           var gender = $('#gender').val();
                           if(name =="" || email=="" || password ==""|| phonenumber ==""){
