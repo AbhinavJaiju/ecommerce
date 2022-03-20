@@ -31,7 +31,7 @@
           <span></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../index.html">
+          <a class="nav-link" href="../index.php">
             <i class="mdi mdi-view-quilt menu-icon"></i>
             <span class="menu-title">Dashboard</span>
             <div class="badge badge-info badge-pill"></div>
@@ -113,8 +113,8 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="../index.html"></a>
-            <a class="navbar-brand brand-logo-mini" href="../index.html"><img src="../images/logo-mini.svg" alt="logo" /></a>
+            <a class="navbar-brand brand-logo" href="../index.php"></a>
+            <a class="navbar-brand brand-logo-mini" href="../index.php"><img src="../images/logo-mini.svg" alt="logo" /></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1" id="user"></h4>
           <ul class="navbar-nav navbar-nav-right">
@@ -165,7 +165,7 @@
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <a href="../customer/customer-form.php">
-                      <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add Category</button>
+                      <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add Customer</button>
                     </a>
                     <thead>
                       <tr>
@@ -193,7 +193,7 @@
                           <td> <?php echo $row['customerId'] ?> </td>
                           <td> <?php echo $row['customerName'] ?> </td>
                           <td> <?php echo $row['email'] ?></td>
-                          <td> <?php echo $row['addresss'] ?> </td>
+                          <td> <?php echo $row['address'] ?> </td>
                           <td> <?php echo $row['phoneNumber'] ?> </td>
                           <td> <?php echo $row['gender'] ?> </td>
                           <td> <img src="Images/<?php echo $row['profilePicture'] ?>" alt="" srcset=""> </td>

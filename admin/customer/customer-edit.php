@@ -44,7 +44,7 @@ $image = $_GET['im'];
           <span></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../index.html">
+          <a class="nav-link" href="../index.php">
             <i class="mdi mdi-view-quilt menu-icon"></i>
             <span class="menu-title">Dashboard</span>
             <div class="badge badge-info badge-pill"></div>
@@ -126,8 +126,8 @@ $image = $_GET['im'];
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="../index.html"></a>
-            <a class="navbar-brand brand-logo-mini" href="../index.html"><img src="../images/logo-mini.svg" alt="logo" /></a>
+            <a class="navbar-brand brand-logo" href="../index.php"></a>
+            <a class="navbar-brand brand-logo-mini" href="../index.php"><img src="../images/logo-mini.svg" alt="logo" /></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1" id="user"></h4>
           <ul class="navbar-nav navbar-nav-right">
