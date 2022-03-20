@@ -274,6 +274,7 @@ if ($conn->connect_error) {
                                     
                                     
                                     
+                                    
                                 </tr>";
                                 $sum+=$rowtotal;
 

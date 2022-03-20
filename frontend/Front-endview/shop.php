@@ -133,7 +133,7 @@ include "config.php";
                             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
+                            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
                             <li>
