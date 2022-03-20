@@ -5,22 +5,20 @@ if(isset($_POST['but_logout'])){
     header('Location: login.php');
 }
 //get category id from session
-$categoryId = 3;
+//$categoryId = 3;
 
 $userId=$_SESSION['cutomerId'];
 $sum=0;
 $categoryId = $_SESSION["CategoryId"];
 
 include "config.php";
+$quantityArray = array();
+$productArray=array();
+$priceArray=array();
+$append="";
 
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 ?>
 
 
@@ -82,75 +80,9 @@ if ($conn->connect_error) {
     <!-- Offcanvas Menu End -->
 
     <!-- Header Section Begin -->
-    <header class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-3 col-lg-2">
-                    <div class="header__logo">
-                        <a href="./index.php"><img src="img/logo3.png" alt="" style="height: 35px;width: 100px;"></a>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-7">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.php">Home</a></li>
-
-                            <li><a href="./shop.php">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./product-details.php">Product Details</a></li>
-                                    <li><a href="./shop-cart.php">Shop Cart</a></li>
-                                    <li><a href="./checkout.php">Checkout</a></li>
-
-                                </ul>
-                            </li>
-
-                            <li><a href="./contact.php">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__right">
-                        <div class="header__right__auth">
-                            <?php
-                            if($_SESSION['uname']){
-                                
-                               // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
-                            
-                            echo $_SESSION['uname'];
-                            }
-                            else{
-                                echo  '<a href="login.php">Login</a>
-                                <a href="#">Register</a>';
-                            }
-                           
-                            ?>
-                           
-                        </div>
-                        
-                        <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
-                                    <div class="tip">2</div>
-                                </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                            <li><form method='post' action="" style="margin-left:1%">
-                               <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
-                              
-                               </form></li>
-                        </ul>
-                    </div>
-                    
-                </div>
-                
-            </div>
-            <div class="canvas__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
+    <?php
+        include "navigation.php";
+        ?>
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
@@ -204,13 +136,19 @@ if ($conn->connect_error) {
 
                         $sql = "SELECT * FROM productCarts where customerId=$userId";
                         $result = $conn->query($sql);
+                      
+                        $i=0;
+                        
                         
                         if ($result->num_rows > 0 ) {
+
                             //echo "inside if";
                            
                             while ($row = $result->fetch_assoc()) {
+                                
                                 //echo "inside while";
                                 $productid = $row["productId"];
+                                
                                 
                                 
                                 //echo $id;
@@ -277,6 +215,12 @@ if ($conn->connect_error) {
                                     
                                 </tr>";
                                 $sum+=$rowtotal;
+                                $quantityArray[$i]=$row["quantity"];
+                                $productArray[$i]=$productid;
+                                $priceArray[$i]=$rowtotal;
+                                $i++;
+                                
+
 
                             }}else{
                                 echo "No items in cart";
@@ -322,10 +266,85 @@ if ($conn->connect_error) {
                ?>
                </span>
             </li> </ul>
-                         <a href="#" class="primary-btn">Proceed to checkout</a>
 
 
-                    </div>
+<?php
+if (isset($_POST['checkout'])) {
+                            
+    if ($userId > 0) {
+        date_default_timezone_set("Asia/Calcutta");   //India time (GMT+5:30)
+        $today= date('Y-m-d');
+        
+       $orderStatus="pending";
+       $_SESSION["TotalAmount"]=$sum;
+        //date_default_timezone_set('Indian/Mahe');
+
+        $order = "INSERT into orders(orderdate, orderStatus, customerId,totalprice)
+    VALUES (\"$today\", \"$orderStatus\",$userId, $sum);";
+    
+    if ($conn->query($order) === TRUE) {
+        $lastId = $conn->insert_id;
+        $i=0;
+    while($quantityArray[$i]>0){
+        
+      
+        $append.="($quantityArray[$i],$lastId,$productArray[$i],$priceArray[$i]),";
+        $i++;
+
+    }
+   
+
+       
+            $tempquery= "INSERT INTO orderDetails(quantity,orderId,productId,price)VALUES".$append;
+            $query=rtrim($tempquery, ", ").";";
+            if ($conn->query($query) === TRUE) {
+                $query = "DELETE FROM productCarts WHERE customerId=$userId;";
+                                if ($conn->query($query) === TRUE ) {
+                                    echo "<script>alert(\"Order placed\")
+                                    </script>";
+                                    
+                                    
+                                    } 
+
+            
+            }
+        }
+        else{
+            echo"Server Error";
+        }
+       
+        
+    }
+    else{
+        
+        echo "Please login to checkout";
+    }
+    
+    
+}
+            echo"<form method=\"POST\">
+            <a class=\"primary-btn\">
+            <input type=\"submit\" name=\"checkout\" value=\"Proceed to checkout\" class=\"btn btn-link text-white\" >
+            </a>
+                            
+                            
+                        </form>
+                        ";
+                       
+
+                        
+
+
+
+
+
+?>
+
+
+                         
+
+
+                    </div > 
                 </div>
             </div>
         </div>
