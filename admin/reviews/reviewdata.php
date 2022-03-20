@@ -1,26 +1,16 @@
 <?php
-$servername = "localhost";
-$username = "alfina";
-$password = "Alfinamemysql@123";
-$dbname = "ecommerce";
 
-/// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname); //;
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
 
 $id = $_GET['id'];
 // $id = $_SESSION['id'];
 
-$query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
+$query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,rev.reviewId,
 cust.email,prod.productId,prod.productName, cat.categoryId, cat.categoryName
 FROM reviews rev  
 JOIN customers cust ON cust.customerId = rev.customerId
 JOIN products prod ON prod.productId = rev.productId
 JOIN categories cat ON cat.categoryId = prod.categoryId
-WHERE rev.productId=$id
+WHERE cust.customerId=$id
 ";
 
 $result = $conn->query($query);
@@ -40,6 +30,7 @@ if (empty($result)) {
     $productId = $res['productId'];
     $categoryId = $res['categoryId'];
     $categoryName = $res['categoryName'];
+    $reviewId = $res['reviewId'];
   }
 }
 ?>
@@ -333,84 +324,105 @@ if (empty($result)) {
                   <address>
                     <?php echo "Customer Name : " . $customerName;  ?> <br />
                     <?php echo "Customer Email : " . $email;  ?> <br />
-                    <?php echo "Posted At: "; echo date_format($createdDate,"Y/m/d H:i:s")?><br/>
+                    <?php $newDate = date("d-m-Y", strtotime($createdDate));  
+    echo "Posted at : ".$newDate; ?><br />
                   </address>
 
                   <br />
                   <div class="card-body">
+                    <form method="post">
+                      <div class="container mb-2">
+                        <span>
+                          <h4 class="card-title text-primary" style="align-content: flex-start;float: left;">Review </h4>
+                          <button id="edit" type="button" class="btn btn-icon" style="float: right;"><i class=" mdi mdi-lead-pencil "></i></button>
+                        </span>
+                      </div>
 
-                    <h4 class="card-title text-primary" style="align-content: flex-start;">Review </h4>
+                      <div class="mt-2">
+                        <blockquote class="blockquote">
+                          <textarea id="inp" name="review" type="text" rows="4" cols="50" style="border: none;outline:none" disabled><?php echo $review; ?></textarea>
+                         
+                        </blockquote>
+                      </div>
+                    
 
-                    <blockquote class="blockquote">
-                      <input id="inp" type="text" value=" <?php echo $review; ?>" disabled style="border: none;outline:none">
-                    </blockquote>
-                  </div>
-                  <form method="post">
-                   
+
                       <label class="text-danger" for="status">Status</label>
                       <select class="form-control form-control-sm" id="status" name="status">
-                        <option>Add</option>
-                        <option>Drop</option>
+                        <option>Approved</option>
+                        <option>Rejected</option>
                         <option>Pending</option>
                       </select>
                       <br />
-                      <button type="button" name="update" id="update" class="btn btn-primary btn-icon-text" style="float: right;">
+                      <span class="btn btn-primary btn-icon-text " style="float: right;">
+                        <input type="submit" name="update" id="update" class="btn btn-primary btn-icon-text " value="Submit">
                         <i class="mdi mdi-file-check btn-icon-prepend"></i>
-                        Submit
-                      </button>
-                    
-                  </form>
-                  <?php
-                  
-                  if (isset($_POST['update'])) {
-                    $id = $_GET['id'];
-                    echo $id;
-                    $status = $_POST['status'];
-                    echo $status;
+                      </span>
 
-                    $sql = "UPDATE reviews SET 'status'='$status' WHERE productId=$id";
 
-                    // Prepare statement
-                    $stmt = $conn->prepare($sql);
 
-                    // execute the query
-                    $stmt->execute();
-                  } ?>
+                    </form>
+                    <?php
+                    ob_start();
+                    if (isset($_POST['update'])) {
+
+                      $status = $_POST['status'];
+                    $review=$_POST['review'];
+                      // echo $review;
+
+
+                      $sql = "UPDATE reviews 
+                      SET status='$status',review='$review'
+                       WHERE reviewId=$reviewId";
+
+
+                      // Prepare statement
+                      $stmt = $conn->prepare($sql);
+
+                      // execute the query
+                      $stmt->execute();
+                      echo "<script>window.location.href='review.php';</script>";
+                      exit;
+                    }
+                    $conn->close();
+
+                    ?>
+
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- body ends -->
       </div>
-
-      <!-- body ends -->
+      <!-- page-body-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
+    <!-- container-scroller -->
 
-  <!-- base:js -->
-  <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <script src="../assets/vendors/chart.js/Chart.min.js"></script>
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="../assets/js/off-canvas.js"></script>
-  <script src="../assets/js/hoverable-collapse.js"></script>
-  <script src="../assets/js/template.js"></script>
-  <script>
-    var el = document.getElementById('edit');
-    el.addEventListener('click', function() {
-      document.getElementById('inp').disabled = false;
-    });
-  </script>
-  <!-- endinject -->
-  <!-- plugin js for this page -->
-  <!-- End plugin js for this page -->
-  <!-- Custom js for this page-->
-  <script src="../assets/js/dashboard.js"></script>
-  <!-- End custom js for this page-->
+    <!-- base:js -->
+    <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <script src="../assets/vendors/chart.js/Chart.min.js"></script>
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="../assets/js/off-canvas.js"></script>
+    <script src="../assets/js/hoverable-collapse.js"></script>
+    <script src="../assets/js/template.js"></script>
+    <script>
+      var el = document.getElementById('edit');
+      el.addEventListener('click', function() {
+        document.getElementById('inp').disabled = false;
+      });
+    </script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page-->
+    <script src="../assets/js/dashboard.js"></script>
+    <!-- End custom js for this page-->
 </body>
 
 </html>

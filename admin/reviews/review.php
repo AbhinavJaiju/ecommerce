@@ -1,15 +1,4 @@
-<?php $servername = "localhost";
-$username = "alfina";
-$password = "Alfinamemysql@123";
-$dbname = "ecommerce";
-
-/// Create connection
-$conn = new mysqli($servername, $username,$password,$dbname);//;
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-} 
-
+<?php 
 
 
 ?>
@@ -286,8 +275,10 @@ if ($conn->connect_error) {
 <div class="col-lg-12 grid-margin mt-5 stretch-card">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Manage Reviews</h4>
+        <!-- <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href = 'add.php';" style="float: right;">Add a new Review</button> -->
+        <h4  class="card-title">Manage Reviews</h4>
         <p class="card-description"> Review Request
+         
         </p>
         <div class="table-responsive">
           <table class="table table-hover">
@@ -304,10 +295,10 @@ if ($conn->connect_error) {
               <?php
              
               $query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
-                      cust.email,prod.productId,prod.productName
+                      cust.email,prod.productId,prod.productName,cust.customerId
                       FROM reviews rev
                       JOIN customers cust ON cust.customerId = rev.customerId
-                      JOIN products prod ON prod.productId = rev.productId";
+                      JOIN products prod ON prod.productId = rev.productId LIMIT 10";
 
               $result = $conn->query($query);
 
@@ -315,11 +306,12 @@ if ($conn->connect_error) {
 
               ?>
                 <tr>
+                    <?php $id=$row['productId'] ;?>
                   <td><?php echo $row['customerName']; ?></td>
                   <td><?php echo $row['productName'] ?? ''; ?></td>
                   <td><?php echo $row['createdDate'] ?? ''; ?></td>
                   <td><?php echo $row['status'] ?? ''; ?></td>
-                  <td><?php echo "<a type='button' class='btn btn-icon btn-lg' href='reviewdata.php?id=$row[productId]'>" ?><i class="mdi mdi-eye"></i></td>
+                  <td><?php echo "<a type='button' class='btn btn-icon btn-lg' href='reviewdata.php?id=$row[customerId]'>" ?><i class="mdi mdi-eye"></i></td>
                   <!-- <td><button type="button" class="btn btn-primary btn-rounded btn-icon" onClick="document.location.href='reviewdata.php'" > -->
                   <!-- <i class=" mdi mdi-eye "></i>
                       </button></td> -->
@@ -330,7 +322,8 @@ if ($conn->connect_error) {
                   </td>
                 <tr>
                 <?php
-              } ?>
+              }
+              $conn->close(); ?>
             </tbody>
           </table>
         </div>
