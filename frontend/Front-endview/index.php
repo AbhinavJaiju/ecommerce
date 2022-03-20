@@ -107,8 +107,12 @@ if(isset($_POST['but_logout'])){
                             if($_SESSION['uname']){
                                 
                                // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
+                            ?>
+                              <a href="http://localhost/ecommerce/frontend/Front-endview/myaccount.php" style="font-weight:bold;font-size:18px;color:blue;"> 
+                              <?php echo $_SESSION["uname"]?>
+                              </a>
                             
-                            echo $_SESSION['uname'];
+                            <?php
                             }
                             else{
                                 echo  '<a href="http://localhost/ecommerce/frontend/Front-endview/login.php">Login</a>
@@ -128,7 +132,7 @@ if(isset($_POST['but_logout'])){
                                 <div class="tip">2</div>
                             </a></li>
                             <li><form method='post' action="" style="margin-left:1%">
-                               <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
+                               <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold;color:red" value="Logout" name="but_logout">
                                </form></li>
                         </ul>
                     </div>
@@ -816,7 +820,7 @@ if(isset($_POST['but_logout'])){
             <div class="col-lg-12">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 <div class="footer__copyright__text">
-                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved<i class="fa fa-heart" aria-hidden="true"></i></a></p>
                 </div>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </div>
@@ -833,7 +837,7 @@ if(isset($_POST['but_logout'])){
             <input type="text" id="search-input" placeholder="Search here.....">
         </form>
     </div>
-</div>
+</div>k
 <!-- Search End -->
 
 <!-- Js Plugins -->

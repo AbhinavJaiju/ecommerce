@@ -1,12 +1,12 @@
 
 <?php
 session_start();
-$host = "localhost"; /* Host name */
-$user = "kadeejath"; /* User */
+$servername = "localhost"; /* Host name */
+$username = "kadeejath"; /* User */
 $password = "experion@123"; /* Password */
 $dbname = "ecommerce"; /* Database name */
 
-$conn = mysqli_connect($host, $user, $password,$dbname);
+$conn = mysqli_connect($servername, $username, $password,$dbname);
 // Check connection
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
