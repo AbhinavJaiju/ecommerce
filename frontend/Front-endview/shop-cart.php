@@ -1,24 +1,24 @@
 <?php
 session_start();
-$ProductId=$_SESSION["ProductId"];
-
+if(isset($_POST['but_logout'])){
+    session_destroy();
+    header('Location: login.php');
+}
 //get category id from session
-$categoryId = 3;
-$userId=$_SESSION["CustomerId"];
+//$categoryId = 3;
+
+$userId=$_SESSION['cutomerId'];
 $sum=0;
 $categoryId = $_SESSION["CategoryId"];
-$servername = "localhost";
-$username = "binitha";
-$password = "Bini@1997";
-$dbname = "ecommerce";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+include "config.php";
+$quantityArray = array();
+$productArray=array();
+$priceArray=array();
+$append="";
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+
+
 ?>
 
 
@@ -61,10 +61,10 @@ if ($conn->connect_error) {
         <div class="offcanvas__close">+</div>
         <ul class="offcanvas__widget">
             <li><span class="icon_search search-switch"></span></li>
-            <li><a href="#"><span class="icon_heart_alt"></span>
+            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                 <div class="tip">2</div>
             </a></li>
-            <li><a href="#"><span class="icon_bag_alt"></span>
+            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                 <div class="tip">2</div>
             </a></li>
         </ul>
@@ -80,57 +80,9 @@ if ($conn->connect_error) {
     <!-- Offcanvas Menu End -->
 
     <!-- Header Section Begin -->
-    <header class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-3 col-lg-2">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-7">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
-                            <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li>
-                            <li><a href="./shop.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./product-details.html">Product Details</a></li>
-                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
-                                    <li><a href="./checkout.html">Checkout</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__right">
-                        <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
-                        </div>
-                        <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
+    <?php
+        include "navigation.php";
+        ?>
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
@@ -179,28 +131,34 @@ if ($conn->connect_error) {
                             }
 
 
+
 }
 
                         $sql = "SELECT * FROM productCarts where customerId=$userId";
                         $result = $conn->query($sql);
+                      
+                        $i=0;
+                        
                         
                         if ($result->num_rows > 0 ) {
+
                             //echo "inside if";
                            
                             while ($row = $result->fetch_assoc()) {
+                                
                                 //echo "inside while";
                                 $productid = $row["productId"];
                                 
-                               //echo $id;
+                                
+                                
+                                //echo $id;
                                 $productssql = "SELECT * FROM products
                                 WHERE productId=$productid";
-
                                $productresult = $conn->query($productssql);
                                 $products = $productresult->fetch_assoc();
 
                               $sql2 = "SELECT fileName FROM productImage
-                                WHERE productId=$productid";
-
+                                 WHERE productId=$productid";
                                $result1 = $conn->query($sql2);
                                 $file = $result1->fetch_assoc();
                                 
@@ -238,7 +196,8 @@ if ($conn->connect_error) {
                                    
 
                                     echo"
-                                    <td class=\"cart__total\">₹$rowtotal</td>                                   
+                                    <td class=\"cart__total\">₹$rowtotal</td>
+                                    
                                     <td class=\"cart__close\">
                                     <form method='POST'>
                                     <input type=hidden name=cid value= {$row["productCartId"]} >
@@ -253,11 +212,17 @@ if ($conn->connect_error) {
                                     
                                     
                                     
+                                    
                                 </tr>";
                                 $sum+=$rowtotal;
+                                $quantityArray[$i]=$row["quantity"];
+                                $productArray[$i]=$productid;
+                                $priceArray[$i]=$rowtotal;
+                                $i++;
+                                
 
-                            }}
-                            else{
+
+                            }}else{
                                 echo "No items in cart";
                             }
                             echo"
@@ -269,7 +234,7 @@ if ($conn->connect_error) {
             <div class=\"row\">
                 <div class=\"col-lg-6 col-md-6 col-sm-6\">
                     <div class=\"cart__btn\">
-                        <a href=\"#\">Continue Shopping</a>
+                        <a href=\"index.php\">Continue Shopping</a>
                     </div>
                 </div>
                 <div class=\"col-lg-6 col-md-6 col-sm-6\">
@@ -282,7 +247,7 @@ if ($conn->connect_error) {
                 </div>
             </div>";                
                               ?>                
-                            
+                             
             <div class="row">
                 <div class="col-lg-6">
                     
@@ -294,16 +259,92 @@ if ($conn->connect_error) {
                             <li>Total <span>
 
                     <?php
+                    //if (isset($_POST['updateCart'])) {
                
                             echo"₹$sum";
-                       
+                            //}
                ?>
                </span>
             </li> </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
 
 
-                    </div>
+<?php
+if (isset($_POST['checkout'])) {
+                            
+    if ($userId > 0) {
+        date_default_timezone_set("Asia/Calcutta");   //India time (GMT+5:30)
+        $today= date('Y-m-d');
+        
+       $orderStatus="pending";
+       $_SESSION["TotalAmount"]=$sum;
+        //date_default_timezone_set('Indian/Mahe');
+
+        $order = "INSERT into orders(orderdate, orderStatus, customerId,totalprice)
+    VALUES (\"$today\", \"$orderStatus\",$userId, $sum);";
+    
+    if ($conn->query($order) === TRUE) {
+        $lastId = $conn->insert_id;
+        $i=0;
+    while($quantityArray[$i]>0){
+        
+      
+        $append.="($quantityArray[$i],$lastId,$productArray[$i],$priceArray[$i]),";
+        $i++;
+
+    }
+   
+
+       
+            $tempquery= "INSERT INTO orderDetails(quantity,orderId,productId,price)VALUES".$append;
+            $query=rtrim($tempquery, ", ").";";
+            if ($conn->query($query) === TRUE) {
+                $query = "DELETE FROM productCarts WHERE customerId=$userId;";
+                                if ($conn->query($query) === TRUE ) {
+                                    echo "<script>alert(\"Order placed\")
+                                    </script>";
+                                    
+                                    
+                                    } 
+
+            
+            }
+        }
+        else{
+            echo"Server Error";
+        }
+       
+        
+    }
+    else{
+        
+        echo "Please login to checkout";
+    }
+    
+    
+}
+            echo"<form method=\"POST\">
+            <a class=\"primary-btn\">
+            <input type=\"submit\" name=\"checkout\" value=\"Proceed to checkout\" class=\"btn btn-link text-white\" >
+            </a>
+                            
+                            
+                        </form>
+                        ";
+                       
+
+                        
+
+
+
+
+
+?>
+
+
+                         
+
+
+                    </div > 
                 </div>
             </div>
         </div>
@@ -311,60 +352,9 @@ if ($conn->connect_error) {
     <!-- Shop Cart Section End -->
 
     <!-- Instagram Begin -->
-    <div class="instagram">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+    include "footer.php"
+    ?>
     <!-- Instagram End -->
 
     <!-- Footer Section Begin -->
