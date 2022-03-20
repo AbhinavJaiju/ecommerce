@@ -301,8 +301,8 @@
                       </div>
                         <input type="button" class="btn btn-primary mr-2" name="submit" id="submit" value="Submit">
                         <button type="button" class="btn btn-danger" name = "cancel" id="cancel" > cancel</button>
-                    </form>
-                    <div id="response"></div>
+                  </form>
+                  <div id="response"></div>
                 </div>
             </div>
         </div>

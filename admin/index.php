@@ -17,6 +17,34 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <?php
+
+    include "config.php";
+    $sql1 = "SELECT COUNT(customerId) as custcount FROM customers";
+    $sql2 = "SELECT COUNT(orderId) as ordercount FROM orders";
+    $sql3 = "SELECT COUNT(userId) as usercount FROM users";
+
+    $result1 = $conn->query($sql1);
+    while($row1 = $result1->fetch_assoc()) {
+      $cc = $row1['custcount'];
+    }
+
+    $result2 = $conn->query($sql2);
+    $row2 = $result2->fetch_assoc();
+    while($row2 = $result2->fetch_assoc()) {
+      $cc1 = $row2['ordercount'];
+    }
+
+    $result3 = $conn->query($sql3);
+    $row3 = $result3->fetch_assoc();
+    while($row3 = $result3->fetch_assoc()) {
+      $cc3 = $row3['usercount'];
+    }
+
+    $conn->close();
+
+  ?>
   
 
 </head>
@@ -48,8 +76,8 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">USERS</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">CUSTOMERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="user/user-listing.php">USERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="customer/customer-listing.php">CUSTOMERS</a></li>
             </ul>
           </div>
         </li>
@@ -60,7 +88,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="pages/charts/chartjs.html">
+          <a class="nav-link" href="product/category.php">
             <i class="mdi mdi-chart-pie menu-icon"></i>
             <span class="menu-title">CATEGORIES</span>
           </a>
@@ -163,7 +191,7 @@
                   <div class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
                     <i class="mdi mdi-account-multiple-plus text-white icon-lg"></i>
                     <div class="ml-3 ml-md-0 ml-xl-3">
-                      <h5 class="text-white font-weight-bold">Global Customers</h5>
+                      <h5 class="text-white font-weight-bold"><?php echo $cc." Global Customers"; ?>  </h5>
                       <p class="mt-2 text-white card-text">You numbers are growing</p>
                     </div>
                   </div>
@@ -176,7 +204,7 @@
                   <div class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
                     <i class="mdi mdi-arrow-up-bold-hexagon-outline text-white icon-lg"></i>
                     <div class="ml-3 ml-md-0 ml-xl-3">
-                      <h5 class="text-white font-weight-bold">Orders</h5>
+                      <h5 class="text-white font-weight-bold"><?php echo $cc1." Orders"; ?></h5>
                       <p class="mt-2 text-white card-text">You numbers are growing</p>
                     </div>
                   </div>
@@ -189,7 +217,7 @@
                   <div class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
                     <i class="mdi mdi-blackberry text-white icon-lg"></i>
                     <div class="ml-3 ml-md-0 ml-xl-3">
-                      <h5 class="text-white font-weight-bold">Users</h5>
+                      <h5 class="text-white font-weight-bold"><?php echo $cc3." Users"; ?></h5>
                       <p class="mt-2 text-white card-text">Our family is getting bigger</p>
                     </div>
                   </div>
