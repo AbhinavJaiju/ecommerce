@@ -22,7 +22,6 @@ $_SESSION["CategoryId"] = $categoryId;
 
 include "config.php";
 ?>
-
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -92,11 +91,14 @@ include "config.php";
     <div class="breadcrumb-option">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-9">
                     <div class="breadcrumb__links">
                         <a href="index.php"><i class="fa fa-home"></i> Home</a>
                         <span>Shop</span>
                     </div>
+                </div>
+                <div class="col-lg">
+                    <input type="text" class="search-products" placeholder="Search products.....">
                 </div>
             </div>
         </div>
@@ -113,21 +115,15 @@ include "config.php";
                             <div class="section-title">
                                 <h4>Categories</h4>
                             </div>
+                            <div class="section-title">
+                            <input type="text" class="search-categories" placeholder="Search category.....">
+                            </div>
                             <div class="categories__accordion">
                                 <div class="accordion" id="accordionExample">
-
-
-
                                     <?php
-
                                     $sql = "SELECT * FROM categories ";
-                                    //echo $sql;
                                     $result = $conn->query($sql);
-
-
                                     if ($result->num_rows > 0) {
-                                        //echo "inside if";
-
                                         while ($row = $result->fetch_assoc()) {
                                             echo "  <div class='card'>
                                         <div class='card-heading active'>
@@ -141,123 +137,28 @@ include "config.php";
                                 </div>
                             </div>
                         </div>
-
-                        <div class="sidebar__filter">
-                            <div class="section-title">
-                                <h4>Shop by price</h4>
-                            </div>
-                            <div class="filter-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" <?php
-
-
-                            $minsql = "SELECT MIN(price) as min FROM products where categoryId=$categoryId";
-                                                                 
-                             $min = $conn->query($minsql);
-
-                             $val = $min->fetch_assoc();
-                            $minval = (int)$val["min"];
-
-
-
-                        $maxsql = "SELECT MAX(price) as max FROM products where categoryId=$categoryId";
-                                                                                                                                    //echo $minsql;
-                        $max = $conn->query($maxsql);
-
-                        $val2 = $max->fetch_assoc();
-                        $maxval = (int)$val2["max"];
-
-
-
-
-
-                                                                                                                                    echo "data-min=$minval
-                                    data-max=$maxval
-
-                                    ";
-                                    ?>></div>
-                                <div class="range-slider">
-                                    <div class="price-input">
-                                        <p>Price</p>
-                                        <input type="text " id="minamount">
-                                        <input type="text" id="maxamount">
-                                    </div>
-                                </div>
-                            </div><a href="#">FILTER</a>
-
-                            <!-- <a href=\"http://localhost/ashion-master/shop.php?id=$categoryId?min=$minval?max=$maxval\">
-                                FILTER</a> -->
-
-                        </div>
-
-
-
-
-
-
                     </div>
                 </div>
-
-
-
                 <div class="col-lg-9 col-md-9">
                     <div class="row">
-
-
-
-
-
-
-
-
-                        <?php
-                        // echo $maxbyurl = $_GET['max'];
-
-                        // $minbyurl = $_GET['min'];
-                        // if($maxbyurl>0&&$minbyurl>0){
-                        //     $sql = "SELECT * FROM products where categoryId=$categoryId 
-                        //     and price between $minbyurl and $maxbyurl";
-
-                        // }
-
-                        // else{
+                         <?php
                         $sql = "SELECT * FROM products where categoryId=$categoryId";
-                        // }
-
-                        //echo $sql;
-
                         $result = $conn->query($sql);
-
-
                         if ($result->num_rows > 0) {
-                            //echo "inside if";
-
                             while ($row = $result->fetch_assoc()) {
-                                //echo "inside while";
                                 $id = $row["productId"];
-
-                                //echo $id;
-
-
-
                                 $sql2 = "SELECT fileName FROM productImage
-                     WHERE productId=$id";
+                                WHERE productId=$id";
                                 $result1 = $conn->query($sql2);
                                 $file = $result1->fetch_assoc();
                                 $location = "Images\\";
                                 $filename = $location . $file["fileName"];
                                 $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
                                 $rs = $fmt->format($row["price"]);
-                                //NEWW
-                                //  <div class='label new'>New</div>
-
-
-                                echo "
-                    
-                    <div class='col-lg-4 col-md-6'>
-                            <div class='product__item'>
+                                echo "<div class='col-lg-4 col-md-6'>
+                                <div class='product__item'>
                                 <div class='product__item__pic set-bg' data-setbg='img/shop/{$file["fileName"]}'>
                                 
-                                <!-- Toaster Begins -->
                                 <ul class='product__hover'>
                                 <li>  <div class='d-flex align-items-center justify-content-center'>
                                 <div class='toast'>
@@ -265,19 +166,14 @@ include "config.php";
                                 </div>
                                 </div></li>
                                 </ul>
-
-                                <!-- Toaster Ends -->
-
-                                    <ul class='product__hover'>
-                                        <li><a href=\"img/shop/{$file["fileName"]}\" class='image-popup'><span class='arrow_expand'></span></a></li>
-                                        <li><a class='wishList' id='{$row["productId"]}'><span class='icon_heart_alt'></span></a></li>
-                                        <li><a href='#'><span class='icon_bag_alt'></span></a></li>
-                                    </ul>
-                        
-                                  
+                                
+                                <ul class='product__hover'>
+                                    <li><a href=\"img/shop/{$file["fileName"]}\" class='image-popup'><span class='arrow_expand'></span></a></li>
+                                    <li><a class='wishList' id='{$row["productId"]}'><span class='icon_heart_alt'></span></a></li>
+                                    <li><a href='#'><span class='icon_bag_alt'></span></a></li>
+                                </ul>
                                 </div>
                                 <form method=\"POST\">
-                                
                                 <div class='product__item__text'>
                                     <h6><a href='product-details.php?id={$row["productId"]}'>{$row["productName"]}</a></h6>
                                     <div class='rating'>
@@ -287,25 +183,15 @@ include "config.php";
                                         <i class='fa fa-star'></i>
                                         <i class='fa fa-star'></i>
                                     </div>
-                                    <div class='product__price'>₹$rs</div>
-                                </div>
+                                <div class='product__price'>₹$rs</div>
                             </div>
                         </div>
-                        
-
-                    ";
+                    </div>";
                             }
                         } else {
                             echo "0 results";
                         }
-                        // mysqli_close($con);
-
-
-
-                        
                         ?>
-
-
                         <div class="col-lg-12 text-center">
                             <div class="pagination__option">
                                 <a href="#">1</a>
@@ -433,6 +319,7 @@ include "config.php";
     // Adding products to wishlist
     $('.wishList').click(function() {
         var product_id = $(this).attr('id');
+      
 
         // console.log(product_id);
         $.ajax({
@@ -456,4 +343,44 @@ include "config.php";
             }
         });
     });
+
+    // Search categories
+    $('.search-categories').on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        // console.log(value);
+        $('.card').filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    
+        });
+    });
+
+    // Search products
+    $('.search-products').on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        // console.log(value);
+        $('.product__item').filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    
+        });
+    });
 </script>
+
+
+<style>
+    .search-categories{
+    width: 90%;
+	font-size: 20px;
+	border: none;
+	border-bottom: 2px solid #dddddd;
+	background: 0 0;
+	color: #999;
+    }
+    .search-products{
+    width: 80%;
+	font-size: 20px;
+	border: none;
+	border-bottom: 2px solid #dddddd;
+	background: 0 0;
+	color: #999;
+    }
+</style>
