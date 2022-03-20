@@ -21,7 +21,7 @@
     /* Set gray background color and 100% height */
     .sidenav {
       /* background-color: #f1f1f1; */
-      background-color: #FCE2E2;
+      background-color: #ffffff;
       height: 100%;
     }
    
@@ -36,11 +36,12 @@
     }
 
     .nav-pills li.active   a{
-      background-color: #ca1515;
-      width: 70%;
-      padding: 7%;
+      background-color: #B7395F;
+      width: 60%;
+      padding: 5%;
       margin-top: 10%;
       margin-left: 20%;
+      font-size: larger;
     }
 
     .nav-pills{
@@ -57,8 +58,7 @@
       margin-top: 10px;
       margin-left: 10px;
       font-weight: bolder;
-      color: #ca1515;
-      text-shadow: 3px 2px 9px #000000;
+      color: #B7395F;
     }
     
     hr {
@@ -74,9 +74,13 @@
       }
 
       .gutters-sm{
-        border: #ca1515 solid 4px;
+        background-color: #ffffff;
         margin-left: 10%;
         padding: 5%;
+        border-radius: 10px;
+      }
+      body{
+        background-color: #F9EDF0;
       }
   </style>
 </head>
@@ -102,7 +106,7 @@ if(isset($_POST['home'])){
   <div>
 
                         
-                        <form method='post' action="" style="margin-left:1200px;margin-top:2%;">
+                        <form method='post' action="" style="margin-left:1350px;margin-top:2%;">
                         <input type="submit" class="btn btn-danger btn-sm" style="font-size:15px;font-weight:bold" value="home" name="home">
                           <input type="submit" class="btn btn-danger btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
                                </form>
