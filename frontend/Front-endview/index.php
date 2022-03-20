@@ -51,7 +51,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT productImage.fileName,productImage.pImageId ,products.productId,products.productname,products.price FROM productImage join products ON productImage.productId = products.productId ORDER BY productImage.pImageId DESC LIMIT 8;";
+$sql = "SELECT productImage.fileName,productImage.pImageId ,products.productId,products.productname,products.price FROM productImage join products ON productImage.productId = products.productId ORDER BY productImage.pImageId DESC LIMIT 10;";
 $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
 ?>
 
@@ -255,7 +255,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
             ?>
 
 
-                    <div class=" column1" style="float: left;width:25%;padding: 5px;">
+                    <div class=" column1" style="float: left;width:20%;padding: 5px;">
 
                         <div class="product__item">
 
