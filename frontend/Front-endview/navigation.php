@@ -9,9 +9,29 @@
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.php">Home</a></li>
+                            <li class="active"><a href="./index.php">Home</a></li><li><a href="#">Shop</a>
+                                <ul class="dropdown">
+                            <?php
 
-                            <li><a href="./shop.php">Shop</a></li>
+                                    $sql = "SELECT * FROM categories ";
+                                    //echo $sql;
+                                    $result = $conn->query($sql);
+
+
+                                    if ($result->num_rows > 0) {
+                                        //echo "inside if";
+
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo"<li><a href=\"./shop.php?id={$row["categoryId"]}\">{$row["categoryName"]}</a></li>";
+                                        }
+                                    }
+                                    else{
+                                        echo"Server Error ! Please try again later";
+                                    }
+                                            ?>
+                                         
+                                </ul>
+                            </li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./product-details.php">Product Details</a></li>

@@ -137,15 +137,7 @@ include "config.php";
                                     ";
                                         }
                                     }
-
-
-
                                     ?>
-
-
-
-
-
                                 </div>
                             </div>
                         </div>
