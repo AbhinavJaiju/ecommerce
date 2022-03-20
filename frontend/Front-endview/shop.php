@@ -1,29 +1,28 @@
 <?php
 session_start();
+if (isset($_POST['but_logout'])) {
+    session_destroy();
+    header('Location: login.php');
+}
+$_SESSION["CategoryId"] = 3;
+
 //get category id from session
 
 $strValue = $_GET['id'];
 if ($strValue > 0) {
     $categoryId = $strValue;
 } else {
-    $categoryId = 3;
+    $categoryId = $_SESSION["CategoryId"];
 }
 
 
-$_SESSION["CategoryId"] = $strValue;
-//$categoryId=3;
+$_SESSION["CategoryId"] = $categoryId;
+
+
 include "config.php";
 
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-//echo "Connected successfully";
 ?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -64,10 +63,10 @@ if ($conn->connect_error) {
         <div class="offcanvas__close">+</div>
         <ul class="offcanvas__widget">
             <li><span class="icon_search search-switch"></span></li>
-            <li><a href="#"><span class="icon_heart_alt"></span>
+            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                     <div class="tip">2</div>
                 </a></li>
-            <li><a href="#"><span class="icon_bag_alt"></span>
+            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                     <div class="tip">2</div>
                 </a></li>
         </ul>
@@ -89,35 +88,46 @@ if ($conn->connect_error) {
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.php"><img src="img/logo3.png" alt="" style="height: 35px;width: 100px;"></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li>
-                            <li class="active"><a href="./shop.html">Shop</a></li>
+                            <li class="active"><a href="./index.php">Home</a></li>
+
+                            <li><a href="./shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a href="./product-details.html">Product Details</a></li>
-                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
-                                    <li><a href="./checkout.html">Checkout</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    <li><a href="./product-details.php">Product Details</a></li>
+                                    <li><a href="./shop-cart.php">Shop Cart</a></li>
+                                    <li><a href="./checkout.php">Checkout</a></li>
+
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+
+                            <li><a href="./contact.php">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="login.php">Login</a>
-                            <a href="#">Register</a>
+                            <?php
+                            if ($_SESSION['uname']) {
+
+                                // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
+
+                                echo $_SESSION['uname'];
+                            } else {
+                                echo  '<a href="login.php">Login</a>
+                                <a href="#">Register</a>';
+                            }
+
+                            ?>
+
                         </div>
+
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
@@ -126,9 +136,18 @@ if ($conn->connect_error) {
                             <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
+                            <li>
+                                <form method='post' action="" style="margin-left:1%">
+                                    <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
+                                </form>
+                            </li>
+
+
                         </ul>
                     </div>
+
                 </div>
+
             </div>
             <div class="canvas__open">
                 <i class="fa fa-bars"></i>
@@ -207,21 +226,21 @@ if ($conn->connect_error) {
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" <?php
 
 
-                                                                                                                                    $minsql = "SELECT MIN(price) as min FROM products where categoryId=$categoryId";
+                            $minsql = "SELECT MIN(price) as min FROM products where categoryId=$categoryId";
+                                                                 
+                             $min = $conn->query($minsql);
+
+                             $val = $min->fetch_assoc();
+                            $minval = (int)$val["min"];
+
+
+
+                        $maxsql = "SELECT MAX(price) as max FROM products where categoryId=$categoryId";
                                                                                                                                     //echo $minsql;
-                                                                                                                                    $min = $conn->query($minsql);
+                        $max = $conn->query($maxsql);
 
-                                                                                                                                    $val = $min->fetch_assoc();
-                                                                                                                                    $minval = (int)$val["min"];
-
-
-
-                                                                                                                                    $maxsql = "SELECT MAX(price) as max FROM products where categoryId=$categoryId";
-                                                                                                                                    //echo $minsql;
-                                                                                                                                    $max = $conn->query($maxsql);
-
-                                                                                                                                    $val2 = $max->fetch_assoc();
-                                                                                                                                    $maxval = (int)$val2["max"];
+                        $val2 = $max->fetch_assoc();
+                        $maxval = (int)$val2["max"];
 
 
 
@@ -231,14 +250,7 @@ if ($conn->connect_error) {
                                     data-max=$maxval
 
                                     ";
-
-
-
-
-
-
-
-                                                                                                                                    ?>></div>
+                                    ?>></div>
                                 <div class="range-slider">
                                     <div class="price-input">
                                         <p>Price</p>
@@ -267,7 +279,7 @@ if ($conn->connect_error) {
                     <div class="row">
 
 
-                    
+
 
 
 
@@ -385,8 +397,8 @@ if ($conn->connect_error) {
                             // header("Location: http://localhost/Projects/productEdit.php?id=" . $var);
                         }
                         ?>
-                        
-   
+
+
                         <div class="col-lg-12 text-center">
                             <div class="pagination__option">
                                 <a href="#">1</a>
@@ -401,62 +413,11 @@ if ($conn->connect_error) {
         </div>
     </section>
     <!-- Shop Section End -->
-  
+
     <!-- Instagram Begin -->
-    <div class="instagram">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+    include "footer.php"
+    ?>
     <!-- Instagram End -->
 
     <!-- Footer Section Begin -->
@@ -562,12 +523,10 @@ if ($conn->connect_error) {
 
 
 <script>
-    
-
     // Adding products to wishlist
     $('.wishList').click(function() {
         var product_id = $(this).attr('id');
-        
+
         // console.log(product_id);
         $.ajax({
             url: "php/add-to-wishlist.php",
@@ -578,17 +537,15 @@ if ($conn->connect_error) {
             dataType: 'json',
             success: function(response) {
                 // console.log(response);
-                if(response.result == "exists"){
+                if (response.result == "exists") {
                     alert('Product already in wishlist');
-                }
-                else if(response.result == "success"){
+                } else if (response.result == "success") {
                     $('.toast').toast('show');
-                }
-                else{
+                } else {
                     alert("Something went wrong");
                     console.log(response);
                 }
-                
+
             }
         });
     });
