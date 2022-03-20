@@ -2,6 +2,6 @@
 <?php
 $servername = "localhost";
 $username = "gazni";
-$password = "password";
+$password = "Experion@123";
 $dbname = "ecommerce";
- ?>
+?>

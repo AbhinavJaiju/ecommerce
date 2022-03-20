@@ -2,15 +2,15 @@
 <?php
 session_start();
 $servername = "localhost";
-$username = "gazni";
-$password = "password";
+$username = "ganesh";
+$password = "Experion@123";
 $dbname = "ecommerce";
 
-$conn = mysqli_connect($servername, $username, $password,$dbname);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
-}else{
+} else {
   //echo "connected";
 }
 ?>
