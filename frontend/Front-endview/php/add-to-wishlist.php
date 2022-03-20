@@ -4,7 +4,7 @@ $custId = $_SESSION['cutomerId'];
 $prodId = $_POST['productId'];
 
 
-include "config.php";
+include "../config.php";
 
 //Create connection
 try {
