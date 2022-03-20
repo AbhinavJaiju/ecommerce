@@ -319,7 +319,7 @@
                                                 
 
                                                 <td><button name='view' value='view' id= {$row['enquiryId']} class='btn btn-info btn-xs 
-                                                view_data'>view</button></td>
+                                                view_data'><i class='mdi mdi-tooltip'></button></td>
 
                                              </td>
                                                ";

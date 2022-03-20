@@ -339,9 +339,8 @@
                                                 </select>
                                                 
                                                 <input type=hidden name=id value=" . $row["orderId"] . " >
-                                                <input type=submit value= update name=edit 
-                                                class='btn btn-info btn-xs me-3 text-white'
-                                                >
+                                                
+                                                <button type=submit  name=edit class='btn btn-info btn-xs me-3 text-white' ><i class='mdi mdi-check '></i></button>
                                                 </form>
                                                 </td>
                                                
@@ -349,7 +348,7 @@
                                                 
 
                                                 <td><button name='view' value='view' id= {$row['orderId']} class='btn btn-info btn-xs 
-                                                    view_data'>view</button></td>
+                                                    view_data'><i class='mdi mdi-tooltip'></i></button></td>
 
                                                  </td>                                          
 

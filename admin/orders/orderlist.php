@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Enquiries</title>
+    <title>orderlist</title>
     <!-- base:css -->
     <link rel="stylesheet" href="../../admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../admin/assets/vendors/css/vendor.bundle.base.css">
@@ -330,9 +330,7 @@
                                                 </select>
                                                 
                                                 <input type=hidden name=id value=" . $row["orderId"] . " >
-                                                <input type=submit value= update name=edit 
-                                                class='btn btn-info btn-xs me-3 text-white'
-                                                >
+                                                <button type=submit  name=edit class='btn btn-info btn-xs me-3 text-white' ><i class='mdi mdi-check '></i></button>
                                                 </form>
                                                 </td>
                                                
@@ -340,7 +338,7 @@
                                                 
 
                                                 <td><button name='view' value='view' id= {$row['orderId']} class='btn btn-info btn-xs 
-                                                    view_data'>view</button></td>
+                                                    view_data'><i class='mdi mdi-tooltip'></button></td>
 
                                                  </td>                                          
 
