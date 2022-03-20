@@ -80,57 +80,9 @@ $row = $result->fetch_assoc();
     <!-- Offcanvas Menu End -->
 
     <!-- Header Section Begin -->
-    <header class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-3 col-lg-2">
-                    <div class="header__logo">
-                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-7">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.php">Home</a></li>
-                            <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li>
-                            <li><a href="./shop.php">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./product-details.php">Product Details</a></li>
-                                    <li><a href="./shop-cart.php">Shop Cart</a></li>
-                                    <li><a href="./checkout.php">Checkout</a></li>
-                                    <li><a href="./blog-details.php">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.php">Blog</a></li>
-                            <li><a href="./contact.php">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__right">
-                        <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
-                        </div>
-                        <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
-                                    <div class="tip">2</div>
-                                </a></li>
-                            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
-                                    <div class="tip">2</div>
-                                </a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
+    <?php
+    include "navigation.php";
+    ?>
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
@@ -169,9 +121,9 @@ $row = $result->fetch_assoc();
                                         <td class="cart__product__item">
                                             <img src="img/shop/<?php echo $row["fileName"]; ?>" alt="" height="80px" width="80px">
                                             <div class="cart__product__item__title">
-                                            <h6>
-                                                <a style="color: black;" href='product-details.php?id=<?php echo $row["productId"]; ?>'><?php echo $row["productName"]; ?></a>
-                                            </h6>
+                                                <h6>
+                                                    <a style="color: black;" href='product-details.php?id=<?php echo $row["productId"]; ?>'><?php echo $row["productName"]; ?></a>
+                                                </h6>
 
                                                 <div class="rating">
                                                     <i class="fa fa-star"></i>
@@ -188,9 +140,9 @@ $row = $result->fetch_assoc();
                                             </div>
                                         </td>
 
-                                    <td class="cart__close">
-                                        <button class="btn btn-outline-danger" id="<?php echo $row["productId"]; ?>"><i class="fa fa-light fa-cart-plus"></i></button>
-                                    </td>
+                                        <td class="cart__close">
+                                            <button class="btn btn-outline-danger" id="<?php echo $row["productId"]; ?>"><i class="fa fa-light fa-cart-plus"></i></button>
+                                        </td>
 
                                         <td class="cart__close"><span class="icon_close" id="<?php echo $row["wishListId"]; ?>"></span></td>
                                     </tr>
@@ -425,10 +377,9 @@ $row = $result->fetch_assoc();
                 if (data.result == 'success') {
                     alert('Product added to cart successfully');
                     // location.reload();
-                } else if(data.result == 'exists'){
+                } else if (data.result == 'exists') {
                     alert('Product already in cart');
-                }
-                 else {
+                } else {
                     alert('Something went wrong');
                     console.log(data);
                 }
