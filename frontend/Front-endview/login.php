@@ -62,7 +62,7 @@ if (isset($_POST['but_submit'])) {
                             <input type="text" class="form-control rounded-left" placeholder="Username" id="txt_uname" name="txt_uname" required>
                         </div>
                         <div class="form-group d-flex">
-                            <input type="password" class="form-control rounded-left" placeholder="Password" id="txt_uname" name="txt_pwd" required>
+                            <input type="password" class="form-control rounded-left" placeholder="Password" id="txt_pwd" name="txt_pwd" required>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Submit" class="form-control btn btn-primary rounded submit px-3" name="but_submit" id="but_submit">

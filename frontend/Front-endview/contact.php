@@ -108,6 +108,9 @@
     </header>
     <!-- Header Section End -->
 
+
+
+
     <!-- Breadcrumb Begin -->
     <div class="breadcrumb-option">
         <div class="container">
@@ -148,11 +151,11 @@
                         </div>
                         <div class="contact__form">
                             <h5>SEND MESSAGE</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Name">
-                                <input type="text" placeholder="Email">
-                                <input type="text" placeholder="Website">
-                                <textarea placeholder="Message"></textarea>
+                            <form action="contact.php" method="post" enctype="multipart/form-data">
+                                <input type="text" placeholder="Name" name="custname">
+                                <input type="text" placeholder="Email" name="custemail">
+                                <input type="text" placeholder="phonenumber" name="phonenumber">
+                                <textarea placeholder="Message" name="message"></textarea>
                                 <button type="submit" class="site-btn">Send Message</button>
                             </form>
                         </div>
@@ -170,55 +173,80 @@
     </section>
     <!-- Contact Section End -->
 
+    <?php
+
+    include "config.php";
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $name = $_POST['custname'];
+    $email = $_POST['custemail'];
+    $message = $_POST['message'];
+    $phonenumber = $_POST['phonenumber'];
+
+    $sql = "INSERT INTO enquiries (email, name, message,phoneNumber) VALUES ('{$email}', '{$name}', '{$message}', '{$phonenumber}')";
+
+    if ($conn->query($sql) === TRUE) {
+
+        echo "Hello {$username} your record is saved";
+    } else {
+        echo "Error   creating database: ";
+    }
+    $conn->close();
+    ?>
+
     <!-- Instagram Begin -->
     <div class="instagram">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic1.jpg">
                         <div class="instagram__text">
                             <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
+                            <a href="#">@ Eshoppe</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic2.jpg">
                         <div class="instagram__text">
                             <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
+                            <a href="#">@ Eshoppe</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic3.jpg">
                         <div class="instagram__text">
                             <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
+                            <a href="#">@ Eshoppe</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic4.jpg">
                         <div class="instagram__text">
                             <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
+                            <a href="#">@ Eshoppe</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic5.jpg">
                         <div class="instagram__text">
                             <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
+                            <a href="#">@ Eshoppe</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic6.jpg">
                         <div class="instagram__text">
                             <i class="fa fa-instagram"></i>
-                            <a href="#">@ ashion_shop</a>
+                            <a href="#">@ Eshoppe</a>
                         </div>
                     </div>
                 </div>
