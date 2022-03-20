@@ -19,25 +19,26 @@ include "config.php";
 
 if (isset($_POST['but_submit'])) {
 
-    $uname = mysqli_real_escape_string($conn, $_POST['txt_uname']);
-    $pass = mysqli_real_escape_string($conn, $_POST['txt_pwd']);
+    $uname = mysqli_real_escape_string($conn,$_POST['txt_uname']);
+    $password = mysqli_real_escape_string($conn,$_POST['txt_pwd']);
+    
 
-    if ($uname != "" && $pass != "") {
-
-        $sql_query = "select * from customers where customerName='" . $uname . "' and passwords='" . $pass . "'";
-        $result = mysqli_query($conn, $sql_query);
-
+    if ($uname != "" && $password != ""){
+    
+        $sql_query= "select * from customers where customerName='".$uname."' and passwords='".$password."'";
+       
+        $result = mysqli_query($conn,$sql_query);
+       
         $row = mysqli_fetch_array($result);
-
-        $count = count($row);
-
-        $custId = $row['customerId'];
-
-        if ($count > 0) {
+        
+        $count=count($row);
+       
+        if($count > 0){
             $_SESSION['uname'] = $uname;
-            $_SESSION['cutomerId'] = $custId;
-            header('Location:index.php');
-        } else {
+            $_SESSION['id']=$row[0];
+           
+            header('Location:http://localhost/ecommerce/frontend/Front-endview/index.php');
+        }else{
             echo "Invalid username and password";
         }
     }

@@ -117,13 +117,18 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                     <div class="header__right">
                         <div class="header__right__auth">
                             <?php
-                            if ($_SESSION['uname']) {
-
-                                // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
-
-                                echo $_SESSION['uname'];
-                            } else {
-                                echo  '<a href="login.php">Login</a>
+                            if($_SESSION['uname']){
+                                
+                               // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
+                            ?>
+                              <a href="http://localhost/ecommerce/frontend/Front-endview/myaccount.php" style="font-weight:bold;font-size:18px;color:blue;"> 
+                              <?php echo $_SESSION["uname"]?>
+                              </a>
+                            
+                            <?php
+                            }
+                            else{
+                                echo  '<a href="http://localhost/ecommerce/frontend/Front-endview/login.php">Login</a>
                                 <a href="#">Register</a>';
                             }
 
@@ -137,13 +142,11 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                                     <div class="tip">2</div>
                                 </a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span>
-                                    <div class="tip">2</div>
-                                </a></li>
-                            <li>
-                                <form method='post' action="" style="margin-left:1%">
-                                    <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
-                                </form>
-                            </li>
+                                <div class="tip">2</div>
+                            </a></li>
+                            <li><form method='post' action="" style="margin-left:1%">
+                               <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold;color:red" value="Logout" name="but_logout">
+                               </form></li>
                         </ul>
                     </div>
 
@@ -865,15 +868,12 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    <div class="footer__copyright__text">
-                        <p>Copyright &copy; <script>
-                                document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-                    </div>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <div class="footer__copyright__text">
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved<i class="fa fa-heart" aria-hidden="true"></i></a></p>
                 </div>
             </div>
         </div>
