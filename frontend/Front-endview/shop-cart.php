@@ -12,15 +12,13 @@ $sum=0;
 $categoryId = $_SESSION["CategoryId"];
 
 include "config.php";
+$quantityArray = array();
+$productArray=array();
+$priceArray=array();
+$append="";
 
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 ?>
 
 
@@ -204,13 +202,19 @@ if ($conn->connect_error) {
 
                         $sql = "SELECT * FROM productCarts where customerId=$userId";
                         $result = $conn->query($sql);
+                      
+                        $i=0;
+                        
                         
                         if ($result->num_rows > 0 ) {
+
                             //echo "inside if";
                            
                             while ($row = $result->fetch_assoc()) {
+                                
                                 //echo "inside while";
                                 $productid = $row["productId"];
+                                
                                 
                                 
                                 //echo $id;
@@ -277,6 +281,12 @@ if ($conn->connect_error) {
                                     
                                 </tr>";
                                 $sum+=$rowtotal;
+                                $quantityArray[$i]=$row["quantity"];
+                                $productArray[$i]=$productid;
+                                $priceArray[$i]=$rowtotal;
+                                $i++;
+                                
+
 
                             }}else{
                                 echo "No items in cart";
@@ -322,10 +332,79 @@ if ($conn->connect_error) {
                ?>
                </span>
             </li> </ul>
-                         <a href="#" class="primary-btn">Proceed to checkout</a>
 
 
-                    </div>
+<?php
+if (isset($_POST['checkout'])) {
+                            
+    if ($userId > 0) {
+        date_default_timezone_set("Asia/Calcutta");   //India time (GMT+5:30)
+        $today= date('Y-m-d');
+        
+       $orderStatus="pending";
+       $_SESSION["TotalAmount"]=$sum;
+        //date_default_timezone_set('Indian/Mahe');
+
+        $order = "INSERT into orders(orderdate, orderStatus, customerId,totalprice)
+    VALUES (\"$today\", \"$orderStatus\",$userId, $sum);";
+    
+    if ($conn->query($order) === TRUE) {
+        $lastId = $conn->insert_id;
+        $i=0;
+    while($quantityArray[$i]>0){
+        
+      
+        $append.="($quantityArray[$i],$lastId,$productArray[$i],$priceArray[$i]),";
+        $i++;
+
+    }
+   
+
+       
+            $tempquery= "INSERT INTO orderDetails(quantity,orderId,productId,price)VALUES".$append;
+            $query=rtrim($tempquery, ", ").";";
+            if ($conn->query($query) === TRUE) {
+                $query = "DELETE FROM productCarts WHERE customerId=$userId;";
+                                if ($conn->query($query) === TRUE ) {
+                                    echo "<script>alert(\"Order placed\")</script>";
+                                    header("Location: checkout.php");
+                                    } 
+
+            
+            }
+        }
+       
+        
+    }
+    else{
+        
+        echo "Please login to checkout";
+    }
+    
+}
+            echo"<form method=\"POST\">
+            <a class=\"primary-btn\">
+            <input type=\"submit\" name=\"checkout\" value=\"Proceed to checkout\" class=\"btn btn-link text-white\" >
+            </a>
+                            
+                            
+                        </form>
+                        ";
+                       
+
+                        
+
+
+
+
+
+?>
+
+
+                         
+
+
+                    </div > 
                 </div>
             </div>
         </div>
