@@ -18,7 +18,6 @@ $priceArray=array();
 $append="";
 
 
-
 ?>
 
 
@@ -129,7 +128,6 @@ $append="";
                                     echo ' alert("Error deleting product details")';
                                     echo '</script>';
                             }
-
 
 
 }

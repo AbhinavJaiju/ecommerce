@@ -2,7 +2,7 @@
 $id = $_POST['id'];
 
 
-require "config.php";
+require "../config.php";
 
 //Create connection
 try {

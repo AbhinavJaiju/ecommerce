@@ -7,7 +7,8 @@ if(isset($_POST['but_logout'])){
 
 include "config.php";
 $customerId = $_SESSION['cutomerId'];
-$categoryId = 3;
+// $categoryId = 3;
+
 
 
 
@@ -186,8 +187,8 @@ $catnam = $_SESSION["Category"];
                         echo "   
                         
                             <ul>
-                                <li><a href=\"\"><span class=\"icon_heart_alt\"></span></a></li>
-                                
+                                <li><a class='wishList' id='$strValue'><span class=\"icon_heart_alt\"></span></a></li>
+                                <li><a href=\"#\"><span class=\"icon_adjust-horiz\"></span></a></li>
                             </ul>
                         </div>
                         <div class=\"product__details__widget\">

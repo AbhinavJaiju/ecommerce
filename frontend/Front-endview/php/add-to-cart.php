@@ -8,7 +8,7 @@ $qty = $_POST['quantity'];
 // echo $prodId;
 // echo $qty;
 
-include "config.php";
+include "../config.php";
 
 // //Create connection
 // try {
