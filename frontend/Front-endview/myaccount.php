@@ -13,13 +13,15 @@
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css"> -->
     <!-- <link rel="stylesheet" href="css/elegant-icons.css" type="text/css"> -->
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
     .row.content {height: 770px}
     
     /* Set gray background color and 100% height */
     .sidenav {
-      background-color: #f1f1f1;
+      /* background-color: #f1f1f1; */
+      background-color: #FCE2E2;
       height: 100%;
     }
    
@@ -32,6 +34,50 @@
       }
       .row.content {height: auto;} 
     }
+
+    .nav-pills li.active   a{
+      background-color: #ca1515;
+      width: 70%;
+      padding: 7%;
+      margin-top: 10%;
+      margin-left: 20%;
+    }
+
+    .nav-pills{
+      margin-top: 100px;
+    }
+
+    .nav-pills li.active  a:hover{
+      color: #ca1515;
+      background-color: white;
+      border: #ca1515 solid 1px;
+    }
+
+    .sidenav h4{
+      margin-top: 10px;
+      margin-left: 10px;
+      font-weight: bolder;
+      color: #ca1515;
+      text-shadow: 3px 2px 9px #000000;
+    }
+    
+    hr {
+        width: 104%;
+        height: 10px;
+        background-color: white;
+      }
+      
+      .btn{
+        color: #ca1515;
+      background-color: white;
+      border: #ca1515 solid 1px;  
+      }
+
+      .gutters-sm{
+        border: #ca1515 solid 4px;
+        margin-left: 10%;
+        padding: 5%;
+      }
   </style>
 </head>
 <?php
@@ -57,8 +103,8 @@ if(isset($_POST['home'])){
 
                         
                         <form method='post' action="" style="margin-left:1200px;margin-top:2%;">
-                        <input type="submit" class="btn btn-primary btn-sm" style="font-size:15px;font-weight:bold" value="home" name="home">
-                          <input type="submit" class="btn btn-primary btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
+                        <input type="submit" class="btn btn-danger btn-sm" style="font-size:15px;font-weight:bold" value="home" name="home">
+                          <input type="submit" class="btn btn-danger btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
                                </form>
                               
                     </div>
@@ -69,8 +115,9 @@ if(isset($_POST['home'])){
   <div class="row content">
     <div class="col-sm-3 sidenav">
       <h4 style="margin-top:8%">My Account</h4>
-      <ul class="nav nav-pills nav-stacked"style="margin-top:4%">
-        <li class="active"style="margin-top:8%">
+      <hr>
+      <ul class="nav nav-pills nav-stacked"style="margin-top:4%;padding: 1px;">
+        <li class="active"style="margin-top:8%;">
         <?php
         session_start();
         include 'config.php';
@@ -110,9 +157,9 @@ if(isset($_POST['submit'])){
         ?>
 
         <li class="active"style="margin-top:8%"><a href="http://localhost/ecommerce/frontend/Front-endview/changepass.php">Change Password</a></li>
-        <li class="active"style="margin-top:8%"><a href="#section3">Wishlist</a></li>
-        <li class="active"style="margin-top:8%"><a href="#section3">Order details</a></li>
-        <li class="active"style="margin-top:8%"><a href="#section3">contact us</a></li>
+        <li class="active"style="margin-top:8%"><a href="wish-list.php">My Wish list</a></li>
+        <li class="active"style="margin-top:8%"><a href="#section3">My Orders</a></li>
+        <li class="active"style="margin-top:8%"><a href="contact.php">contact us</a></li>
     
       </ul><br>
 
