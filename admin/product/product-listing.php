@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Reviews</title>
+  
   <!-- base:css -->
   <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
@@ -16,9 +17,6 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../assets/images/favicon.png" />
-  <!--Bootstrap cdn -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container-scroller d-flex">
@@ -119,8 +117,8 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="index.html"><img src="../assets/images/logo.svg" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../assets/images/logo-mini.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">Welcome back, Brandon Haynes</h4>
           <ul class="navbar-nav navbar-nav-right">
@@ -136,7 +134,7 @@
                 <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="../assets/images/faces/face4.jpg" alt="image" class="profile-pic">
+                      <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">David Grey
@@ -148,7 +146,7 @@
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="../assets/images/faces/face2.jpg" alt="image" class="profile-pic">
+                      <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
@@ -160,7 +158,7 @@
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                      <img src="../assets/images/faces/face3.jpg" alt="image" class="profile-pic">
+                      <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
@@ -236,7 +234,7 @@
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src="../assets/images/faces/face5.jpg" alt="profile"/>
+                <img src="images/faces/face5.jpg" alt="profile"/>
                 <span class="nav-profile-name">Eleanor Richardson</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
@@ -270,121 +268,96 @@
       </nav>
 
 <!-- body -->
-<!-----------------------------------Main Form------------------------------------------------->
-<script type="text/javascript" src="js/jquery.js"></script>
-<div class="col-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-
-                  <p class="card-description">
-                    Add Product
-                  </p>
-                  <form id="submit_form" enctype="multipart/form-data">
-                    <div class="form-group">
-                      <label for="exampleInputName1">Name</label>
-                      <input type="text" class="form-control" id="productname" name="productname" >
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleTextarea1">Product Description</label>
-                      <textarea class="form-control" id="pdresscription" name="pdescription" rows="2"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="number">price</label>
-                      <input type="number" class="form-control" id="price" name="price" >
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleSelectGender">Category</label>
-                      
-                        <select class = "form-control" id="category" name="category">
-                        <?php
-                        include 'config.php';
-                        $sql = "SELECT * FROM categories";
-                        $result = $conn->query($sql);
-                        ?>
-                        <option selected>Select a category</option>
+<div class="content-wrapper">
+            <div class="page-header">
+              
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">Users</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Product</h4>
+                    <p class="card-description"> List of Products
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th> # </th>
+                            <th> Name </th>
+                            <th> Product Description </th>
+                            <th> Price </th>
+                            <th> CategoryId </th>
+                            <th> Product Status </th>
+                            <th> Short Description</th>
+                            <th> Specification </th>
+                            <th> Product Image</th>
+                            <th> Action </th>
+                          </tr>
+                        </thead>
+                        <tbody>
                             <?php
-                            while($row = $result->fetch_assoc()){
-                                echo "<option value =". $row['categoryId'].">".$row['categoryName']."</option>"; 
+                                include_once 'config.php';
+                                $sql = "SELECT * from products 
+                                LEFT JOIN productImage on products.productId = productImage.productId 
+                                UNION 
+                                SELECT * from products
+                                RIGHT JOIN productImage on products.productId = productImage.productId ";
+                                $result = $conn->query($sql);
+
+                                while($row = $result->fetch_assoc()){
+
                             ?>
-                             <?php
+                          <tr>
+                            <td> <?php echo $row['productId'] ?> </td>
+                            <td> <?php echo $row['productName'] ?> </td>
+                            <td> <?php echo $row['productDescription'] ?></td>
+                            <td> <?php echo $row['price'] ?> </td>
+                            <td> <?php echo $row['categoryId'] ?> </td>
+                            <td> <?php echo $row['productStatus'] ?> </td>
+                            <td> <?php echo $row['shortDescription'] ?> </td>
+                            <td> <?php echo $row['specification'] ?> </td>
+                            <td>
+                                <img src="productimage/<?php echo $row1['fileName'] ?>" alt="">
+                            </td>
+                            <td>
+                                <div>
+                                    <form action='product-remove.php?productId="<?php echo $row['productId'];?>"'method ="post" >
+                                        <input type="hidden" name="productId" value = "<?php echo $row['productId'];?>">
+                                        <button type="submit" class="btn btn-danger" onClick="return confirm('Are you Sure?')" name = "delete" >
+                                        <i class="bi bi-trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                </svg>
+                                                Delete
+                                            </i>
+                                    </form>
+                                </div>
+                                <div >
+                                    <a href='product-edit.php?productId=<?php echo $row[productId]?>&fn=<?php echo $row[customerName];?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords]?>&ph=<?php echo $row[phoneNumber]?>&gd=<?php echo $row[gender]?>&ad=<?php echo $row[addresss]?>&im=<?php echo row[profilePicture]?>' >
+                                        <input type="hidden" name ="productId" value = "<?php echo $row['productId'];?>">
+                                        <button type="submit" class="btn btn-primary" name="edit" onClick = "return Confirm('Are you Sure?')">
+                                        <i class="bi bi-file-earmark-medical">Edit</i>
+                                        </button>   
+                                </a>
+                                </div>
+                            </td>
+                          </tr>
+                                    <?php
                                 }
                                 ?>
-                        </select>
-                        <div class="form-group">
-                        <label for="exampleSelectGender">Status</label>
-                            <select class="form-control" id="status" name="status">
-                                <option selected >select a status</option>
-                                <option value = "0" >Out Of Stock</option>
-                                <option value = "1" >In Stock</option>
-                            </select>
-                      </div>
-                      </div>
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <input type="file" required class="form-control" id="file" name="files[]" 
-                            aria-describedby="inputGroupFileAddon03" aria-label="Upload" multiple >
-                        </div>
+                        </tbody>
+                      </table>
                     </div>
-                    <div class="form-group">
-                      <label for="exampleTextarea1">Short Description</label>
-                      <textarea class="form-control" id="sDescription" name="sDescription" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleTextarea1">Specification</label>
-                      <textarea class="form-control" id="specification" name="specification" rows="3"></textarea>
-                    </div>
-                    <input type="submit" name="submit" id="submit" class="btn btn-primary mr-2" value="Submit">
-                    <button type="button" class="btn btn-light" id="cancel">Cancel</button>
-                  </form>
-                  <div id="response"></div>
+                  </div>
                 </div>
-              </div>
+              </div>                  
             </div>
-              <script>
-                  $(document).ready(function(){
-                      $('#submit_form').on("submit",function(e){
-                            e.preventDefault();
-                            var formData = new FormData(this);
-                        //   var img = $('#image').val().split('\\').pop();
-                        //   console.log(img);
-                          var productname = $('#productname').val();
-                          var pdresscription = $('#pdresscription').val();
-                          var price = $('#price').val();
-                          var category = $('#category').val();
-                        // console.log(category);
-                        // console.log(productname);
-                          var status = $('#status').val();
-                          // console.log(status);
-                          var sDescription = $('#sDescription').val();
-                          var specification = $('specification').val();
-                          if(productname =="" || pdresscription=="" || price ==""|| sDescription =="" || specification==""){
-                            $('#response').fadeIn();
-                            $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
-                            }else{
-                                //$('#response').html($('#submit_form').serialize());
-                                $.ajax({
-                                url: "product-insertion.php",
-                                type:"POST",                            
-                                data : formData,
-                                contentType : false,
-                                processData:false,
-                                success: function(data){
-                                    $('#submit_form').trigger("reset");
-                                    $('#response').fadeIn();
-                                    $('#response').removeClass('error-msg').addClass('success-msg').html(data);
-                                    // setTimeout(() => {
-                                    //     $('#response').fadeOut("slow");
-                                    // }, 4000);
-                                }
-                            })
-                        }
-                      })
-                      $('#cancel').click(function(){
-                          window.location.href = 'user-insertion.php';
-                      })
-                  })
-              </script>
-<!-----------------------------------------------End-------------------------------------------->
+        </div>
 
 <!-- body ends -->
     </div>
