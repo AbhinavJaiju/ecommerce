@@ -9,7 +9,7 @@ $id = $_SESSION['cutomerId'];
 // }
 
 // logout
-if(isset($_POST['but_logout'])){
+if (isset($_POST['but_logout'])) {
     session_destroy();
     header('Location: login.php');
 }
@@ -27,10 +27,9 @@ if(isset($_POST['but_logout'])){
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-   
+
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -118,37 +117,38 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                     <div class="header__right">
                         <div class="header__right__auth">
                             <?php
-                            if($_SESSION['uname']){
-                                
-                               // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
-                            
-                            echo $_SESSION['uname'];
-                            }
-                            else{
-                                echo  '<a href="http://localhost/ecommerce/frontend/Front-endview/login.php">Login</a>
+                            if ($_SESSION['uname']) {
+
+                                // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
+
+                                echo $_SESSION['uname'];
+                            } else {
+                                echo  '<a href="login.php">Login</a>
                                 <a href="#">Register</a>';
                             }
-                           
+
                             ?>
-                           
+
                         </div>
-                        
+
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                            <li><form method='post' action="" style="margin-left:1%">
-                               <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
-                               </form></li>
+                                    <div class="tip">2</div>
+                                </a></li>
+                            <li>
+                                <form method='post' action="" style="margin-left:1%">
+                                    <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
+                                </form>
+                            </li>
                         </ul>
                     </div>
-                    
+
                 </div>
-                
+
             </div>
             <div class="canvas__open">
                 <i class="fa fa-bars"></i>
@@ -166,7 +166,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                         <div class="categories__text">
                             <h1 style="color: white;">Laptop</h1>
                             <p style="font-weight: bold;">Get All the Latest High Specification Laptops</p>
-                            <a href="#" style="color: white;">Shop now</a>
+                            <a href="shop.php?id=1" style="color: white;">Shop now</a>
                         </div>
                     </div>
                 </div>
@@ -177,7 +177,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                                 <div class="categories__text">
                                     <h4 style="color: white;">Camera</h4>
                                     <p style="color: white;">358 items</p>
-                                    <a href="#" style="color: white;">Shop now</a>
+                                    <a href="shop.php?id=3" style="color: white;">Shop now</a>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +186,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                                 <div class="categories__text">
                                     <h4 style="color: white;">Mobiles</h4>
                                     <p style="color: white;">273 items</p>
-                                    <a href="#" style="color: white;">Shop now</a>
+                                    <a href="shop.php?id=2" style="color: white;">Shop now</a>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +195,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                                 <div class="categories__text">
                                     <h4 style="color: white;">Headset</h4>
                                     <p style="color: white;">159 items</p>
-                                    <a href="#" style="color: white;">Shop now</a>
+                                    <a href="shop.php?id=4" style="color: white;">Shop now</a>
                                 </div>
                             </div>
                         </div>
