@@ -1,6 +1,6 @@
 <?php
 session_start();
-$custId = $_SESSION['cutomerId'];
+$custId = $_SESSION['customerId'];
 $prodId = $_POST['productId'];
 
 

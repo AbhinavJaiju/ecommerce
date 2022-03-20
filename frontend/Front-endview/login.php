@@ -35,7 +35,7 @@ if (isset($_POST['but_submit'])) {
        
         if($count > 0){
             $_SESSION['uname'] = $uname;
-            $_SESSION['id']=$row[0];
+            $_SESSION['customerId']=$row[0];
            
             header('Location:http://localhost/ecommerce/frontend/Front-endview/index.php');
         }else{
