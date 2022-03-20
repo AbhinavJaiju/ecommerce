@@ -235,6 +235,7 @@ $catnam = $_SESSION["Category"];
                             <input type=\"submit\" name=\"qtysubmit\" value=\"Add to cart\" class=\"cart-btn\" >
                         </form>
                         ";
+                       
 
                         if (isset($_POST['qtysubmit'])) {
                             $qty = $_POST['quantity'];
