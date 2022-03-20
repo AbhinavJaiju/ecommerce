@@ -30,7 +30,7 @@ $append="";
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ashion | Template</title>
+    <title>Eshop</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
@@ -90,7 +90,7 @@ $append="";
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <a href="./index.php"><i class="fa fa-home"></i> Home</a>
                         <span>Shopping cart</span>
                     </div>
                 </div>
@@ -116,6 +116,9 @@ $append="";
                                 </tr>
                             </thead>
                             <tbody>
+                                 
+
+                                       
 
                             <?php
                             if (isset($_POST['delete'])) {
@@ -175,16 +178,19 @@ $append="";
                                         width: 90px;\">
                                         <div class=\"cart__product__item__title\">
                                             <h5>{$products["productName"]}</h5>
-                                            <p>{$products["shortDescription"]}</p>
+                                           
                                             
                                         </div>
                                     </td>
                                     <td class=\"cart__price\" id=\"priceid\">₹ $rs</td>";
+
+                                    
                                    
                                     echo"
                                     <td class=\"cart__quantity\">
                                         <div >
-                                            <p id=\"qty\">{$row["quantity"]}</p>
+                                            <p id=\"qty\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;{$row["quantity"]}</p>
                                         </div>
                                     </td>";
 
@@ -192,7 +198,6 @@ $append="";
                                     
                                     $rowtotal=(int)$products["price"]*(int)$row["quantity"];
                                    
-
                                     echo"
                                     <td class=\"cart__total\">₹$rowtotal</td>
                                     
@@ -200,7 +205,7 @@ $append="";
                                     <form method='POST'>
                                     <input type=hidden name=cid value= {$row["productCartId"]} >
                                     <input type=submit value=X name=delete 
-                                    class='btn btn-danger btn-xs me-3 text-black'
+                                    class='btn btn-danger  btn-xs me-3 text-black'
                                     onclick=\"return confirm('Remove item?')\"
                                         ></form>
                                     
@@ -258,6 +263,7 @@ $append="";
 
                     <?php
                     //if (isset($_POST['updateCart'])) {
+                        //$sum= $fmt->format($products["price"]);
                
                             echo"₹$sum";
                             //}
@@ -269,12 +275,13 @@ $append="";
 <?php
 if (isset($_POST['checkout'])) {
                             
-    if ($userId > 0) {
+    if ($userId > 0 ) {
         date_default_timezone_set("Asia/Calcutta");   //India time (GMT+5:30)
         $today= date('Y-m-d');
         
        $orderStatus="pending";
-       $_SESSION["TotalAmount"]=$sum;
+       if($sum>0){
+        $_SESSION["TotalAmount"]=$sum;
         //date_default_timezone_set('Indian/Mahe');
 
         $order = "INSERT into orders(orderdate, orderStatus, customerId,totalprice)
@@ -298,8 +305,8 @@ if (isset($_POST['checkout'])) {
             if ($conn->query($query) === TRUE) {
                 $query = "DELETE FROM productCarts WHERE customerId=$userId;";
                                 if ($conn->query($query) === TRUE ) {
-                                    echo "<script>alert(\"Order placed\")
-                                    </script>";
+                                    echo "<script>window.location.href='checkout.php';</script>";
+                                   
                                     
                                     
                                     } 
@@ -310,6 +317,12 @@ if (isset($_POST['checkout'])) {
         else{
             echo"Server Error";
         }
+           
+       }
+       else{
+           echo"Cart is empty";
+       }
+       
        
         
     }

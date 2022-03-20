@@ -32,14 +32,14 @@
                                          
                                 </ul>
                             </li>
-                            <li><a href="#">Pages</a>
+                            <!-- <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./product-details.php">Product Details</a></li>
                                     <li><a href="./shop-cart.php">Shop Cart</a></li>
                                     <li><a href="./checkout.php">Checkout</a></li>
 
                                 </ul>
-                            </li>
+                            </li> -->
 
                             <li><a href="./contact.php">Contact</a></li>
                         </ul>
@@ -66,10 +66,10 @@
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
-                                    <div class="tip">2</div>
+                                    
                                 </a></li>
                             <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
-                                    <div class="tip">2</div>
+                                   
                                 </a></li>
                             <li>
                                 <form method='post' action="" style="margin-left:1%">

@@ -1,3 +1,28 @@
+<?php
+session_start();
+if(isset($_POST['but_logout'])){
+    session_destroy();
+    header('Location: login.php');
+}
+
+$userId=$_SESSION['cutomerId'];
+$categoryId = $_SESSION["CategoryId"];
+$total=$_SESSION["TotalAmount"];
+$customerId = $_SESSION['cutomerId'];
+
+include "config.php";
+
+$sql = "SELECT * FROM customers
+WHERE customerId=$customerId";
+$result = $conn->query($sql);
+
+$row = $result->fetch_assoc() ;
+$address= $row["address"];
+$phn= $row["phoneNumber"];
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -56,57 +81,10 @@
     <!-- Offcanvas Menu End -->
 
     <!-- Header Section Begin -->
-    <header class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-3 col-lg-2">
-                    <div class="header__logo">
-                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-7">
-                    <nav class="header__menu">
-                        <ul>
-                            <li><a href="./index.php">Home</a></li>
-                            <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li>
-                            <li class="active"><a href="./shop.php">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./product-details.php">Product Details</a></li>
-                                    <li><a href="./shop-cart.php">Shop Cart</a></li>
-                                    <li><a href="./checkout.php">Checkout</a></li>
-                                    <li><a href="./blog-details.php">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.php">Blog</a></li>
-                            <li><a href="./contact.php">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__right">
-                        <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
-                        </div>
-                        <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                            <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
+    <?php
+    
+    include "navigation.php"
+    ?>
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
@@ -127,155 +105,62 @@
     <!-- Checkout Section Begin -->
     <section class="checkout spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h6 class="coupon__link"><span class="icon_tag_alt"></span> <a href="#">Have a coupon?</a> Click
-                    here to enter your code.</h6>
-                </div>
-            </div>
+           
             <form action="" class="checkout__form">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <h5>Billing detail</h5>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="checkout__form__input">
-                                    <p>Customer Name <span>*</span></p>
-                                    <input type="text" name="customerName">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="checkout__form__input">
-                                    <p>Address <span>*</span></p>
-                                    <input type="text" name="address" placeholder="Street Address">
-                                </div>
-                                <div class="checkout__form__input">
-                                    <p>Country/State <span>*</span></p>
-                                    <input type="text" name="country">
-                                </div>
-                                <div class="checkout__form__input">
-                                    <p>Postcode/Zip <span>*</span></p>
-                                    <input type="text" name="pincode">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="checkout__form__input">
-                                    <p>Phone <span>*</span></p>
-                                    <input type="text" name="phoneNumber">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="checkout__form__input">
-                                    <p>Email <span>*</span></p>
-                                    <input type="text" name="email">
-                                </div>
-                            </div>
-                            </div>
-                        </div>
+                    <div class="col-lg-8 align-self-center">
+                        <h3>Your order has been placed</h3>
+                    </div>
+                        
                         <div class="col-lg-4">
-                            <div class="checkout__order">
-                                <h5>Your order</h5>
+                            <div class="checkout__order" >
+                                <h5>Details</h5>
                                 <div class="checkout__order__product">
                                     <ul>
+                                        
+                                        
                                         <li>
-                                            <span class="top__text">Product</span>
-                                            <span class="top__text__right">Total</span>
+                                            <span class="top__text">Address</span>
+                                           
                                         </li>
-                                        <li>01. Chain buck bag <span>$ 300.0</span></li>
-                                        <li>02. Zip-pockets pebbled<br /> tote briefcase <span>$ 170.0</span></li>
-                                        <li>03. Black jean <span>$ 170.0</span></li>
-                                        <li>04. Cotton shirt <span>$ 110.0</span></li>
+                                        <li><?php echo $address; ?></li>
+                                        <li>
+                                            <span class="top__text">Mode</span>
+                                           
+                                        </li>
+                                        <li>Pay on delivery</li>
+                                        
+                                        
+                                        
                                     </ul>
                                 </div>
                                 <div class="checkout__order__total">
                                     <ul>
-                                        <li>Subtotal <span>$ 750.0</span></li>
-                                        <li>Total <span>$ 750.0</span></li>
+                                  <?php  $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
+                               $rs= $fmt->format($total);
+                               ?>
+                                       
+                                        <li>Total <span>₹ <?php echo $rs; ?></span></li>
                                     </ul>
                                 </div>
-                                <div class="checkout__order__widget">
-                                    <label for="o-acc">
-                                        Create an acount?
-                                        <input type="checkbox" id="o-acc">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <p>Create am acount by entering the information below. If you are a returing customer
-                                    login at the top of the page.</p>
-                                    <label for="check-payment">
-                                        Cheque payment
-                                        <input type="checkbox" id="check-payment">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label for="paypal">
-                                        PayPal
-                                        <input type="checkbox" id="paypal">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <button type="submit" class="site-btn">Place oder</button>
+                                
+                               
                             </div>
+                            <div class="cart__btn mt-4">
+                        <a href="index.php">Continue Shopping</a>
+                    </div>
                         </div>
                     </div>
+                    
                 </form>
             </div>
         </section>
         <!-- Checkout Section End -->
 
         <!-- Instagram Begin -->
-        <div class="instagram">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
-                            <div class="instagram__text">
-                                <i class="fa fa-instagram"></i>
-                                <a href="#">@ ashion_shop</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
-                            <div class="instagram__text">
-                                <i class="fa fa-instagram"></i>
-                                <a href="#">@ ashion_shop</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
-                            <div class="instagram__text">
-                                <i class="fa fa-instagram"></i>
-                                <a href="#">@ ashion_shop</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
-                            <div class="instagram__text">
-                                <i class="fa fa-instagram"></i>
-                                <a href="#">@ ashion_shop</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
-                            <div class="instagram__text">
-                                <i class="fa fa-instagram"></i>
-                                <a href="#">@ ashion_shop</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
-                            <div class="instagram__text">
-                                <i class="fa fa-instagram"></i>
-                                <a href="#">@ ashion_shop</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php 
+        include "footer.php";
+        ?>
         <!-- Instagram End -->
 
         <!-- Footer Section Begin -->

@@ -13,14 +13,26 @@ if (isset($_POST['but_logout'])) {
 $strValue = $_GET['id'];
 if ($strValue > 0) {
     $categoryId = $strValue;
-} else {
-    echo"Server error ! Please try again later";
+   
 }
+ 
+include "config.php";
+$sql = "SELECT categoryName FROM categories 
+WHERE categoryId=$categoryId";
+$result = $conn->query($sql);
+
+$row = $result->fetch_assoc() ;
+$categoryName = $row['categoryName'];
+
+
 $_SESSION["CategoryId"] = $categoryId;
+$_SESSION["CategoryName"] = $categoryName;
+
+
 
 //configuration
 
-include "config.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -31,7 +43,7 @@ include "config.php";
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Shop</title>
+    <title>Eshop</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
@@ -65,6 +77,7 @@ include "config.php";
             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                     <div class="tip">2</div>
                 </a></li>
+               
             <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                     <div class="tip">2</div>
                 </a></li>
@@ -94,7 +107,7 @@ include "config.php";
                 <div class="col-lg-9">
                     <div class="breadcrumb__links">
                         <a href="index.php"><i class="fa fa-home"></i> Home</a>
-                        <span>Shop</span>
+                        <span><?php echo  $categoryName ?></span>
                     </div>
                 </div>
                 <div class="col-lg">
@@ -134,6 +147,7 @@ include "config.php";
                                         }
                                     }
                                     ?>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -170,18 +184,14 @@ include "config.php";
                                 <ul class='product__hover'>
                                     <li><a href=\"img/shop/{$file["fileName"]}\" class='image-popup'><span class='arrow_expand'></span></a></li>
                                     <li><a class='wishList' id='{$row["productId"]}'><span class='icon_heart_alt'></span></a></li>
-                                    <li><a href='#'><span class='icon_bag_alt'></span></a></li>
+                                    <li><a class='cart' id='{$row["productId"]}'><span class='icon_bag_alt'></span></a></li>
                                 </ul>
                                 </div>
                                 <form method=\"POST\">
                                 <div class='product__item__text'>
-                                    <h6><a href='product-details.php?id={$row["productId"]}'>{$row["productName"]}</a></h6>
+                                    <h6><a href='product-details.php?id={$row["productId"]}'>{$row["productName"]} </a></h6>
                                     <div class='rating'>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
+                                       
                                     </div>
                                 <div class='product__price'>₹$rs</div>
                             </div>
@@ -343,6 +353,35 @@ include "config.php";
             }
         });
     });
+
+    // Adding products to cart
+    $('.cart').click(function() {
+        var product_id = $(this).attr('id');
+      
+
+        // console.log(product_id);
+        $.ajax({
+            url: "php/addProductToCart.php",
+            method: "POST",
+            data: {
+                productId: product_id
+            },
+            dataType: 'json',
+            success: function(response) {
+                // console.log(response);
+                if (response.result == "exists") {
+                    alert('Product already in cart');
+                } else if (response.result == "success") {
+                    alert('Product added to cartr');
+                } else {
+                    alert("Something went wrong");
+                    console.log(response);
+                }
+
+            }
+        });
+    });
+
 
     // Search categories
     $('.search-categories').on("keyup", function(){
