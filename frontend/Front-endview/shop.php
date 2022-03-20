@@ -143,11 +143,14 @@ if ($conn->connect_error) {
     <div class="breadcrumb-option">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-9">
                     <div class="breadcrumb__links">
                         <a href="index.php"><i class="fa fa-home"></i> Home</a>
                         <span><?php echo $catnam ?></span>
                     </div>
+                </div>
+                <div class="col-lg">
+                    <input type="text" class="search-products" placeholder="Search products.....">
                 </div>
             </div>
         </div>
@@ -163,6 +166,9 @@ if ($conn->connect_error) {
                         <div class="sidebar__categories">
                             <div class="section-title">
                                 <h4>Categories</h4>
+                            </div>
+                            <div class="section-title">
+                            <input type="text" class="search-categories" placeholder="Search category.....">
                             </div>
                             <div class="categories__accordion">
                                 <div class="accordion" id="accordionExample">
@@ -482,4 +488,44 @@ if ($conn->connect_error) {
             }
         });
     });
+
+    // Search categories
+    $('.search-categories').on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        // console.log(value);
+        $('.card').filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    
+        });
+    });
+
+    // Search products
+    $('.search-products').on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        // console.log(value);
+        $('.product__item').filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    
+        });
+    });
 </script>
+
+
+<style>
+    .search-categories{
+    width: 90%;
+	font-size: 20px;
+	border: none;
+	border-bottom: 2px solid #dddddd;
+	background: 0 0;
+	color: #999;
+    }
+    .search-products{
+    width: 80%;
+	font-size: 20px;
+	border: none;
+	border-bottom: 2px solid #dddddd;
+	background: 0 0;
+	color: #999;
+    }
+</style>
