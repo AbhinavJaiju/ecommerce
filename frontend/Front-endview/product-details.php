@@ -195,11 +195,11 @@ $catnam = $_SESSION["Category"];
                                 <li>
                                     <span>Availability:</span>
                                     <div class=\"stock__checkbox\">
-                                        <label for=\"stockin\">
+                                    <p>
+                                       
                                             $availability
-                                            <input type=\"checkbox\" id=\"stockin\">
-                                            <span class=\"checkmark\"></span>
-                                        </label>
+                                            
+                                            </p>
                                     </div>
                                 </li>
                                 <li>
@@ -234,6 +234,18 @@ $catnam = $_SESSION["Category"];
                             </div>
                             <div class=\"tab-pane\" id=\"tabs-3\" role=\"tabpanel\">
                                 <h6>Reviews ( $count )</h6>";
+                                echo"
+                             <div class=\"contact__form\">
+                            <h5>ADD A REVIEW</h5>
+                            
+                            <form  method=\"post\" enctype=\"multipart/form-data\">
+
+                                <textarea placeholder=\"Review\" name=\"message\"></textarea>
+                                <button type=\"submit\" class=\"site-btn\">SUBMIT</button>
+                            </form>
+                        </div><br><br>";
+                        echo $message = $_POST['message'];
+
                         $sql = "SELECT *  FROM reviews where productId=$strValue";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
@@ -241,12 +253,14 @@ $catnam = $_SESSION["Category"];
                                 $name = "SELECT * FROM customers where customerId={$row["customerId"]}";
                                 $nameresult = $conn->query($name);
                                 $customer = $nameresult->fetch_assoc();
+
                                 echo "
-                                        <input type=\"checkbox\" id=\"stockin\">&nbsp;&nbsp;{$customer["customerName"]}&nbsp;&nbsp;{$customer["createdDate"]}
+                                        {$customer["customerName"]}&nbsp;&nbsp;{$customer["createdDate"]}
                                         <p>{$row["review"]}</p>";
                             }
                         } else {
-                            echo "No Reviews ";
+                            
+                           
                         }
                         ?></div>
                 </div>
@@ -279,7 +293,8 @@ $catnam = $_SESSION["Category"];
                                     <div class=\"product__item__pic set-bg\" data-setbg=\"img/shop/{$file["fileName"]}\">
                                         <ul class=\"product__hover\">
                                             <li><a href=\"img/shop/{$file["fileName"]}\" class=\"image-popup\"><span class=\"arrow_expand\"></span></a></li>
-                                            <li><a href=\"#\"><span class=\"icon_heart_alt\"></span></a></li>
+                                            <li><a class='wishList' id='$strValue'><span class=\"icon_heart_alt\"></span></a></li>
+                                           
                                             <li><a href=\"#\"><span class=\"icon_bag_alt\"></span></a></li>
                                         </ul>
                                     </div>

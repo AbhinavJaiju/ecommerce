@@ -314,6 +314,7 @@ include "config.php";
     // Adding products to wishlist
     $('.wishList').click(function() {
         var product_id = $(this).attr('id');
+      
 
         // console.log(product_id);
         $.ajax({
