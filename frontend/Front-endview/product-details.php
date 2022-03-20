@@ -428,3 +428,46 @@ $catnam = $_SESSION["Category"];
 </body>
 
 </html>
+
+
+
+<script>
+    // Adding products to wishlist
+    $('.wishList').click(function() {
+        var product_id = $(this).attr('id');
+        // $('.toast').toast('show');
+
+        // console.log(product_id);
+        $.ajax({
+            url: "php/add-to-wishlist.php",
+            method: "POST",
+            data: {
+                productId: product_id
+            },
+            dataType: 'json',
+            success: function(response) {
+                // console.log(response);
+                if (response.result == "exists") {
+                    alert('Product already in wishlist');
+                } else if (response.result == "success") {
+                    $('.toast').toast('show');
+                } else {
+                    alert("Something went wrong");
+                    console.log(response);
+                }
+
+            }
+        });
+    });
+</script>
+
+<style>
+    .toast {
+	position: absolute;
+	color: red;
+	background: none;
+	font-size: 50px;
+	bottom: 45%;
+    left: 85%; 
+}
+</style>
