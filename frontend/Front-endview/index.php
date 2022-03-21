@@ -52,8 +52,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 $sql = "SELECT productImage.fileName,productImage.pImageId ,products.productId,products.productname,products.price FROM productImage join products ON productImage.productId = products.productId ORDER BY productImage.pImageId DESC LIMIT 10;";
-$ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
-
+$ssql = "SELECT bannerImage FROM `banners` LIMIT 1;";
+$rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,products.productName ,productImage.fileName,products.price FROM products INNER JOIN productImage ON products.productId=productImage.productId INNER JOIN orderDetails on orderDetails.productId=products.productId GROUP by productId ,fileName ORDER BY prdCount DESC LIMIT 5;";
 ?>
 
 <body>
@@ -68,12 +68,12 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
         <div class="offcanvas__close">+</div>
         <ul class="offcanvas__widget">
             <li><span class="icon_search search-switch"></span></li>
-            <li><a href="#"><span class="icon_heart_alt"></span>
-                    <div class="tip">2</div>
+            <!-- <li><a href="#"><span class="icon_heart_alt"></span>
+
                 </a></li>
             <li><a href="#"><span class="icon_bag_alt"></span>
-                    <div class="tip">2</div>
-                </a></li>
+
+                </a></li> -->
         </ul>
         <div class="offcanvas__logo">
             <a href="./index.php"><img src="img/logo3.png" alt=""></a>
@@ -87,9 +87,75 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
     <!-- Offcanvas Menu End -->
 
     <!-- Header Section Begin -->
-    <?php
-    include "navigation.php";
-    ?>
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-2">
+                    <div class="header__logo">
+                        <a href="./index.php"><img src="img/logo5.png" alt="" style="height: 35px;width: 100px;"></a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-7">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="./index.php">Home</a></li>
+
+                            <li><a href="./shop.php">Shop</a></li>
+                            <li><a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="./product-details.php">Product Details</a></li>
+                                    <li><a href="./shop-cart.php">Shop Cart</a></li>
+                                    <li><a href="./checkout.php">Checkout</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li><a href="./contact.php">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__right">
+                        <div class="header__right__auth">
+                            <?php
+                            if ($_SESSION['uname']) {
+
+                                // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
+
+                                echo $_SESSION['uname'];
+                            } else {
+                                echo  '<a href="login.php">Login</a>
+                                <a href="#">Register</a>';
+                            }
+
+                            ?>
+
+                        </div>
+
+                        <ul class="header__right__widget">
+                            <li><span class="icon_search search-switch"></span></li>
+                            <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
+                                    <div class="tip">2</div>
+                                </a></li>
+                            <li><a href="#"><span class="icon_bag_alt"></span>
+                                    <div class="tip">2</div>
+                                </a></li>
+                            <li>
+                                <form method='post' action="" style="margin-left:1%">
+                                    <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
     <!-- Header Section End -->
 
     <!-- Categories Section Begin -->
@@ -111,7 +177,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                             <div class="categories__item set-bg" data-setbg="img/categories/camera.jpg">
                                 <div class="categories__text">
                                     <h4 style="color: white;">Camera</h4>
-                                    <!-- <p style="color: white;">358 items</p> -->
+                                    <p style="color: white;">358 items</p>
                                     <a href="shop.php?id=3" style="color: white;">Shop now</a>
                                 </div>
                             </div>
@@ -120,7 +186,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                             <div class="categories__item set-bg" data-setbg="img/categories/mobile.png">
                                 <div class="categories__text">
                                     <h4 style="color: white;">Mobiles</h4>
-                                    <!-- <p style="color: white;">273 items</p> -->
+                                    <p style="color: white;">273 items</p>
                                     <a href="shop.php?id=2" style="color: white;">Shop now</a>
                                 </div>
                             </div>
@@ -129,7 +195,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                             <div class="categories__item set-bg" data-setbg="img/categories/headset.jpg">
                                 <div class="categories__text">
                                     <h4 style="color: white;">Headset</h4>
-                                    <!-- <p style="color: white;">159 items</p> -->
+                                    <p style="color: white;">159 items</p>
                                     <a href="shop.php?id=4" style="color: white;">Shop now</a>
                                 </div>
                             </div>
@@ -198,31 +264,15 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
 
                             <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 60%;">
                                 <div class="label new">New</div>
-                                <ul class='product__hover'>
-                                    <li>
-                                        <div class='d-flex align-items-center justify-content-center'>
-                                            <div class='toast'>
-                                                <i class='fa fa-solid fa-heart'></i>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
                                 <ul class="product__hover">
                                     <li><a href="img/shop/<?php echo $row['fileName'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                    <li><a class="wishList" id="<?php echo $row["productId"] ?>"><span class='icon_heart_alt'></span></a></li>
-
+                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                     <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
                                 <h6><a href="#"><?php echo $row["productname"] ?></a></h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
+
                                 <div class="product__price">Rs <?php echo $row["price"] ?></div>
                             </div>
                         </div>
@@ -440,6 +490,59 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
     } ?>
     <!-- Banner Section End -->
 
+
+    &nbsp;
+    &nbsp;
+    <div class="row3" style="margin-left: 3em;">
+        <div class="section-title">
+            <h4>Most ordered Products</h4>
+        </div>
+        <div class="row1">
+            <?php
+            $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
+            if ($result = $conn->query($rsql)) {
+                while ($row = $result->fetch_assoc()) {
+
+            ?>
+
+
+                    <div class=" column1" style="float: left;width:20%;padding: 5px;">
+
+                        <div class="product__item">
+
+
+
+                            <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 60%;">
+
+                                <ul class="product__hover">
+                                    <li><a href="img/shop/<?php echo $row['fileName'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6><a href="#"><?php echo $row["productName"] ?></a></h6>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product__price">Rs <?php echo $row["price"] ?></div>
+                            </div>
+                        </div>
+                    </div>
+
+            <?php
+
+                }
+                $result->free();
+            } ?>
+
+        </div>
+    </div>
+
     <!-- Trend Section Begin -->
     <!-- <section class="trend spad">
         <div class="container">
@@ -617,9 +720,6 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
     <!-- Discount Section Begin -->
     &nbsp;
     &nbsp;
-
-
-
     <section class="discount">
         <div class="container">
             <div class="row">
@@ -762,7 +862,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                 <div class="col-lg-4 col-md-6 col-sm-7">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="./index.php"><img src="img/logo5.png" alt="" style="height: 40px;width: 100px;"></a>
+                            <a href="./index.php"><img src="img/logo5.png" alt=""></a>
                         </div>
                         <p>We provide the products from the best brands with the offer that you will not expect.</p>
                         <div class="footer__payment">
@@ -829,7 +929,14 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
     <!-- Footer Section End -->
 
     <!-- Search Begin -->
-    <?php include "globalsearch.php"; ?>
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
     <!-- Search End -->
 
     <!-- Js Plugins -->
@@ -843,38 +950,6 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.nicescroll.min.js"></script>
     <script src="js/main.js"></script>
-
-
-
-    <script>
-        // Adding products to wishlist
-        $('.wishList').click(function() {
-            var product_id = $(this).attr('id');
-
-
-            // console.log(product_id);
-            $.ajax({
-                url: "php/add-to-wishlist.php",
-                method: "POST",
-                data: {
-                    productId: product_id
-                },
-                dataType: 'json',
-                success: function(response) {
-                    // console.log(response);
-                    if (response.result == "exists") {
-                        alert('Product already in wishlist');
-                    } else if (response.result == "success") {
-                        $('.toast').toast('show');
-                    } else {
-                        alert("Something went wrong");
-                        console.log(response);
-                    }
-
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>
