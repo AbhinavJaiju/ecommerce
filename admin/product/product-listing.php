@@ -55,7 +55,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../admin/order/orderlisting.php">
+                    <a class="nav-link" href="../orders/orderlisting.php">
                         <i class="mdi mdi-view-headline menu-icon"></i>
                         <span class="menu-title">ORDERS</span>
                     </a>
@@ -164,6 +164,9 @@
                                 </p>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
+                                        <a href="../product/product-form.php">
+                                            <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add Product</button>
+                                        </a>
                                         <thead>
                                             <tr>
                                                 <th> # </th>
@@ -181,16 +184,16 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            include_once 'config.php';
-                                            $sql = "SELECT * from products 
-                                LEFT JOIN productImage on products.productId = productImage.productId 
-                                UNION 
-                                SELECT * from products
-                                RIGHT JOIN productImage on products.productId = productImage.productId ";
+                                            include_once '../config.php';
+                                            $sql = "SELECT * from products ";
+                                // LEFT JOIN productImage on products.productId = productImage.productId 
+                                // UNION 
+                                // SELECT * from products
+                                // RIGHT JOIN productImage on products.productId = productImage.productId ";
                                             $result = $conn->query($sql);
 
                                             while ($row = $result->fetch_assoc()) {
-
+                                                $id = $row['productId'];
                                             ?>
                                                 <tr>
                                                     <td> <?php echo $row['productId'] ?> </td>
@@ -201,13 +204,22 @@
                                                     <td> <?php echo $row['shortDescription'] ?> </td>
                                                     <td> <?php echo $row['specification'] ?> </td>
                                                     <td>
-                                                        <img src="productimage/<?php echo $row1['fileName'] ?>" alt="">
+                                                        <?php 
+                                                            $sql1 = "SELECT * FROM productImage  WHERE productId = $id";
+                                                            $result1 = $conn->query($sql1);
+                                                            while($row1 = $result1->fetch_assoc()){
+
+                                                            ?>
+                                                        <img src="../../productImages/<?php echo $row1['fileName'] ?>" alt="">
+                                                        <?php
+                                                            }
+                                                            ?>
                                                     </td>
                                                     <td>
                                                         <div>
                                                             <form action='product-remove.php?productId="<?php echo $row['productId']; ?>"' method="post">
                                                                 <input type="hidden" name="productId" value="<?php echo $row['productId']; ?>">
-                                                                <button type="submit" class="btn btn-sm btn-danger" onClick="return confirm('Are you Sure?')" name="delete">
+                                                                <button type="submit" class="btn btn-sm btn-outline-danger btn-icon" onClick="return confirm('Are you Sure?')" name="delete">
                                                                     <i class="bi bi-trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
                                                                             <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
@@ -218,10 +230,10 @@
                                                     </td>
                                                     <td>
                                                         <div>
-                                                            <a href='product-edit.php?productId=<?php echo $row[productId] ?>&fn=<?php echo $row[customerName]; ?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords] ?>&ph=<?php echo $row[phoneNumber] ?>&gd=<?php echo $row[gender] ?>&ad=<?php echo $row[addresss] ?>&im=<?php echo $row[profilePicture] ?>'>
+                                                            <a href='product-edit.php?productId=<?php echo $row[productId]; ?>'>
                                                                 <input type="hidden" name="productId" value="<?php echo $row['productId']; ?>">
                                                                 <button type="submit" class="btn btn-sm btn-primary" name="edit" onClick="return Confirm('Are you Sure?')">
-                                                                    <i class="bi bi-file-earmark-medical">Edit</i>
+                                                                    <i class="mdi mdi-lead-pencil"></i>
                                                                 </button>
                                                             </a>
                                                         </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("config.php");
+include("../config.php");
 $id = $_GET['customerId'];
 $name = $_GET['fn'];
 $email = $_GET['em'];
@@ -68,7 +68,7 @@ $image = $_GET['im'];
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/order/order-listing.php">
+          <a class="nav-link" href="../orders/orderlisting.php">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
@@ -80,31 +80,31 @@ $image = $_GET['im'];
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href=".../../admin/product/product-listing.php">
+          <a class="nav-link" href="../../admin/product/product-listing.php">
             <i class="mdi mdi-grid-large menu-icon"></i>
             <span class="menu-title">PRODUCTS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../banner/banner.php">
             <i class="mdi mdi-popcorn menu-icon"></i>
             <span class="menu-title">BANNERS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../reviews/review.php">
             <i class="mdi mdi-emoticon menu-icon"></i>
             <span class="menu-title">REVIEWS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../enquiries/enquiries.php">
             <i class="mdi mdi-file-document-box-outline menu-icon"></i>
             <span class="menu-title">ENQUIRES</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../aboutus/about.php">
             <i class="mdi mdi-pulse menu-icon"></i>
             <span class="menu-title">ABOUT US</span>
           </a>
@@ -254,6 +254,8 @@ $image = $_GET['im'];
                       // setTimeout(() => {
                       //     $('#response').fadeOut("slow");
                       // }, 4000);
+                      window.location.href = 'customer-listing.php';
+
                     }
                   })
                 }

@@ -55,7 +55,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/order/order-listing.php">
+          <a class="nav-link" href="../orders/orderlisting.php">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
@@ -73,25 +73,25 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../banner/banner.php">
             <i class="mdi mdi-popcorn menu-icon"></i>
             <span class="menu-title">BANNERS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../reviews//review.php">
             <i class="mdi mdi-emoticon menu-icon"></i>
             <span class="menu-title">REVIEWS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../enquiries/enquiries.php">
             <i class="mdi mdi-file-document-box-outline menu-icon"></i>
             <span class="menu-title">ENQUIRES</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../aboutus/about.php">
             <i class="mdi mdi-pulse menu-icon"></i>
             <span class="menu-title">ABOUT US</span>
           </a>
@@ -182,7 +182,7 @@
                     </thead>
                     <tbody>
                       <?php
-                      include_once 'config.php';
+                      include_once '../config.php';
                       $sql = "SELECT * FROM customers";
                       $result = $conn->query($sql);
 
@@ -196,16 +196,13 @@
                           <td> <?php echo $row['address'] ?> </td>
                           <td> <?php echo $row['phoneNumber'] ?> </td>
                           <td> <?php echo $row['gender'] ?> </td>
-                          <td> <img src="Images/<?php echo $row['profilePicture'] ?>" alt="" srcset=""> </td>
+                          <td> <img src="../../customerImages/<?php echo $row['profilePicture'] ?>" alt="" srcset=""> </td>
                           <td>
                             <div>
                               <form action='customer-remove.php?customerId="<?php echo $row['customerId']; ?>"' method="post">
                                 <input type="hidden" name="customerId" value="<?php echo $row['customerId']; ?>">
-                                <button type="submit" class="btn btn-sm btn-danger" onClick="return confirm('Are you Sure?')" name="delete">
-                                  <i class="bi bi-trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                    </svg>
+                                <button type="submit" class="btn btn-sm btn-outline-danger btn-icon" onClick="return confirm('Are you Sure?')" name="delete">
+                                  <i class="mdi mdi-delete-forever">
 
                                   </i>
                               </form>
@@ -213,10 +210,10 @@
                           </td>
                           <td>
                             <div>
-                              <a href='customer-edit.php?customerId=<?php echo $row[customerId] ?>&fn=<?php echo $row[customerName]; ?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords] ?>&ph=<?php echo $row[phoneNumber] ?>&gd=<?php echo $row[gender] ?>&ad=<?php echo $row[addresss] ?>&im=<?php echo row[profilePicture] ?>'>
+                              <a href='customer-edit.php?customerId=<?php echo $row[customerId] ?>&fn=<?php echo $row[customerName]; ?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords] ?>&ph=<?php echo $row[phoneNumber] ?>&gd=<?php echo $row[gender] ?>&ad=<?php echo $row[address] ?>&im=<?php echo $row[profilePicture] ?>'>
                                 <input type="hidden" name="customerId" value="<?php echo $row['customerId']; ?>">
-                                <button type="submit" class="btn btn-sm btn-primary" name="edit" onClick="return Confirm('Are you Sure?')">
-                                  <i class="bi bi-file-earmark-medical">Edit</i>
+                                <button type="submit" class="btn btn-sm btn-outline-primary btn-icon" name="edit" onClick="return Confirm('Are you Sure?')">
+                                  <i class="mdi mdi-lead-pencil"></i>
                                 </button>
                               </a>
                             </div>

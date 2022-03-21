@@ -1,6 +1,6 @@
 <?php
     //db connection
-    include_once 'config.php';
+    include "../config.php";
 
     $name = $_POST['username'];
     $email = $_POST['email'];
@@ -9,9 +9,9 @@
     $gender = $_POST['gender'];
     $number = $_POST['number'];
     $filename = $_FILES["image"]["name"];
-    $filepath = "Images/" . $_FILES["image"]["name"];
+    $filepath = "../../customerImages/" . $_FILES["image"]["name"];
     //sql query
-    $sql1 = "INSERT INTO customers(customerName,passwords,email,phoneNumber,gender,addresss,profilePicture)
+    $sql1 = "INSERT INTO customers(customerName,passwords,email,phoneNumber,gender,address,profilePicture)
             VALUES('$name','$password','$email', $number,'$gender','$address','$filename')";
 
      if($conn->query($sql1)===TRUE){

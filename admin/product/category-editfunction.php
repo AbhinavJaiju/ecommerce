@@ -1,6 +1,6 @@
 <?php
     //inluding db connection file 
-    include_once 'config.php';
+    include_once '../config.php';
 
     $id = $_POST['categoryId'];
     $name = $_POST['categoryName'];

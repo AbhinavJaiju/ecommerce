@@ -1,6 +1,7 @@
-<?php include '../config.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
+<?php include '../config.php'; ?>
 
 <head>
   <!-- Required meta tags -->
@@ -19,11 +20,11 @@
   <link rel="shortcut icon" href="../images/favicon.png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
 
 
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
 
 </head>
@@ -62,7 +63,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/order/order-listing.php">
+          <a class="nav-link" href="#">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
@@ -80,13 +81,13 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../banner/banner.php">
             <i class="mdi mdi-popcorn menu-icon"></i>
             <span class="menu-title">BANNERS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../reviews/review.php">
             <i class="mdi mdi-emoticon menu-icon"></i>
             <span class="menu-title">REVIEWS</span>
           </a>
@@ -98,7 +99,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../aboutus/about.php">
             <i class="mdi mdi-pulse menu-icon"></i>
             <span class="menu-title">ABOUT US</span>
           </a>
