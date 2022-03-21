@@ -7,6 +7,16 @@ if (isset($_POST['but_logout'])) {
 $userId = $_SESSION['cutomerId'];
 
 include "config.php";
+
+// Get count of wishlist and cart
+$wishlist = "SELECT COUNT(wishListId) AS wishList FROM wishLists";
+$cart = "SELECT COUNT(productCartId) AS cart FROM productCarts";
+$wishResult = $conn->query($wishlist);
+$cartResult = $conn->query($cart);
+$wishCount = $wishResult->fetch_assoc();
+$cartCount = $cartResult->fetch_assoc();
+// echo $wishCount['wishList'];
+// echo $cartCount['cart'];
 ?>
 
 
@@ -68,10 +78,22 @@ include "config.php";
                     <ul class="header__right__widget ">
                         <li><span class="icon_search search-switch"></span></li>
                         <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
-                                
+
+                        <!-- Wish list count badge -->
+                        <?php
+                        if ($wishCount['wishList'] > 0) {
+                            echo '<div class="tip">'.$wishCount['wishList'].'</div>';
+                        }
+                        ?>
                             </a></li>
                         <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
-                                
+
+                        <!-- Cart count badge -->
+                        <?php
+                        if ($cartCount['cart'] > 0) {
+                            echo '<div class="tip">'.$cartCount['cart'].'</div>';
+                        }
+                        ?>
                             </a></li>
                         <li>
                         <form method='post' action=""  >
