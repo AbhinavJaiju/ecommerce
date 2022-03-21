@@ -189,6 +189,7 @@ $_SESSION["ProductName"] = $row['productName'];
                         echo "   
                         
                             <ul>
+                            
                                 <li><a class='wishList' id='$strValue'><span class=\"icon_heart_alt\"></span></a></li>
                                 
                             </ul>
@@ -311,6 +312,13 @@ $_SESSION["ProductName"] = $row['productName'];
                     echo " <div class=\"col-lg-3 col-md-4 col-sm-6\">
                                     <div class=\"product__item\">
                                     <div class=\"product__item__pic set-bg\" data-setbg=\"img/shop/{$file["fileName"]}\">
+                                    <ul class='product__hover'>
+                                         <li>  <div class='d-flex align-items-center justify-content-center'>
+                                            <div class='toast'>
+                                        <i class='fa fa-solid fa-heart'></i>
+                                        </div>
+                                        </div></li>
+                                        </ul>
                                         <ul class=\"product__hover\">
                                             <li><a href=\"img/shop/{$file["fileName"]}\" class=\"image-popup\"><span class=\"arrow_expand\"></span></a></li>
                                             <li><a class='wishList' id='$strValue'><span class=\"icon_heart_alt\"></span></a></li>
@@ -364,5 +372,35 @@ $_SESSION["ProductName"] = $row['productName'];
     <script src="js/main.js"></script>
     
 </body>
+<script>
+// Adding products to cart
+    $('.cart').click(function() {
+        var product_id = $(this).attr('id');
+
+
+        // console.log(product_id);
+        $.ajax({
+            url: "php/addProductToCart.php",
+            method: "POST",
+            data: {
+                productId: product_id
+            },
+            dataType: 'json',
+            success: function(response) {
+                // console.log(response);
+                if (response.result == "exists") {
+                    alert('Product already in cart');
+                } else if (response.result == "success") {
+                    alert('Product added to cartr');
+                } else {
+                    alert("Something went wrong");
+                    console.log(response);
+                }
+
+            }
+        });
+    });
+    </script>
+
 
 </html>

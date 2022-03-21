@@ -177,7 +177,10 @@ $append="";
                                         <img src=\"img/shop/{$file["fileName"]}\" alt=\"{$products["productName"]}\" style=\"height: 110px;
                                         width: 90px;\">
                                         <div class=\"cart__product__item__title\">
-                                            <h5>{$products["productName"]}</h5>
+                                           
+                                            <h5>
+                                                <a style=\"color: black;\" href=\"product-details.php?id= {$products["productId"]}\">{$products["productName"]}</a>
+                                            </h5>
                                            
                                             
                                         </div>
