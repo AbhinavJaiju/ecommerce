@@ -204,7 +204,7 @@
                                                     <td> <?php echo $row['shortDescription'] ?> </td>
                                                     <td> <?php echo $row['specification'] ?> </td>
                                                     <td>
-                                                        <img src="../../productImages/<?php echo $row1['fileName'] ?>" alt="">
+                                                        <img src="../../productImages/<?php echo $row['fileName'] ?>" alt="img">
                                                     </td>
                                                     <td>
                                                         <div>

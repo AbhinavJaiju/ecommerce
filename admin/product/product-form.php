@@ -264,7 +264,7 @@
                 }
               })
               $('#cancel').click(function() {
-                window.location.href = 'user-insertion.php';
+                window.location.href = 'product-listing.php';
               })
             })
           </script>

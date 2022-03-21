@@ -31,7 +31,7 @@
         if(in_array($ext,$extension)){
             if(!file_exists("productimage/".$file_name)){
                 move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"../../productImages/".$file_name); 
-                $sql = "INSERT INTO productImage(fileName,productId) VALUES('$file_tmp',$last_id)";
+                $sql = "INSERT INTO productImage(fileName,productId) VALUES('$file_name',$last_id)";
                 if($conn->query($sql)===TRUE){
                     echo "Image uploaded into database";
                 }else{
@@ -42,7 +42,7 @@
                 $filename = basename($file_name,$ext);
                 $newFileName = $filename.time().".".$ext;
                 move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"productimage/".$newFileName);
-                $sql2 = "INSERT INTO productImage(fileName,productId) VALUES('$file_tmp',$last_id)";
+                $sql2 = "INSERT INTO productImage(fileName,productId) VALUES('$file_name',$last_id)";
                 if($conn->query($sql2)===TRUE){
                     echo "Image uploaded into database";
                 }else{

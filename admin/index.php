@@ -203,7 +203,7 @@
                     <i class="mdi mdi-arrow-up-bold-hexagon-outline text-white icon-lg"></i>
                     <div class="ml-3 ml-md-0 ml-xl-3">
                       <h5 class="text-white font-weight-bold"><?php echo $cc1." Orders"; ?></h5>
-                      <p class="mt-2 text-white card-text">You numbers are growing</p>
+                      <p class="mt-2 text-white card-text">Numbers are growing</p>
                     </div>
                   </div>
                 </div>

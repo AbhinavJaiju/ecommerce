@@ -210,7 +210,7 @@
                           </td>
                           <td>
                             <div>
-                              <a href='customer-edit.php?customerId=<?php echo $row[customerId] ?>&fn=<?php echo $row[customerName]; ?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords] ?>&ph=<?php echo $row[phoneNumber] ?>&gd=<?php echo $row[gender] ?>&ad=<?php echo $row[addresss] ?>&im=<?php echo row[profilePicture] ?>'>
+                              <a href='customer-edit.php?customerId=<?php echo $row[customerId] ?>&fn=<?php echo $row[customerName]; ?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords] ?>&ph=<?php echo $row[phoneNumber] ?>&gd=<?php echo $row[gender] ?>&ad=<?php echo $row[address] ?>&im=<?php echo row[profilePicture] ?>'>
                                 <input type="hidden" name="customerId" value="<?php echo $row['customerId']; ?>">
                                 <button type="submit" class="btn btn-sm btn-outline-primary btn-icon" name="edit" onClick="return Confirm('Are you Sure?')">
                                   <i class="mdi mdi-lead-pencil"></i>
