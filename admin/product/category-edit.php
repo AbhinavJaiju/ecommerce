@@ -19,7 +19,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <?php
-    include("config.php");
+    include("../config.php");
     $id = $_GET['categoryId'];
     $name =  $_GET['fn'];
     $desc = $_GET['em'];
