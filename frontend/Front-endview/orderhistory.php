@@ -118,6 +118,7 @@ include "config.php";
                             INNER JOIN orderDetails on orders.orderId=orderDetails.orderId
                             inner join products on products.productId=orderDetails.productId 
                             inner join productImage on products.productId=productImage.productId
+                            where orders.customerId=$userId
                             order by orders.orderdate DESC";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0 ) {

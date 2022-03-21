@@ -53,8 +53,8 @@
 // }
 
 $servername = "localhost";
-$username = "alfina";
-$password = "Alfinamemysql@123";
+$username = "binitha";
+$password = "Bini@1997";
 $dbname = "ecommerce";
 
 /// Create connection
