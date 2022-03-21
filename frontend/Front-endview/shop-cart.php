@@ -135,6 +135,7 @@ $append="";
 
 }
 
+
                         $sql = "SELECT * FROM productCarts where customerId=$userId";
                         $result = $conn->query($sql);
                       

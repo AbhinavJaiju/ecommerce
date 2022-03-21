@@ -178,12 +178,29 @@ $_SESSION["ProductName"] = $row['productName'];
                             $qty = $_POST['quantity'];
                             $_SESSION["Quantity"] = $qty;
                             if ($customerId > 0) {
-                                $insert = "INSERT into productCarts(quantity, customerId, productId)
+                                $check="SELECT quantity FROM productCarts where customerId=$customerId and productId=$strValue;";
+                                //$conn->query($check);
+                                $result = $conn->query($check);
+                                $row = $result->fetch_assoc();
+                                if($row['quantity']>0)
+                                {
+                                    $qty=$qty+$row['quantity'];
+                                    $update="UPDATE productCarts
+                                    SET quantity=$qty
+                                    WHERE customerId=$customerId and productId=$strValue; ";
+                                    $conn->query($update);
+                                    echo "<script type=\"text/javascript\">toastr.success(\"Product added to cart ,
+                                { timeOut: 1 },{positionClass: \'toast-bottom-right\'}\")</script>";
+                                    echo "<script>alert(\"Quantity updated in cart\")</script>";
+                                }
+                                else{
+                                    $insert = "INSERT into productCarts(quantity, customerId, productId)
                             VALUES ($qty, $customerId, $strValue);";
                                 $conn->query($insert);
                                 echo "<script type=\"text/javascript\">toastr.success(\"Product added to cart ,
                             { timeOut: 1 },{positionClass: \'toast-bottom-right\'}\")</script>";
                                 echo "<script>alert(\"Product added to cart\")</script>";
+                                } 
                             }
                         }
                         echo "   
@@ -391,7 +408,7 @@ $_SESSION["ProductName"] = $row['productName'];
                 if (response.result == "exists") {
                     alert('Product already in cart');
                 } else if (response.result == "success") {
-                    alert('Product added to cartr');
+                    alert('Product added to cart');
                 } else {
                     alert("Something went wrong");
                     console.log(response);
