@@ -1,7 +1,7 @@
 <?php
 session_start();
 $custId = $_SESSION['cutomerId'];
-$prodId = $_POST['id'];
+$prodId = $_POST['productId'];
 $qty = 1;
 
 // echo $custId;
@@ -59,6 +59,15 @@ try {
 // echo $result["num"];
 
 if($result["num"] > 0){
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $check=$conn->prepare("SELECT quantity FROM productCarts where customerId=$custId and productId=$prodId");
+    $check->execute();
+    $row = $check->fetch(PDO::FETCH_ASSOC);
+    $qty=$qty+$row["quantity"];
+    $update="UPDATE productCarts
+    SET quantity=$qty
+    WHERE customerId=$custId and productId=$prodId; ";
+    $conn->query($update);
     echo json_encode(array("result"=> "exists"));
 }
 else{

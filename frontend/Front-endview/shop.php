@@ -286,10 +286,10 @@ $_SESSION["CategoryName"] = $categoryName;
     });
 
     // Adding products to cart
+    
+    
     $('.cart').click(function() {
         var product_id = $(this).attr('id');
-
-
         // console.log(product_id);
         $.ajax({
             url: "php/addProductToCart.php",
@@ -301,9 +301,9 @@ $_SESSION["CategoryName"] = $categoryName;
             success: function(response) {
                 // console.log(response);
                 if (response.result == "exists") {
-                    alert('Product already in cart');
+                    alert('Quantity updated in cart');
                 } else if (response.result == "success") {
-                    alert('Product added to cartr');
+                    alert('Product added to cart');
                 } else {
                     alert("Something went wrong");
                     console.log(response);
