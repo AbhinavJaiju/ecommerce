@@ -77,19 +77,19 @@ else{
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../admin/order/order-listing.php">
+                    <a class="nav-link" href="../orders/orderlisting.php">
                         <i class="mdi mdi-view-headline menu-icon"></i>
                         <span class="menu-title">ORDERS</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../admin/product/category.php">
+                    <a class="nav-link" href="../product/category.php">
                         <i class="mdi mdi-chart-pie menu-icon"></i>
                         <span class="menu-title">CATEGORIES</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../admin/product/product-listing.php">
+                    <a class="nav-link" href="../product/product-listing.php">
                         <i class="mdi mdi-grid-large menu-icon"></i>
                         <span class="menu-title">PRODUCTS</span>
                     </a>
@@ -188,7 +188,7 @@ else{
                                 </p>
                                 <form id="submit_form" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" id="productid" name="productid" value="<?php echo $data['productId'] ?>" disabled >
+                                        <input type="number" class="form-control" id="productid" name="productid" value="<?php echo $data['productId'] ?>" hidden >
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputName1">Name</label>
@@ -285,6 +285,7 @@ else{
                                             // setTimeout(() => {
                                             //     $('#response').fadeOut("slow");
                                             // }, 4000);
+                                            window.location.href = 'product-listing.php';
                                         }
                                     })
                                 }
