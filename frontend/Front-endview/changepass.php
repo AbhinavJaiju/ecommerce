@@ -84,7 +84,7 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-12">
-<h3 style="text-align:center;margin-left:40%;margin-top:10%;margin-bottom:4%;color:#ca1515">Change Password</h3>
+<h3 style="text-align:center;margin-left:1%;margin-top:10%;margin-bottom:4%;color:#ca1515">Change Password</h3>
 </div>
 </div>
 <div class="row">
