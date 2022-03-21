@@ -224,10 +224,21 @@
 
 if (isset($_POST["delete_id"])) {
   
-  $delete_id = htmlspecialchars($_POST["delete_id"]);
-  
-  
-  $res = $conn->query("DELETE FROM banners WHERE bannereId = '$delete_id' ");
+//   $delete_id = htmlspecialchars($_POST["delete_id"]);
+$id = $_POST['bannereId'];
+$sql1 = "DELETE FROM banners WHERE bannereId = $id ";
+if($conn->query($sql1)  ===TRUE){
+    
+    echo "<script>window.location.href='banner.php';</script>";
+    exit;
+}else{
+
+    echo '<script>alert("Error in Deleting !")</script>';
+    echo "<script>window.location.href='banner.php';</script>";
+    exit;
+}
+
+$conn->close();
 
  }
 
