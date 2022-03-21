@@ -1,7 +1,7 @@
 <?php
     //db connection
     include_once '../config.php';
-
+    $id = $_GET['productId'];
     $name = $_POST['productname'];
     $pdescription = $_POST['pdescription'];
     $price = $_POST['price'];
@@ -10,13 +10,12 @@
     $sDescription = $_POST['sDescription'];
     $specification = $_POST['specification'];
     //inserting data into products table
-    $sql1 = "INSERT INTO products(productName,productDescription,price,categoryId,productStatus,shortDescription,specification)
-            VALUES('$name','$pdescription',$price,'$category','$status','$sDescription','$specification')";
+    $sql1 = "UPDATE products SET productName = '{$name}', productDescription = '{$pdescription}', price = '{$price}' , categoryId = '{$category}' ,productStatus = '{$status}', shortDescription = '{$sDescription}', specification = '{$specification}'
+                WHERE productId = $id ";
 
      if($conn->query($sql1)===TRUE){
-        echo "Hello {$name}, your record is saved.";
+        echo "Hello {$name}, your record is updated.";
         //getting Id of last inserted row
-        $last_id = $conn->insert_id;
         
     }else{
         echo $conn->error; 
@@ -29,9 +28,9 @@
         $ext = pathinfo($file_name,PATHINFO_EXTENSION);
 
         if(in_array($ext,$extension)){
-            if(!file_exists("productimage/".$file_name)){
+            if(!file_exists("../../productImages/".$file_name)){
                 move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"../../productImages/".$file_name); 
-                $sql = "INSERT INTO productImage(fileName,productId) VALUES('$file_name',$last_id)";
+                $sql = "UPDATE productImage SET fileName = '{$file_name}' WHERE productId = $id";
                 if($conn->query($sql)===TRUE){
                     echo "Image uploaded into database";
                 }else{
@@ -42,7 +41,7 @@
                 $filename = basename($file_name,$ext);
                 $newFileName = $filename.time().".".$ext;
                 move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"../../productImages/".$file_name);
-                $sql2 = "INSERT INTO productImage(fileName,productId) VALUES('$file_name',$last_id)";
+                $sql2 = "UPDATE productImage SET fileName = '{$file_name}' WHERE productId = $id";
                 if($conn->query($sql2)===TRUE){
                     echo "Image uploaded into database";
                 }else{

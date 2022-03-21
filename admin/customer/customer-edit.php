@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("config.php");
+include("../config.php");
 $id = $_GET['customerId'];
 $name = $_GET['fn'];
 $email = $_GET['em'];
@@ -80,7 +80,7 @@ $image = $_GET['im'];
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href=".../../admin/product/product-listing.php">
+          <a class="nav-link" href="../../admin/product/product-listing.php">
             <i class="mdi mdi-grid-large menu-icon"></i>
             <span class="menu-title">PRODUCTS</span>
           </a>
@@ -254,6 +254,8 @@ $image = $_GET['im'];
                       // setTimeout(() => {
                       //     $('#response').fadeOut("slow");
                       // }, 4000);
+                      window.location.href = 'customer-listing.php';
+
                     }
                   })
                 }

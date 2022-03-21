@@ -1,6 +1,6 @@
 <?php
     //inluding db connection file 
-    include_once 'config.php';
+    include_once '../config.php';
 
     $name = $_POST['userName'];
     $email = $_POST['email'];

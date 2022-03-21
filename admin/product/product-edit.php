@@ -1,5 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+
+if (!isset($_GET['productId'])) {
+}
+include("../config.php");
+
+$id = $_GET['productId'];
+
+$sql = "SELECT * FROM products WHERE  productId = $id";
+$result = $conn->query($sql);
+if ($result->num_rows != 1) {
+    die('id not found');
+}
+$data = $result->fetch_assoc();
+if($data['status'] ===1){
+    $status = 'In Stock';
+}
+else{
+    $status = "Out of Stock";
+}
+
+?>
 
 <head>
     <!-- Required meta tags -->
@@ -55,13 +77,13 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../admin/order/orderlisting.php">
+                    <a class="nav-link" href="../../admin/order/order-listing.php">
                         <i class="mdi mdi-view-headline menu-icon"></i>
                         <span class="menu-title">ORDERS</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../admin/product/category.php">
+                    <a class="nav-link" href="../../admin/product/product-listing.php">
                         <i class="mdi mdi-chart-pie menu-icon"></i>
                         <span class="menu-title">CATEGORIES</span>
                     </a>
@@ -85,7 +107,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../enquiries/enquiries.php">
+                    <a class="nav-link" href="../pages/icons/mdi.html">
                         <i class="mdi mdi-file-document-box-outline menu-icon"></i>
                         <span class="menu-title">ENQUIRES</span>
                     </a>
@@ -156,99 +178,122 @@
                 <div class="content-wrapper">
 
                     <!-- row end -->
-                    <div class="col-lg-12 grid-margin stretch-card">
+                    <script type="text/javascript" src="js/jquery.js"></script>
+                    <div class="col-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Product</h4>
-                                <p class="card-description"> List of Products
+
+                                <p class="card-description">
+                                    Update Product
                                 </p>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <a href="../product/product-form.php">
-                                            <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add Product</button>
-                                        </a>
-                                        <thead>
-                                            <tr>
-                                                <th> # </th>
-                                                <th> Name </th>
-                                                <th> Product Description </th>
-                                                <th> Price </th>
-                                                <!-- <th> CategoryId </th> -->
-                                                <th> Status </th>
-                                                <th> Short Description</th>
-                                                <th> Specification </th>
-                                                <th> Image</th>
-                                                <th> </th>
-                                                <th> </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                <form id="submit_form" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" id="productid" name="productid" value="<?php echo $data['productId'] ?>" disabled >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputName1">Name</label>
+                                        <input type="text" class="form-control" id="productname" name="productname" value="<?php echo $data['productName'] ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleTextarea1">Product Description</label>
+                                        <textarea class="form-control" id="pdescription" name="pdescription" rows="2"> <?php echo $data['productDescription'] ?></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="number">price</label>
+                                        <input type="number" class="form-control" id="price" name="price" value="<?php echo $data['price'] ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleSelectGender">Category</label>
+
+                                        <select class="form-control" id="category" name="category">
                                             <?php
-                                            include_once '../config.php';
-                                            $sql = "SELECT * from products ";
-                                // LEFT JOIN productImage on products.productId = productImage.productId 
-                                // UNION 
-                                // SELECT * from products
-                                // RIGHT JOIN productImage on products.productId = productImage.productId ";
+                                            $sql = "SELECT * FROM categories";
                                             $result = $conn->query($sql);
-
-                                            while ($row = $result->fetch_assoc()) {
-                                                $id = $row['productId'];
                                             ?>
-                                                <tr>
-                                                    <td> <?php echo $row['productId'] ?> </td>
-                                                    <td> <?php echo $row['productName'] ?> </td>
-                                                    <td> <?php echo $row['productDescription'] ?></td>
-                                                    <td> <?php echo $row['price'] ?> </td>
-                                                    <td> <?php echo $row['productStatus'] ?> </td>
-                                                    <td> <?php echo $row['shortDescription'] ?> </td>
-                                                    <td> <?php echo $row['specification'] ?> </td>
-                                                    <td>
-                                                        <?php 
-                                                            $sql1 = "SELECT * FROM productImage  WHERE productId = $id";
-                                                            $result1 = $conn->query($sql1);
-                                                            while($row1 = $result1->fetch_assoc()){
-
-                                                            ?>
-                                                        <img src="../../productImages/<?php echo $row1['fileName'] ?>" alt="">
-                                                        <?php
-                                                            }
-                                                            ?>
-                                                    </td>
-                                                    <td>
-                                                        <div>
-                                                            <form action='product-remove.php?productId="<?php echo $row['productId']; ?>"' method="post">
-                                                                <input type="hidden" name="productId" value="<?php echo $row['productId']; ?>">
-                                                                <button type="submit" class="btn btn-sm btn-outline-danger btn-icon" onClick="return confirm('Are you Sure?')" name="delete">
-                                                                    <i class="bi bi-trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                                                        </svg>
-                                                                    </i>
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div>
-                                                            <a href='product-edit.php?productId=<?php echo $row[productId]; ?>'>
-                                                                <input type="hidden" name="productId" value="<?php echo $row['productId']; ?>">
-                                                                <button type="submit" class="btn btn-sm btn-primary" name="edit" onClick="return Confirm('Are you Sure?')">
-                                                                    <i class="mdi mdi-lead-pencil"></i>
-                                                                </button>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                            <option selected>Select a category</option>
+                                            <?php
+                                            while ($row = $result->fetch_assoc()) {
+                                                echo "<option value =" . $row['categoryId'] . ">" . $row['categoryName'] . "</option>";
+                                            ?>
                                             <?php
                                             }
                                             ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </select>
+                                        <div class="form-group">
+                                            <label for="exampleSelectGender">Status</label>
+                                            <select class="form-control" id="status" name="status">
+                                                <option value="<?php echo $data['status'] ?>"> <?php echo $status ?> </option>
+                                                <option value="0">Out Of Stock</option>
+                                                <option value="1">In Stock</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <input type="file" required class="form-control" id="file" name="files[]" aria-describedby="inputGroupFileAddon03" aria-label="Upload" multiple>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleTextarea1">Short Description</label>
+                                        <textarea class="form-control" id="sDescription" name="sDescription" rows="3"> <?php echo $data['shortDescription'] ?> </textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleTextarea1">Specification</label>
+                                        <textarea class="form-control" id="specification" name="specification" rows="3"> <?php echo $data['specification'] ?> </textarea>
+                                    </div>
+                                    <input type="submit" name="submit" id="submit" class="btn btn-primary mr-2" value="Submit">
+                                    <button type="button" class="btn btn-light" id="cancel">Cancel</button>
+                                </form>
+                                <div id="response"></div>
                             </div>
                         </div>
                     </div>
-
+                    <script>
+                        $(document).ready(function() {
+                            $('#submit_form').on("submit", function(e) {
+                                e.preventDefault();
+                                var id = $('#productId');
+                                var formData = new FormData(this);
+                                //   var img = $('#image').val().split('\\').pop();
+                                //   console.log(img);
+                                var productname = $('#productname').val();
+                                var pdresscription = $('#pdresscription').val();
+                                var price = $('#price').val();
+                                var category = $('#category').val();
+                                // console.log(category);
+                                // console.log(productname);
+                                var status = $('#status').val();
+                                // console.log(status);
+                                var sDescription = $('#sDescription').val();
+                                var specification = $('specification').val();
+                                if (productname == "" || pdresscription == "" || price == "" || sDescription == "" || specification == "") {
+                                    $('#response').fadeIn();
+                                    $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
+                                } else {
+                                    //$('#response').html($('#submit_form').serialize());
+                                    $.ajax({
+                                        url: "product-editfunction.php?productId=<?php echo $data['productId'] ?>",
+                                        type: "POST",
+                                        data: formData,
+                                        contentType: false,
+                                        processData: false,
+                                        success: function(data) {
+                                            $('#submit_form').trigger("reset");
+                                            $('#response').fadeIn();
+                                            $('#response').removeClass('error-msg').addClass('success-msg').html(data);
+                                            window.location.href = 'product-listing.php';
+                                            // setTimeout(() => {
+                                            //     $('#response').fadeOut("slow");
+                                            // }, 4000);
+                                        }
+                                    })
+                                }
+                            })
+                            $('#cancel').click(function() {
+                                window.location.href = 'product-listing.php';
+                            })
+                        })
+                    </script>
 
 
 

@@ -55,7 +55,11 @@
           </div>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
           <a class="nav-link" href="../orders/orderlisting.php">
+=======
+          <a class="nav-link" href="../../admin/order/orders.php">
+>>>>>>> ad1c59d581b54f043cfd428ab39bfa0ec4815224
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
@@ -182,7 +186,7 @@
                     </thead>
                     <tbody>
                       <?php
-                      include_once 'config.php';
+                      include_once '../config.php';
                       $sql = "SELECT * FROM customers";
                       $result = $conn->query($sql);
 
@@ -210,7 +214,7 @@
                           </td>
                           <td>
                             <div>
-                              <a href='customer-edit.php?customerId=<?php echo $row[customerId] ?>&fn=<?php echo $row[customerName]; ?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords] ?>&ph=<?php echo $row[phoneNumber] ?>&gd=<?php echo $row[gender] ?>&ad=<?php echo $row[address] ?>&im=<?php echo row[profilePicture] ?>'>
+                              <a href='customer-edit.php?customerId=<?php echo $row[customerId] ?>&fn=<?php echo $row[customerName]; ?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords] ?>&ph=<?php echo $row[phoneNumber] ?>&gd=<?php echo $row[gender] ?>&ad=<?php echo $row[address] ?>&im=<?php echo $row[profilePicture] ?>'>
                                 <input type="hidden" name="customerId" value="<?php echo $row['customerId']; ?>">
                                 <button type="submit" class="btn btn-sm btn-outline-primary btn-icon" name="edit" onClick="return Confirm('Are you Sure?')">
                                   <i class="mdi mdi-lead-pencil"></i>
