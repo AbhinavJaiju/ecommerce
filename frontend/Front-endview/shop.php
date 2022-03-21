@@ -9,19 +9,23 @@ if (isset($_POST['but_logout'])) {
 }
 
 //get,set values -> from sessions and links
+$search = $_GET['search'];
+echo  $search;
 
 $strValue = $_GET['id'];
 if ($strValue > 0) {
     $categoryId = $strValue;
-   
+} 
+else {
+    $categoryId = 1;
 }
- 
+
 include "config.php";
 $sql = "SELECT categoryName FROM categories 
 WHERE categoryId=$categoryId";
 $result = $conn->query($sql);
 
-$row = $result->fetch_assoc() ;
+$row = $result->fetch_assoc();
 $categoryName = $row['categoryName'];
 
 
@@ -77,7 +81,7 @@ $_SESSION["CategoryName"] = $categoryName;
             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                     <div class="tip">2</div>
                 </a></li>
-               
+
             <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                     <div class="tip">2</div>
                 </a></li>
@@ -95,9 +99,9 @@ $_SESSION["CategoryName"] = $categoryName;
 
 
     <!-- Header Section Begin -->
-        <?php
-        include "navigation.php";
-        ?>
+    <?php
+    include "navigation.php";
+    ?>
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
@@ -129,7 +133,7 @@ $_SESSION["CategoryName"] = $categoryName;
                                 <h4>Categories</h4>
                             </div>
                             <div class="section-title">
-                            <input type="text" class="search-categories" placeholder="Search category.....">
+                                <input type="text" class="search-categories" placeholder="Search category.....">
                             </div>
                             <div class="categories__accordion">
                                 <div class="accordion" id="accordionExample">
@@ -147,7 +151,7 @@ $_SESSION["CategoryName"] = $categoryName;
                                         }
                                     }
                                     ?>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -155,9 +159,16 @@ $_SESSION["CategoryName"] = $categoryName;
                 </div>
                 <div class="col-lg-9 col-md-9">
                     <div class="row">
-                         <?php
+                        <?php
+                        if ($search != "") {
+                            // $categoryId = 0;
+                            $sql = "SELECT * FROM products where productName like '%$search%'";
+                            $result = $conn->query($sql);
+                            }
+                            else{
                         $sql = "SELECT * FROM products where categoryId=$categoryId";
                         $result = $conn->query($sql);
+                            }
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $id = $row["productId"];
@@ -169,6 +180,7 @@ $_SESSION["CategoryName"] = $categoryName;
                                 $filename = $location . $file["fileName"];
                                 $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
                                 $rs = $fmt->format($row["price"]);
+                                
                                 echo "<div class='col-lg-4 col-md-6'>
                                 <div class='product__item'>
                                 <div class='product__item__pic set-bg' data-setbg='img/shop/{$file["fileName"]}'>
@@ -299,14 +311,7 @@ $_SESSION["CategoryName"] = $categoryName;
 
 
     <!-- Search Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
-        </div>
-    </div>
+    <?php include "globalsearch.php"; ?>
     <!-- Search End -->
 
     <!-- Js Plugins -->
@@ -329,7 +334,7 @@ $_SESSION["CategoryName"] = $categoryName;
     // Adding products to wishlist
     $('.wishList').click(function() {
         var product_id = $(this).attr('id');
-      
+
 
         // console.log(product_id);
         $.ajax({
@@ -357,7 +362,7 @@ $_SESSION["CategoryName"] = $categoryName;
     // Adding products to cart
     $('.cart').click(function() {
         var product_id = $(this).attr('id');
-      
+
 
         // console.log(product_id);
         $.ajax({
@@ -384,42 +389,43 @@ $_SESSION["CategoryName"] = $categoryName;
 
 
     // Search categories
-    $('.search-categories').on("keyup", function(){
+    $('.search-categories').on("keyup", function() {
         var value = $(this).val().toLowerCase();
         // console.log(value);
-        $('.card').filter(function(){
+        $('.card').filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    
+
         });
     });
 
     // Search products
-    $('.search-products').on("keyup", function(){
+    $('.search-products').on("keyup", function() {
         var value = $(this).val().toLowerCase();
         // console.log(value);
-        $('.product__item').filter(function(){
+        $('.product__item').filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    
+
         });
     });
 </script>
 
 
 <style>
-    .search-categories{
-    width: 90%;
-	font-size: 20px;
-	border: none;
-	border-bottom: 2px solid #dddddd;
-	background: 0 0;
-	color: #999;
+    .search-categories {
+        width: 90%;
+        font-size: 20px;
+        border: none;
+        border-bottom: 2px solid #dddddd;
+        background: 0 0;
+        color: #999;
     }
-    .search-products{
-    width: 80%;
-	font-size: 20px;
-	border: none;
-	border-bottom: 2px solid #dddddd;
-	background: 0 0;
-	color: #999;
+
+    .search-products {
+        width: 80%;
+        font-size: 20px;
+        border: none;
+        border-bottom: 2px solid #dddddd;
+        background: 0 0;
+        color: #999;
     }
 </style>
