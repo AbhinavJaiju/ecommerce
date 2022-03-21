@@ -53,6 +53,7 @@ if ($conn->connect_error) {
 }
 $sql = "SELECT productImage.fileName,productImage.pImageId ,products.productId,products.productname,products.price FROM productImage join products ON productImage.productId = products.productId ORDER BY productImage.pImageId DESC LIMIT 10;";
 $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
+
 ?>
 
 <body>
@@ -91,7 +92,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.php"><img src="img/logo3.png" alt="" style="height: 35px;width: 100px;"></a>
+                        <a href="./index.php"><img src="img/logo5.png" alt="" style="height: 40px;width: 100px;"></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
@@ -176,7 +177,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                             <div class="categories__item set-bg" data-setbg="img/categories/camera.jpg">
                                 <div class="categories__text">
                                     <h4 style="color: white;">Camera</h4>
-                                    <p style="color: white;">358 items</p>
+                                    <!-- <p style="color: white;">358 items</p> -->
                                     <a href="shop.php?id=3" style="color: white;">Shop now</a>
                                 </div>
                             </div>
@@ -185,7 +186,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                             <div class="categories__item set-bg" data-setbg="img/categories/mobile.png">
                                 <div class="categories__text">
                                     <h4 style="color: white;">Mobiles</h4>
-                                    <p style="color: white;">273 items</p>
+                                    <!-- <p style="color: white;">273 items</p> -->
                                     <a href="shop.php?id=2" style="color: white;">Shop now</a>
                                 </div>
                             </div>
@@ -194,7 +195,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                             <div class="categories__item set-bg" data-setbg="img/categories/headset.jpg">
                                 <div class="categories__text">
                                     <h4 style="color: white;">Headset</h4>
-                                    <p style="color: white;">159 items</p>
+                                    <!-- <p style="color: white;">159 items</p> -->
                                     <a href="shop.php?id=4" style="color: white;">Shop now</a>
                                 </div>
                             </div>
@@ -263,9 +264,19 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
 
                             <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 60%;">
                                 <div class="label new">New</div>
+                                <ul class='product__hover'>
+                                    <li>
+                                        <div class='d-flex align-items-center justify-content-center'>
+                                            <div class='toast'>
+                                                <i class='fa fa-solid fa-heart'></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                                 <ul class="product__hover">
                                     <li><a href="img/shop/<?php echo $row['fileName'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    <li><a class="wishList" id="<?php echo $row["productId"] ?>"><span class='icon_heart_alt'></span></a></li>
+
                                     <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                 </ul>
                             </div>
@@ -672,6 +683,9 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
     <!-- Discount Section Begin -->
     &nbsp;
     &nbsp;
+
+
+
     <section class="discount">
         <div class="container">
             <div class="row">
@@ -814,7 +828,7 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
                 <div class="col-lg-4 col-md-6 col-sm-7">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                            <a href="./index.php"><img src="img/logo5.png" alt="" style="height: 40px;width: 100px;"></a>
                         </div>
                         <p>We provide the products from the best brands with the offer that you will not expect.</p>
                         <div class="footer__payment">
@@ -902,6 +916,38 @@ $ssql = "SELECT bannerImage FROM `banners` LIMIT 1;"
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.nicescroll.min.js"></script>
     <script src="js/main.js"></script>
+
+
+
+    <script>
+        // Adding products to wishlist
+        $('.wishList').click(function() {
+            var product_id = $(this).attr('id');
+
+
+            // console.log(product_id);
+            $.ajax({
+                url: "php/add-to-wishlist.php",
+                method: "POST",
+                data: {
+                    productId: product_id
+                },
+                dataType: 'json',
+                success: function(response) {
+                    // console.log(response);
+                    if (response.result == "exists") {
+                        alert('Product already in wishlist');
+                    } else if (response.result == "success") {
+                        $('.toast').toast('show');
+                    } else {
+                        alert("Something went wrong");
+                        console.log(response);
+                    }
+
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

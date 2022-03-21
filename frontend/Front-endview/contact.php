@@ -144,8 +144,6 @@
     $sql = "INSERT INTO enquiries (email, name, message,phoneNumber) VALUES ('{$email}', '{$name}', '{$message}', '{$phonenumber}')";
 
     if ($conn->query($sql) === TRUE) {
-
-        echo "Hello {$username} your record is saved";
     } else {
         echo "Error   creating database: ";
     }
@@ -216,7 +214,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-7">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                            <a href="./index.php"><img src="img/logo5.png" alt="" style="height: 40px;width: 100px;"></a>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                             cilisis.</p>
