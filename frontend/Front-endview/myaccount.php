@@ -147,13 +147,13 @@ $count = count($row);
             include 'config.php';
 
             echo
-            '<a href="http://localhost/ecommerce/frontend/Front-endview/editprofile.php?id=' . $custId . '">Manage profile</a></li>';
+            '<a href="editprofile.php?id=' . $custId . '">Manage profile</a></li>';
             ?>
 
 
-          <li class="active" style="margin-top:8%"><a href="http://localhost/ecommerce/frontend/Front-endview/changepass.php">Change Password</a></li>
+          <li class="active" style="margin-top:8%"><a href="changepass.php">Change Password</a></li>
           <li class="active" style="margin-top:8%"><a href="wish-list.php">My Wish list</a></li>
-          <li class="active" style="margin-top:8%"><a href="#section3">My Orders</a></li>
+          <li class="active" style="margin-top:8%"><a href="orderhistory.php">My Orders</a></li>
           <li class="active" style="margin-top:8%"><a href="contact.php">contact us</a></li>
 
         </ul><br>
