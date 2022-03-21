@@ -256,9 +256,9 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
             ?>
 
 
-                    <div class=" column1" style="float: left;width:20%;padding: 5px;">
+                    <div class="column1" style="float: left;width:20%;padding: 5px;">
 
-                        <div class="product__item">
+                        <div class="product__item ">
 
 
 
@@ -270,7 +270,7 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
                                     <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                 </ul>
                             </div>
-                            <div class="product__item__text">
+                            <div class="product__item__text ">
                                 <h6><a href="#"><?php echo $row["productname"] ?></a></h6>
 
                                 <div class="product__price">Rs <?php echo $row["price"] ?></div>
