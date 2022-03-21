@@ -185,7 +185,7 @@ $catName =  $_GET['fn'];
                             <div class="card">
 
                                 <div class="card-body" style="align-content: center;">
-                                    <h4 class="card-title" id="addbanner">Add Banner</h4>
+                                    <h4 class="card-title" id="addbanner">Edit Banner Category</h4>
 
                                     <!-- <div class="float-child2"> -->
 
