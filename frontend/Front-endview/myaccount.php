@@ -16,7 +16,7 @@
     
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 770px}
+    .row.content {height: 890px}
     
     /* Set gray background color and 100% height */
     .sidenav {
@@ -106,7 +106,11 @@ if(isset($_POST['home'])){
   <div>
 
                         
+<<<<<<< Updated upstream
                         <form method='post' action="" style="margin-left:1350px;margin-top:2%;">
+=======
+                        <form method='post' action="" style="margin-left:1600px;margin-top:2%;">
+>>>>>>> Stashed changes
                         <input type="submit" class="btn btn-danger btn-sm" style="font-size:15px;font-weight:bold" value="home" name="home">
                           <input type="submit" class="btn btn-danger btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
                                </form>

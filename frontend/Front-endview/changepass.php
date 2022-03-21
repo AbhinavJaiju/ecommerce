@@ -14,6 +14,18 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+<style>
+  .btn{
+        color: white;
+      background-color: #ca1515;
+      border: #ca1515 solid 1px;  
+      }
+
+      .container{
+        height:100px;
+        width:1600px;
+      }
+  </style>
 </head>
 <?php
       include 'config.php';
@@ -60,7 +72,7 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-12">
-<h1 style="text-aign:center;margin-left:40%;margin-top:16%;margin-bottom:1%">Change Password</h1>
+<h1 style="text-aign:center;margin-left:40%;margin-top:16%;margin-bottom:1%;color:#ca1515">Change Password</h1>
 </div>
 </div>
 <div class="row">

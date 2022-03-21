@@ -47,10 +47,15 @@
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    font-size: .825rem;
+    font-size:15px;
     background: #ffffff;
     color: #2e323c;
 }
+.btn{
+        color: white;
+      background-color: #ca1515;
+      border: #ca1515 solid 1px;  
+      }
 
 .card {
     background: #ffffff;k
@@ -61,25 +66,26 @@
     margin-bottom: 1rem;
 }
 
+
 </style>
 </head>
 
 <body>
-<div class="container">
+<div class="container" style="margin-top:10%;">
 <div class="row gutters">
 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12" >
-<div class="card h-100" style="height:300px;margin-right:2%;margin-left:2%;margin-top:32%">
+<div class="card h-100" style="height:350px;margin-right:2%;margin-left:2%;margin-top:32%">
 	<div class="card-body">
 		<div class="account-settings">
 			<div class="user-profile">
 				<div class="user-avatar">
-					<img style="margin-top:15%;"
+					<img style="margin-top:25%;"
 					src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
 				</div>
 				<h5 class="user-name"><?php
         session_start();
                       echo $_SESSION['uname'];?></h5>
-				<a>Change profile</a>
+				<a style="color:#ca1515">Change profile</a>
 			</div>
 			
 		</div>
@@ -124,8 +130,8 @@ if(isset($_POST['submit'])){
             
               echo '<div class="card-body" style="margin-top:10%;margin-right:3%;margin-left:3%">
               <div class="row gutters">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                  <h6 class="mb-2 text-primary" style="font-weight:15px;font-size:20px;">Personal Details</h6>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top:5%">
+                  <h6 class="mb-2 text-primary" style="font-weight:15px;font-size:20px;color:#ca1515">Personal Details</h6>
                 </div>
                 
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -165,7 +171,7 @@ if(isset($_POST['submit'])){
                 </div>
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                   <div class="text-right">
-                    <button style="margin-right:2%;margin-bottom:2%;" type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+                    <button style="margin-right:2%;margin-bottom:2%;" type="submit" id="submit" name="submit" class="btn">Update</button>
                   </div>
                 </div>
               
