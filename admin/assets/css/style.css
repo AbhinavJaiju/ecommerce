@@ -18677,7 +18677,6 @@ address p {
 /* Miscellanoeous */
 body,
 html {
-  overflow-x: hidden;
   padding-right: 0 !important;
 }
 
@@ -21128,3 +21127,29 @@ dl li {
 }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+/* jQuery styling */
+#response{
+  width: 70%;
+  margin: 15px auto;
+  padding: 15px;
+  border-radius: 5px;
+}
+.error-msg{
+  background: #f2dedf;
+  color: #9c4150;
+  border: 1px solid #e7ced1;
+}
+.success-msg{
+  background: #e0efda;
+  color: #407a4a;
+  border: 1px solid #c6dfb2;
+}
+.process-msg{
+  background: #d9edf6;
+  color: #377084;
+  border: 1px solid #c8dce5;
+}
+#submit{
+  margin-left: 20px;
+}
