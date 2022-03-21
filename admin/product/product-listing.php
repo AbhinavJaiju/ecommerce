@@ -188,7 +188,7 @@
                                         <tbody>
                                             <?php
                                             include '../config.php';
-                                            $sql = "SELECT * from products ";
+                                            $sql = "SELECT * from products ORDER BY productId DESC";
                                             // LEFT JOIN productImage on products.productId = productImage.productId 
                                             // UNION 
                                             // SELECT * from products
