@@ -1,10 +1,6 @@
 <?php
     //inluding db connection file 
-<<<<<<< HEAD
     include "../config.php";
-=======
-    include_once '../config.php';
->>>>>>> ad1c59d581b54f043cfd428ab39bfa0ec4815224
 
     $id = $_POST['customerId'];
     $name = $_POST['username'];
