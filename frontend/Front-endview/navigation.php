@@ -15,8 +15,6 @@ $wishResult = $conn->query($wishlist);
 $cartResult = $conn->query($cart);
 $wishCount = $wishResult->fetch_assoc();
 $cartCount = $cartResult->fetch_assoc();
-// echo $wishCount['wishList'];
-// echo $cartCount['cart'];
 ?>
 
 
