@@ -9,7 +9,7 @@
     $gender = $_POST['gender'];
     $number = $_POST['number'];
     $filename = $_FILES["image"]["name"];
-    $filepath = "../../customerImages/" . $_FILES["image"]["name"];
+    $filepath = "../../frontend/Front-endview/profilePic/" . $_FILES["image"]["name"];
     //sql query
     $sql1 = "INSERT INTO customers(customerName,passwords,email,phoneNumber,gender,address,profilePicture)
             VALUES('$name','$password','$email', $number,'$gender','$address','$filename')";

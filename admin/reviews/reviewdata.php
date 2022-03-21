@@ -162,13 +162,13 @@
           $id = $_GET['id'];
           // $id = $_SESSION['id'];
 
-          $query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,rev.reviewId,
+          $query = "SELECT rev.reviewId,rev.review, rev.createdDate,rev.status,cust.customerName,rev.reviewId,
 cust.email,prod.productId,prod.productName, cat.categoryId, cat.categoryName
 FROM reviews rev  
 JOIN customers cust ON cust.customerId = rev.customerId
 JOIN products prod ON prod.productId = rev.productId
 JOIN categories cat ON cat.categoryId = prod.categoryId
-WHERE cust.customerId=$id
+WHERE rev.reviewId=$id
 ";
 
           $result = $conn->query($query);

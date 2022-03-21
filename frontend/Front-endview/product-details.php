@@ -134,7 +134,7 @@ $_SESSION["ProductName"] = $row['productName'];
 
 
                         $reviewcount = "SELECT count(reviewId) as count FROM reviews
-                        WHERE productId=$strValue && status = 1";
+                        WHERE productId=$strValue && status = 'Approved'";
 
                         $reviewcountvalue = $conn->query($reviewcount);
                         $rcount = $reviewcountvalue->fetch_assoc();
@@ -284,7 +284,7 @@ $_SESSION["ProductName"] = $row['productName'];
                         }
                         
 
-                        $sql = "SELECT *  FROM reviews where productId=$strValue && status=1";
+                        $sql = "SELECT *  FROM reviews where productId=$strValue && status='Approved'";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {

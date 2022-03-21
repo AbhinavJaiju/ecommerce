@@ -183,7 +183,9 @@
                       <br />
                       <blockquote class="blockquote">
                         <h6>Content</h6>
-                        <input id="inp2" name="review" type="text" value=" <?php echo $about; ?>" disabled style="border: none;outline:none">
+                        <textarea id="inp2" name="review" type="text"  rows="4" cols="50"  disabled style="border: none;outline:none">
+                        <?php echo $about; ?>
+                        </textarea>
                       </blockquote>
                       <input type="submit" class="btn btn-outline-dark" value="Update about us" name="update">
                     </form>

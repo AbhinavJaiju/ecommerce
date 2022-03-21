@@ -284,7 +284,7 @@ $cartCount = $cartResult->fetch_assoc();
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                      <img src="<?php echo $row["profilePicture"]; ?>" alt="Admin" class="rounded-circle" width="150">
+                      <img src="../Front-endview/profilePic/<?php echo $row["profilePicture"]; ?>" alt="Admin" class="rounded-circle" width="150">
                       <div class="mt-3">
                         <h4> <?php
                               echo $_SESSION['uname']; ?> </h4>

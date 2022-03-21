@@ -212,7 +212,7 @@
                               <td><?php echo $row['bannereId']; ?></td>
                               <td><?php echo $row2['categoryName']; ?></td>
 
-                              <?php echo "<td><img src=\"Images/{$file["bannerImage"]}\" height=\"80px\" width=\"80px;\"></td>"; ?>
+                              <?php echo "<td><img src=\"../../frontend/Front-endview/img/banner/{$file["bannerImage"]}\" height=\"80px\" width=\"80px;\"></td>"; ?>
 
                               <td>
                                 <div>

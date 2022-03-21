@@ -222,7 +222,7 @@
                                         if (isset($_POST['submit'])) {
                                             $catId=$_REQUEST['reason'];
                                             
-                                            $target_dir = "Images/";
+                                            $target_dir = "../../frontend/Front-endview/img/banner/";
                                             $target_file = $target_dir . basename($_FILES["my_image"]["name"]);
                                             $file_name = basename($_FILES["my_image"]["name"]);
                                             $uploadOk = 1;

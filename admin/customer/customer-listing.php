@@ -197,7 +197,7 @@
                           <td> <?php echo $row['address'] ?> </td>
                           <td> <?php echo $row['phoneNumber'] ?> </td>
                           <td> <?php echo $row['gender'] ?> </td>
-                          <td> <img src="../../customerImages/<?php echo $row['profilePicture'] ?>" alt="" srcset=""> </td>
+                          <td> <img src="../../frontend/Front-endview/profilePic/<?php echo $row['profilePicture'] ?>" alt="" srcset=""> </td>
                           <td>
                             <div>
                               <form action='customer-remove.php?customerId="<?php echo $row['customerId']; ?>"' method="post">

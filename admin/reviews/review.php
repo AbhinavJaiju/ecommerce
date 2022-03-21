@@ -187,7 +187,7 @@
                     <tbody>
                       <?php
 
-                      $query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
+                      $query = "SELECT rev.reviewId, rev.review, rev.createdDate,rev.status,cust.customerName,
                       cust.email,prod.productId,prod.productName,cust.customerId
                       FROM reviews rev
                       JOIN customers cust ON cust.customerId = rev.customerId
@@ -204,7 +204,7 @@
                           <td><?php echo $row['productName'] ?? ''; ?></td>
                           <td><?php echo $row['createdDate'] ?? ''; ?></td>
                           <td><?php echo $row['status'] ?? ''; ?></td>
-                          <td><?php echo "<a type='button' class='btn btn-icon btn-lg' href='reviewdata.php?id=$row[customerId]'>" ?><i class="mdi mdi-eye"></i></td>
+                          <td><?php echo "<a type='button' class='btn btn-icon btn-lg' href='reviewdata.php?id=$row[reviewId]'>" ?><i class="mdi mdi-eye"></i></td>
                           <!-- <td><button type="button" class="btn btn-primary btn-rounded btn-icon" onClick="document.location.href='reviewdata.php'" > -->
                           <!-- <i class=" mdi mdi-eye "></i>
                       </button></td> -->

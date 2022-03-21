@@ -11,7 +11,7 @@
     $number = $_POST['number'];
     $image = $_POST['image1'];
     $filename = $_FILES["image"]["name"];
-    $filepath = "../../customerImages/" . $_FILES["image"]["name"];
+    $filepath = "../../frontend/Front-endview/profilePic/" . $_FILES["image"]["name"];
 
     //insertion query
     $sql = "UPDATE customers SET customerName = '{$name}', email = '{$email}', passwords = '{$password}', phoneNumber = '{$number}', gender = '{$gender}', address = '{$address}',profilePicture = '{$filename}'
