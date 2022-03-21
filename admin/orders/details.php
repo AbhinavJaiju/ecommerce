@@ -1,4 +1,4 @@
-<?php include 'config-anj.php'; ?>
+<?php include '../config.php'; ?>
 
 <?php
 if (isset($_POST["order_id"])) {

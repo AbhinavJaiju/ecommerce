@@ -188,7 +188,7 @@ else{
                                 </p>
                                 <form id="submit_form" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" id="productid" name="productid" value="<?php echo $data['productId'] ?>" disabled >
+                                        <input type="number" class="form-control" id="productid" name="productid" value="<?php echo $data['productId'] ?>" hidden >
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputName1">Name</label>
@@ -285,6 +285,7 @@ else{
                                             // setTimeout(() => {
                                             //     $('#response').fadeOut("slow");
                                             // }, 4000);
+                                            window.location.href = 'product-listing.php';
                                         }
                                     })
                                 }

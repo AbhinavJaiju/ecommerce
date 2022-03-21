@@ -182,7 +182,7 @@
 
                     <select class="form-control" id="category" name="category">
                       <?php
-                      include 'config.php';
+                      include '../config.php';
                       $sql = "SELECT * FROM categories";
                       $result = $conn->query($sql);
                       ?>

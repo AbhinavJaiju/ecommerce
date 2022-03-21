@@ -233,6 +233,7 @@ $gender = $_GET['gd'];
                       // setTimeout(() => {
                       //     $('#response').fadeOut("slow");
                       // }, 4000);
+                      window.location.href = 'user-listing.php';
                     }
                   })
                 }

@@ -233,7 +233,7 @@
                                                     </td>
                                                     <td>
                                                         <div>
-                                                            <a href='product-edit.php?productId=<?php echo $row[productId]; ?>'>
+                                                            <a href='product-edit.php?productId=<?php echo $row['productId']; ?>'>
                                                                 <input type="hidden" name="productId" value="<?php echo $row['productId']; ?>">
                                                                 <button type="submit" class="btn btn-sm btn-primary" name="edit" onClick="return Confirm('Are you Sure?')">
                                                                     <i class="mdi mdi-lead-pencil"></i>
