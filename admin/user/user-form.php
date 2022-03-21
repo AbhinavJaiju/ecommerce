@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -14,7 +13,6 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="paging.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../images/favicon.png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -51,7 +49,7 @@
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="../../admin/user/user-listing.php">USERS</a></li>
-              <li class="nav-item"> <a class="nav-link" href="../../admin/customer/customer-listing.php">CUSTOMERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../../admin/cutomer/customer-listing.php">CUSTOMERS</a></li>
             </ul>
           </div>
         </li>
@@ -157,81 +155,80 @@
         <div class="content-wrapper">
 
           <!-- row end -->
-          <div class="col-lg-12 grid-margin stretch-card">
+          <script type="text/javascript" src="js/jquery.js"></script>
+          <div class="col-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">Users</h4>
-                <p class="card-description"> List of Users
-                </p>
-                <div class="table-responsive">
-                  <table class="table table-bordered" id="pager">
-                    <a href="../user/user">
-                      <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add User</button>
-                    </a>
-                    <thead>
-                      <tr>
-                        <th> Id </th>
-                        <th> Name </th>
-                        <th> Email </th>
-                        <th> PhoneNumber </th>
-                        <th> Gender </th>
-                        <th> </th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      include_once '../config.php';
-                      $sql = "SELECT * FROM users";
-                      $result = $conn->query($sql);
-
-                      while ($row = $result->fetch_assoc()) {
-
-                      ?>
-                        <tr>
-                          <td> <?php echo $row['userId'] ?> </td>
-                          <td> <?php echo $row['userName'] ?> </td>
-                          <td> <?php echo $row['email'] ?></td>
-                          <td> <?php echo $row['phoneNumber'] ?> </td>
-                          <td> <?php echo $row['gender'] ?> </td>
-                          <td>
-                            <div>
-                              <form action='user-remove.php?userId="<?php echo $row['userId']; ?>"' method="post">
-                                <input type="hidden" name="userId" value="<?php echo $row['userId']; ?>">
-                                <button type="submit" class="btn btn-outline-danger btn-icon" onClick="return confirm('Are you Sure?')" name="delete">
-                                  <i class="mdi mdi-delete-forever">
-
-                                  </i>
-                                </button>
-                              </form>
-                            </div>
-                          </td>
-                          <td>
-                            <div>
-                              <a href='user-edit.php?userId=<?php echo $row[userId] ?>&fn=<?php echo $row[userName]; ?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords] ?>&ph=<?php echo $row[phoneNumber] ?>&gd=<?php echo $row[gender] ?>'>
-                                <input type="hidden" name="userId" value="<?php echo $row['userId']; ?>">
-                                <button type="submit" class="btn btn-outline-primary btn-icon" name="edit" onClick="return Confirm('Are you Sure?')">
-                                  <i class="mdi mdi-lead-pencil"></i>
-                                </button>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                      <?php
-                      }
-                      ?>
-                    </tbody>
-                  </table>
-                  <!-- Pagination nav -->
-                  <div id="pageNavPosition" class="pager-nav">
+                <h4 class="card-title">User Registration</h4>
+                <p class="card-description"> User Registration </p>
+                <form id="submit_form">
+                  
+                  <div class="form-group">
+                    <label for="exampleInputName1">Name</label>
+                    <input type="text" class="form-control" id="userName" name="userName" >
                   </div>
-                  <!-- pagination nav done-->
-                </div>
+                  <div class="form-group" id="submit_form">
+                    <label for="exampleInputEmail3">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword4">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleSelectGender">Gender</label>
+                    <select class="form-control" id="gender" name="gender">
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputCity1">Phone Number</label>
+                    <input type="number" class="form-control" id="phoneNumber" name="phoneNumber">
+                  </div>
+                  <input type="button" class="btn btn-primary mr-2" name="submit" id="submit" value="Submit">
+                  <button type="button" class="btn btn-danger" name="cancel" id="cancel"> cancel</button>
+                </form>
+                <div id="response"></div>
               </div>
             </div>
           </div>
-
-
+          <script>
+            $(document).ready(function() {
+              $('#submit').click(function() {
+                var name = $('#userName').val();
+                var email = $('#email').val();
+                var password = $('#password').val();
+                var phonenumber = $('#phoneNUmber').val();
+                var gender = $('#gender').val();
+                if (name == "" || email == "" || password == "" || phonenumber == "") {
+                  $('#response').fadeIn();
+                  $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
+                } else {
+                  //$('#response').html($('#submit_form').serialize());
+                  $.ajax({
+                    url: "user-insertion.php",
+                    type: "POST",
+                    data: $('#submit_form').serialize(),
+                    success: function(data) {
+                      $('#submit_form').trigger("reset");
+                      $('#response').fadeIn();
+                      $('#response').removeClass('error-msg').addClass('success-msg').html(data);
+                      window.location.href = 'user-listing.php';
+                      // setTimeout(() => {
+                      //     $('#response').fadeOut("slow");
+                      // }, 4000);
+                      window.location.href = 'user-listing.php';
+                    }
+                  })
+                }
+              })
+              $('#cancel').click(function() {
+                window.location.href = 'user-listing.php';
+              })
+            })
+          </script>
 
 
 
@@ -255,116 +252,6 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
-  <!-- pagination function -->
-  <script>
-    /* eslint-env browser */
-    /* global document */
-
-    function Pager(tableName, itemsPerPage) {
-      'use strict';
-
-      this.tableName = tableName;
-      this.itemsPerPage = itemsPerPage;
-      this.currentPage = 1;
-      this.pages = 0;
-      this.inited = false;
-
-      this.showRecords = function(from, to) {
-        let rows = document.getElementById(tableName).rows;
-
-        // i starts from 1 to skip table header row
-        for (let i = 1; i < rows.length; i++) {
-          if (i < from || i > to) {
-            rows[i].style.display = 'none';
-          } else {
-            rows[i].style.display = '';
-          }
-        }
-      };
-
-      this.showPage = function(pageNumber) {
-        if (!this.inited) {
-          // Not initialized
-          return;
-        }
-
-        let oldPageAnchor = document.getElementById('pg' + this.currentPage);
-        oldPageAnchor.className = 'pg-normal';
-
-        this.currentPage = pageNumber;
-        let newPageAnchor = document.getElementById('pg' + this.currentPage);
-        newPageAnchor.className = 'pg-selected';
-
-        let from = (pageNumber - 1) * itemsPerPage + 1;
-        let to = from + itemsPerPage - 1;
-        this.showRecords(from, to);
-
-        let pgNext = document.querySelector('.pg-next'),
-          pgPrev = document.querySelector('.pg-prev');
-
-        if (this.currentPage == this.pages) {
-          pgNext.style.display = 'none';
-        } else {
-          pgNext.style.display = '';
-        }
-
-        if (this.currentPage === 1) {
-          pgPrev.style.display = 'none';
-        } else {
-          pgPrev.style.display = '';
-        }
-      };
-
-      this.prev = function() {
-        if (this.currentPage > 1) {
-          this.showPage(this.currentPage - 1);
-        }
-      };
-
-      this.next = function() {
-        if (this.currentPage < this.pages) {
-          this.showPage(this.currentPage + 1);
-        }
-      };
-
-      this.init = function() {
-        let rows = document.getElementById(tableName).rows;
-        let records = (rows.length - 1);
-
-        this.pages = Math.ceil(records / itemsPerPage);
-        this.inited = true;
-      };
-
-      this.showPageNav = function(pagerName, positionId) {
-        if (!this.inited) {
-          // Not initialized
-          return;
-        }
-
-        let element = document.getElementById(positionId),
-          pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal pg-prev">&#171;</span>';
-
-        for (let page = 1; page <= this.pages; page++) {
-          pagerHtml += '<span id="pg' + page + '" class="pg-normal pg-next" onclick="' + pagerName + '.showPage(' + page + ');">' + page + '</span>';
-        }
-
-        pagerHtml += '<span onclick="' + pagerName + '.next();" class="pg-normal">&#187;</span>';
-
-        element.innerHTML = pagerHtml;
-      };
-    }
-
-
-
-    //
-    let pager = new Pager('pager', 5);
-
-    pager.init();
-    pager.showPageNav('pager', 'pageNavPosition');
-    pager.showPage(1);
-  </script>
-  <!-- table pagination done-->
 
   <script>
     var user = sessionStorage.getItem('UserName');
