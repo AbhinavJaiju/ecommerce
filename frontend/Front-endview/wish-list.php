@@ -9,21 +9,20 @@ if (isset($_POST['but_logout'])) {
 $userId = $_SESSION['cutomerId'];
 
 
-
-
 $sql = "SELECT wishLists.wishListId,wishLists.productId,
 products.productName,
 productImage.fileName FROM wishLists
 INNER JOIN products ON wishLists.productid = products.productid
-LEFT JOIN productImage ON productImage.productid = products.productid";
+LEFT JOIN productImage ON productImage.productid = products.productid
+WHERE customerId=$userId";
 
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 
 // Get count of wishlist and cart
-$wishlist = "SELECT COUNT(wishListId) AS wishList FROM wishLists";
-$cart = "SELECT COUNT(productCartId) AS cart FROM productCarts";
+$wishlist = "SELECT COUNT(wishListId) AS wishList FROM wishLists where customerId=$userId";
+$cart = "SELECT COUNT(productCartId) AS cart FROM productCarts where customerId=$userId";
 $wishResult = $conn->query($wishlist);
 $cartResult = $conn->query($cart);
 $wishCount = $wishResult->fetch_assoc();
@@ -69,10 +68,10 @@ $cartCount = $cartResult->fetch_assoc();
         <ul class="offcanvas__widget">
             <li><span class="icon_search search-switch"></span></li>
             <li><a href="#"><span class="icon_heart_alt"></span>
-                    <div class="tip">2</div>
+                    <div class="tip"></div>
                 </a></li>
             <li><a href="#"><span class="icon_bag_alt"></span>
-                    <div class="tip">2</div>
+                    <div class="tip"></div>
                 </a></li>
         </ul>
         <div class="offcanvas__logo">

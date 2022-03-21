@@ -100,8 +100,8 @@ $userId = $_SESSION['cutomerId'];
 include "config.php";
 
 // Get count of wishlist and cart
-$wishlist = "SELECT COUNT(wishListId) AS wishList FROM wishLists";
-$cart = "SELECT COUNT(productCartId) AS cart FROM productCarts";
+$wishlist = "SELECT COUNT(wishListId) AS wishList FROM wishLists where customerId=$userId";
+$cart = "SELECT COUNT(productCartId) AS cart FROM productCarts where customerId=$userId";
 $wishResult = $conn->query($wishlist);
 $cartResult = $conn->query($cart);
 $wishCount = $wishResult->fetch_assoc();
