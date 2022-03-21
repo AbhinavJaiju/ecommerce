@@ -22,7 +22,7 @@
 </head>
 
 <body>
-<div class="container-scroller d-flex">
+  <div class="container-scroller d-flex">
     <!-- partial:./partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <ul class="nav">
@@ -55,7 +55,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/forms/basic_elements.html">
+          <a class="nav-link" href="../orders//orderlisting.php">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
@@ -85,7 +85,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../">
+          <a class="nav-link" href="../enquiries/enquiries.php">
             <i class="mdi mdi-file-document-box-outline menu-icon"></i>
             <span class="menu-title">ENQUIRES</span>
           </a>
@@ -150,135 +150,129 @@
           </ul>
         </div>
       </nav>
-          <!-- row end -->
+      <!-- partial -->
 
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+          <!-- row end -->
 
 
           <!-- body -->
 
           <?php
           include "../config.php";
-
-          $id = $_GET['id'];
-          // $id = $_SESSION['id'];
-
-          $query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,rev.reviewId,
-cust.email,prod.productId,prod.productName, cat.categoryId, cat.categoryName
-FROM reviews rev  
-JOIN customers cust ON cust.customerId = rev.customerId
-JOIN products prod ON prod.productId = rev.productId
-JOIN categories cat ON cat.categoryId = prod.categoryId
-WHERE cust.customerId=$id
-";
-
-          $result = $conn->query($query);
-
-          if (empty($result)) {
-            echo "no data found";
-          } else {
-            //echo $result['productName'];
-            $res = mysqli_fetch_array($result);
-            if ($res != null) {
-              $productName = $res['productName'];
-              $customerName = $res['customerName'];
-              $review = $res['review'];
-              $createdDate = $res['createdDate'];
-              $status = $res['status'];
-              $email = $res['email'];
-              $productId = $res['productId'];
-              $categoryId = $res['categoryId'];
-              $categoryName = $res['categoryName'];
-              $reviewId = $res['reviewId'];
-            }
-          }
           ?>
-          <!-- body -->
 
-          <div class="main-panel">
-            <div class="content-wrapper">
-              <div class="row">
-                <div class="col-12 grid-margin stretch-card">
-                  <div class="card">
-                    <div class="card-body">
-                      <h4 class="card-title"><?php echo $productName; ?></h4>
-                      <p class="card-description">
-                        <?php echo "Product Id : " . $productId;  ?> <br />
-                        <?php echo "Category Id : " . $categoryId; ?> <br />
-                        <?php echo "Category Name : " . $categoryName;  ?> <br />
-                      </p>
-                      <br />
+          <div class="content-wrapper">
+            <div class="col-lg-12 grid-margin mt-5 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href = 'addbanner.php';" style="float: right;">Add a new banner</button>
+                  <h4 class="card-title">Manage Banner</h4>
 
-                      <address>
-                        <?php echo "Customer Name : " . $customerName;  ?> <br />
-                        <?php echo "Customer Email : " . $email;  ?> <br />
-                        <?php $newDate = date("d-m-Y", strtotime($createdDate));
-                        echo "Posted at : " . $newDate; ?><br />
-                      </address>
-
-                      <br />
-                      <div class="card-body">
-                        <form method="post">
-                          <div class="container mb-2">
-                            <span>
-                              <h4 class="card-title text-primary" style="align-content: flex-start;float: left;">Review </h4>
-                              <button id="edit" type="button" class="btn btn-icon" style="float: right;"><i class=" mdi mdi-lead-pencil "></i></button>
-                            </span>
-                          </div>
-
-                          <div class="mt-2">
-                            <blockquote class="blockquote">
-                              <textarea id="inp" name="review" type="text" rows="4" cols="50" style="border: none;outline:none" disabled><?php echo $review; ?></textarea>
-
-                            </blockquote>
-                          </div>
-
-
-
-                          <label class="text-danger" for="status">Status</label>
-                          <select class="form-control form-control-sm" id="status" name="status">
-                            <option>Approved</option>
-                            <option>Rejected</option>
-                            <option>Pending</option>
-                          </select>
-                          <br />
-                          <span class="btn btn-primary btn-icon-text " style="float: right;">
-                            <input type="submit" name="update" id="update" class="btn btn-primary btn-icon-text " value="Submit">
-                            <i class="mdi mdi-file-check btn-icon-prepend"></i>
-                          </span>
-
-
-
-                        </form>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Banner Id</th>
+                          <th>Category Name</th>
+                          <th>Banner Pic</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
                         <?php
-                        ob_start();
-                        if (isset($_POST['update'])) {
 
-                          $status = $_POST['status'];
-                          $review = $_POST['review'];
-                          // echo $review;
+                        $query = "SELECT *   FROM banners";
+                        $result = $conn->query($query);
+                        
 
 
-                          $sql = "UPDATE reviews 
-                      SET status='$status',review='$review'
-                       WHERE reviewId=$reviewId";
+                        while ($row = mysqli_fetch_array($result)) {
+                         
+                          $id2 = $row['bannereId'];
+                          $catid= $row['categoryId'];
+                          
+                          //image fetch
+                          $sql2 = "SELECT bannerImage FROM banners  WHERE bannereId=$id2";
+                          $result1 = $conn->query($sql2);
+                          $file = $result1->fetch_assoc();
+                          //category fetch
+                          $query2 = "SELECT categoryName FROM categories WHERE categoryId=$catid";
+                          $res = $conn->query($query2);
+
+                          while ($row2 = mysqli_fetch_array($res)) {
 
 
-                          // Prepare statement
-                          $stmt = $conn->prepare($sql);
-
-                          // execute the query
-                          $stmt->execute();
-                          echo "<script>window.location.href='review.php';</script>";
-                          exit;
-                        }
-                        $conn->close();
 
                         ?>
+                            <tr>
 
-                      </div>
-                    </div>
+                              <td><?php echo $row['bannereId']; ?></td>
+                              <td><?php echo $row2['categoryName']; ?></td>
+
+                              <?php echo "<td><img src=\"Images/{$file["bannerImage"]}\" height=\"80px\" width=\"80px;\"></td>"; ?>
+
+                              <td>
+                                <div>
+                                  <a href='banneredit.php?bannereId=<?php echo $row['bannereId'] ?>&fn=<?php echo $row['categoryName']; ?>'>
+                                    <input type="hidden" name="bannereId" value="<?php echo $row['bannereId']; ?>">
+                                    <button type="submit" class="btn btn-outline-primary btn-icon" name="edit" onClick="return Confirm('Are you Sure?')">
+                                      <i class="mdi mdi-lead-pencil"></i>
+                                    </button>
+                                  </a>
+                                </div>
+                              </td>
+                              <td>
+                                <div>
+                                  <form action='bannerdelete.php?bannereId="<?php echo $row['bannereId']; ?>"' method="post">
+                                    <input type="hidden" name="bannereId" value="<?php echo $row['bannereId']; ?>">
+                                    <button type="submit" class="btn btn-outline-danger btn-icon" onClick="return confirm('Are you Sure?')" name="delete">
+                                      <i class="mdi mdi-delete-forever">
+
+                                      </i>
+                                    </button>
+                                  </form>
+                                </div>
+                              </td>
+
+                            </tr>
+
+                        <?php }
+                        } ?>
+
+                        <?php
+
+
+                        if (isset($_POST["delete_id"])) {
+
+                          //   $delete_id = htmlspecialchars($_POST["delete_id"]);
+                          $id = $_POST['bannereId'];
+                          $sql1 = "DELETE FROM banners WHERE bannereId = $id ";
+                          if ($conn->query($sql1)  === TRUE) {
+
+                            echo "<script>window.location.href='banner.php';</script>";
+                            exit;
+                          } else {
+
+                            echo '<script>alert("Error in Deleting !")</script>';
+                            echo "<script>window.location.href='banner.php';</script>";
+                            exit;
+                          }
+
+                          $conn->close();
+                        }
+
+
+
+                        $conn->close();
+                        ?>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
+
               </div>
             </div>
 
@@ -286,10 +280,20 @@ WHERE cust.customerId=$id
 
 
 
-
             <!-- body ends -->
 
-
+            <script>
+              var el = document.getElementById('edit');
+              el.addEventListener('click', function() {
+                document.getElementById('inp1').disabled = false;
+                document.getElementById('inp2').disabled = false;
+              });
+            </script>
+            <script>
+              $('delete_id').click(function(e) {
+                e.preventDefault();
+              })
+            </script>
 
 
             <!-- content-wrapper ends -->
@@ -312,26 +316,24 @@ WHERE cust.customerId=$id
       </div>
       <!-- container-scroller -->
 
-       <script>
+      <script>
+        var user = sessionStorage.getItem('UserName');
 
-    var user = sessionStorage.getItem('UserName');
+        if (!user) {
+          window.location.href = '/ecommerce/admin/pages/samples/login.html';
+        }
 
-    if(!user){
-      window.location.href='/ecommerce/admin/pages/samples/login.html';
-    }
+        $('#user').text("Welcome Back - " + user);
+        $('#user1').text(user);
 
-    $('#user').text("Welcome Back - "+user);
-    $('#user1').text(user);
+        $('#logout').click(function() {
 
-    $('#logout').click(function(){
-                
-                            sessionStorage.removeItem('UserId');
-                            sessionStorage.removeItem('UserName');
-                            sessionStorage.removeItem('ROLE');
-                        
-            });
+          sessionStorage.removeItem('UserId');
+          sessionStorage.removeItem('UserName');
+          sessionStorage.removeItem('ROLE');
 
-  </script>
+        });
+      </script>
       <!-- base:js -->
       <script src="../vendors/js/vendor.bundle.base.js"></script>
       <!-- endinject -->
@@ -348,12 +350,6 @@ WHERE cust.customerId=$id
       <!-- Custom js for this page-->
       <script src="../js/dashboard.js"></script>
       <!-- End custom js for this page-->
-      <script>
-        var el = document.getElementById('edit');
-        el.addEventListener('click', function() {
-          document.getElementById('inp').disabled = false;
-        });
-      </script>
 </body>
 
 </html>

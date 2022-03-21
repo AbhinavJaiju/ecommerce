@@ -1,3 +1,4 @@
+<?php include 'config-anj.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +18,12 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="../images/favicon.png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+   
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
 </head>
@@ -55,7 +62,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../orders/orderlisting.php">
+          <a class="nav-link" href="#">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
@@ -156,95 +163,148 @@
         <div class="content-wrapper">
 
           <!-- row end -->
-          <script type="text/javascript" src="js/jquery.js"></script>
-      <div class="col-12 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
+          <div class="row">
 
-            <p class="card-description">
-              Add Customer
-            </p>
-            <form id="submit_form">
-              <div class="form-group">
-                <label for="exampleInputName1">Name</label>
-                <input type="text" class="form-control" id="username" name="username">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail3">Email address</label>
-                <input type="email" class="form-control" id="email" name="email">
-              </div>
-              <div class="form-group">
-                <label for="number">PhoneNumber</label>
-                <input type="number" class="form-control" id="number" name="number">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword4">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
-              </div>
-              <div class="form-group">
-                <label for="exampleSelectGender">Gender</label>
-                <select class="form-control" id="gender" name="gender">
-                  <option>Male</option>
-                  <option>Female</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <div class="input-group mb-3">
-                  <input type="file" required class="form-control" id="image" name="image" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="exampleTextarea1">Address</label>
-                <textarea class="form-control" id="address" name="address" rows="2"></textarea>
-              </div>
-              <input type="submit" name="submit" id="submit" class="btn btn-primary mr-2" value="Submit">
-              <button type="button" class="btn btn-light" id="cancel">Cancel</button>
-            </form>
-            <div id="response"></div>
-          </div>
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Orders</h4>
+            <!-- <p class="card-description">
+
+</p> -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>orderId</th>
+                            <th>Customer Name</th>
+                            <th>Order Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <?php
+
+                        $sql = "SELECT orders.orderId, customers.customerName, orders.orderdate,orders.totalprice,orders.orderStatus
+                            FROM orders
+                            INNER JOIN customers ON orders.customerId=customers.customerId
+                            ORDER BY orders.orderId DESC;";
+                        $result = $conn->query($sql);
+
+                        while ($row = $result->fetch_assoc()) {
+                            $id = $row["orderId"];
+                            echo "
+                        <tr>
+                        <td scope='col'>{$row["orderId"]}</td>
+                        <td scope='col'>{$row["customerName"]}</td>
+                        <td scope='col'>{$row["orderdate"]}</td>
+                        <td scope='col'>{$row["totalprice"]}</td>
+                        <td scope='col'>
+
+                        <form method='POST' >
+
+                        <select name='status'>
+                        <option value='{$row1["orderStatus"]}'>{$row["orderStatus"]}</option>
+                        <option value='Pending'>Pending</option>
+                        <option value='Shipping'>Shipping</option>
+                        <option value='Delivered'>Delivered</option>
+                        <option value='Completed'>Completed</l></option>
+                        </select>
+                        
+                        <input type=hidden name=id value=" . $row["orderId"] . " >
+                        
+                        <button type=submit  name=edit class='btn btn-info btn-xs me-3 text-white' ><i class='mdi mdi-check '></i></button>
+                        </form>
+                        </td>
+                       
+                        
+                        
+
+                        <td><button name='view' value='view' id= {$row['orderId']} class='btn btn-info btn-xs 
+                            view_data'><i class='mdi mdi-tooltip'></i></button></td>
+
+                         </td>                                          
+
+                        </tr>";
+                        }
+
+                        if (isset($_POST['edit'])) {
+                            echo "<meta http-equiv='refresh' content='0'>";
+                            //echo $id; //last id
+                            echo $eid = $_POST['id'];
+                            echo $nstatus = $_POST['status'];
+                            $update = "UPDATE orders
+                                 SET orderStatus ='$nstatus'
+                                 WHERE orderId = $eid;";
+                            $uresult = $conn->query($update);
+                            $row1 = $uresult->fetch_assoc();
+                            
+                            //echo "<meta http-equiv='refresh' content='0'>";
+                        }
+
+
+                        // if (isset($_POST['view'])) {
+                        //     $view = "SELECT e.orderDetailsId, e.price,e.quantity, s.productName, d.orderId 
+                        //        FROM (orderDetails e JOIN products s ON e.productId = s.productId) 
+                        //        JOIN orders d ON e.orderId = d.orderId";
+                        //     $vresult = $conn->query($view);
+                        //     $row2 = $vresult->fetch_assoc();
+
+                            
+                        // }
+
+
+
+                        ?>
+                        
+
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
-      <script>
-        $(document).ready(function() {
-          $('#submit_form').on("submit", function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            var img = $('#image').val().split('\\').pop();
-            console.log(img);
-            var name = $('#username').val();
-            var email = $('#email').val();
-            var password = $('#password').val();
-            var phonenumber = $('#number').val();
-            console.log(phonenumber);
-            var gender = $('#gender').val();
-            var address = $('#address').val();
-            if (name == "" || email == "" || password == "" || phonenumber == "" || address == "") {
-              $('#response').fadeIn();
-              $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
-            } else {
-              //$('#response').html($('#submit_form').serialize());
-              $.ajax({
-                url: "customer-insertion.php",
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
+    </div>
+</div>
+
+<div id="dataModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">order Details</h4>
+            </div>
+            <div class="modal-body" id="employee_detail">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.view_data').click(function() {
+            var order_id = $(this).attr("id");
+            $.ajax({
+                url: "details.php",
+                method: "post",
+                data: {
+                    order_id: order_id
+                },
                 success: function(data) {
-                  $('#submit_form').trigger("reset");
-                  $('#response').fadeIn();
-                  $('#response').removeClass('error-msg').addClass('success-msg').html(data);
-                  // setTimeout(() => {
-                  //     $('#response').fadeOut("slow");
-                  // }, 4000);
+                    $('#employee_detail').html(data);
+                    $('#dataModal').modal("show");
                 }
-              })
-            }
-          })
-          $('#cancel').click(function() {
-            window.location.href = 'customer-listing.php';
-          })
-        })
-      </script>
+            });
+        });
+    });
+</script>
+          </div>
+
 
 
 
