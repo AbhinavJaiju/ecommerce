@@ -96,10 +96,11 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 // output data of each row
 while($row = $result->fetch_assoc()) {
-    echo "<div class='title '>
-    <h3 style='color:#ca1515;text-align:center'><strong>"
+    echo "<div class='title'>
+    <h3 style='color:#ca1515;text-align:center;margin-top:60px'><strong>"
     .$row['title']."</strong></h3>
-    <p style='margin-top:3%;margin-left:13%;margin-right:20%;margin-bottom:15%;text-align:justify;font-size:20px;color:black;width:1050px'></br>".$row['content'].
+    <hr>
+    <p style='margin-top:1%;margin-left:15%;margin-right:20%;margin-bottom:5%;text-align:justify;font-size:20px;color:black;width:1050px'></br>".$row['content'].
     "</p>
     </div>";
  
@@ -113,6 +114,7 @@ $conn->close();
 ?>
 <br>
 
+<hr>
 
     <!-- Footer Section Begin -->
     <?php
