@@ -1,6 +1,6 @@
 <?php
     //inluding db connection file 
-    include_once 'config.php';
+    include "../config.php";
 
     $id = $_POST['customerId'];
     $name = $_POST['username'];
@@ -14,7 +14,7 @@
     $filepath = "Images/" . $_FILES["image"]["name"];
 
     //insertion query
-    $sql = "UPDATE customers SET customerName = '{$name}', email = '{$email}', passwords = '{$password}', phoneNumber = '{$phoneNumber}', gender = '{$gender}', addresss = '{$address}',profilePicture = '{$filename}'
+    $sql = "UPDATE customers SET customerName = '{$name}', email = '{$email}', passwords = '{$password}', phoneNumber = '{$phoneNumber}', gender = '{$gender}', address = '{$address}',profilePicture = '{$filename}'
             WHERE customerId = $id";
 
     if($conn->query($sql)===TRUE){
@@ -22,7 +22,7 @@
     }else{
         echo "Could not save your data";
     }
-    unlink('/var/www/html/ecommerce/admin/customer/Images/' . $image);
+    unlink('/var/www/html/ecommerce/admin/customerImages/' . $image);
     if(move_uploaded_file($_FILES["image"]["tmp_name"], $filepath))
     {
         echo "Images Uploaded";
