@@ -128,19 +128,19 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <?php
-                            if ($_SESSION['uname']) {
+                            <a href="myaccount.php" style="font-weight: bold; font-size: large;">
+                                <?php
+                                if ($_SESSION['uname']) {
 
-                                // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
 
-                                echo $_SESSION['uname'];
-                            } else {
-                                echo  '<a href="login.php">Login</a>
+                                    echo $_SESSION['uname'];
+                                } else {
+                                    echo  '<a href="login.php">Login</a>
                                 <a href="#">Register</a>';
-                            }
+                                }
 
-                            ?>
-
+                                ?>
+                            </a>
                         </div>
 
                         <ul class="header__right__widget ">
