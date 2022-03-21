@@ -251,7 +251,7 @@
     </div>
     <!-- container-scroller -->
 
-    <!-- <script>
+     <script>
 
     var user = sessionStorage.getItem('UserName');
 
@@ -270,7 +270,7 @@
                         
             });
 
-  </script> -->
+  </script> 
     <!-- base:js -->
     <script src="../vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->

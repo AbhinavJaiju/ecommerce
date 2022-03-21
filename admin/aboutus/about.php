@@ -247,7 +247,7 @@ if (empty($result)) {
   </div>
   <!-- container-scroller -->
 
-  <!-- <script>
+   <script>
 
     var user = sessionStorage.getItem('UserName');
 
@@ -266,7 +266,7 @@ if (empty($result)) {
                         
             });
 
-  </script> -->
+  </script>
   <!-- base:js -->
   <script src="../vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->

@@ -277,7 +277,7 @@ $conn->close();
             </div>
             <!-- container-scroller -->
 
-            <!-- <script>
+           <script>
 
     var user = sessionStorage.getItem('UserName');
 
@@ -296,7 +296,7 @@ $conn->close();
                         
             });
 
-  </script> -->
+  </script> 
             <!-- base:js -->
             <script src="../vendors/js/vendor.bundle.base.js"></script>
             <!-- endinject -->
