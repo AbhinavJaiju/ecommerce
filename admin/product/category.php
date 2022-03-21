@@ -49,25 +49,25 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="../../admin/user/user-listing.php">USERS</a></li>
-              <li class="nav-item"> <a class="nav-link" href="../../admin/customer/customer-listing.php">CUSTOMERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../user/user-listing.php">USERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../customer/customer-listing.php">CUSTOMERS</a></li>
             </ul>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/order/order-listing.php">
+          <a class="nav-link" href="../pages/forms/basic_elements.html">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/product/product-listing.php">
+          <a class="nav-link" href="#">
             <i class="mdi mdi-chart-pie menu-icon"></i>
             <span class="menu-title">CATEGORIES</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/product/product-listing.php">
+          <a class="nav-link" href="../product/product-listing.php">
             <i class="mdi mdi-grid-large menu-icon"></i>
             <span class="menu-title">PRODUCTS</span>
           </a>
@@ -85,7 +85,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../enquiries/enquiries.php">
             <i class="mdi mdi-file-document-box-outline menu-icon"></i>
             <span class="menu-title">ENQUIRES</span>
           </a>
@@ -156,122 +156,82 @@
         <div class="content-wrapper">
 
           <!-- row end -->
-          <script type="text/javascript" src="js/jquery.js"></script>
-          <div class="col-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
 
-                <p class="card-description">
-                  Add Product
-                </p>
-                <form id="submit_form" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label for="exampleInputName1">Name</label>
-                    <input type="text" class="form-control" id="productname" name="productname">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleTextarea1">Product Description</label>
-                    <textarea class="form-control" id="pdresscription" name="pdescription" rows="2"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="number">price</label>
-                    <input type="number" class="form-control" id="price" name="price">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleSelectGender">Category</label>
 
-                    <select class="form-control" id="category" name="category">
-                      <?php
-                      include 'config.php';
-                      $sql = "SELECT * FROM categories";
-                      $result = $conn->query($sql);
-                      ?>
-                      <option selected>Select a category</option>
-                      <?php
-                      while ($row = $result->fetch_assoc()) {
-                        echo "<option value =" . $row['categoryId'] . ">" . $row['categoryName'] . "</option>";
-                      ?>
-                      <?php
-                      }
-                      ?>
-                    </select>
-                    <div class="form-group">
-                      <label for="exampleSelectGender">Status</label>
-                      <select class="form-control" id="status" name="status">
-                        <option selected>select a status</option>
-                        <option value="0">Out Of Stock</option>
-                        <option value="1">In Stock</option>
-                      </select>
-                    </div>
+
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Category</h4>
+                  <p class="card-description"> List of categories
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <a href="../product/category-insert.php">
+                        <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add Category</button>
+                      </a>
+                      <thead>
+                        <tr>
+                          <th> Id </th>
+                          <th> Category Name </th>
+                          <th> Description </th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        include_once 'config.php';
+                        $sql = "SELECT * FROM categories";
+                        $result = $conn->query($sql);
+
+                        while ($row = $result->fetch_assoc()) {
+
+                        ?>
+                          <tr>
+                            <td> <?php echo $row['categoryId'] ?> </td>
+                            <td> <?php echo $row['categoryName'] ?> </td>
+                            <td> <?php echo $row['description'] ?> </td>
+                            <td>
+                              <div>
+                                <form action='category-remove.php?categoryId="<?php echo $row['categoryId']; ?>"' method="post">
+                                  <input type="hidden" name="categoryId" value="<?php echo $row['categoryId']; ?>">
+                                  <button type="submit" class="btn btn-sm btn-danger" onClick="return confirm('Are you Sure?')" name="delete">
+                                    <i class="bi bi-trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                      </svg>
+
+                                    </i>
+                                </form>
+                              </div>
+                            </td>
+                            <td>
+                              <div>
+                                <a href='category-edit.php?categoryId=<?php echo $row[categoryId] ?>&fn=<?php echo $row[categoryName]; ?>&em=<?php echo $row[description] ?>'>
+                                  <input type="hidden" name="categoryId" value="<?php echo $row['categoryId']; ?>">
+                                  <button type="submit" class="btn btn-sm btn-primary" name="edit" onClick="return Confirm('Are you Sure?')">
+                                    <i class="bi bi-file-earmark-medical">Edit</i>
+                                  </button>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        <?php
+                        }
+                        ?>
+                      </tbody>
+                    </table>
                   </div>
-                  <div class="form-group">
-                    <div class="input-group mb-3">
-                      <input type="file" required class="form-control" id="file" name="files[]" aria-describedby="inputGroupFileAddon03" aria-label="Upload" multiple>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleTextarea1">Short Description</label>
-                    <textarea class="form-control" id="sDescription" name="sDescription" rows="3"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleTextarea1">Specification</label>
-                    <textarea class="form-control" id="specification" name="specification" rows="3"></textarea>
-                  </div>
-                  <input type="submit" name="submit" id="submit" class="btn btn-primary mr-2" value="Submit">
-                  <button type="button" class="btn btn-light" id="cancel">Cancel</button>
-                </form>
-                <div id="response"></div>
+                </div>
               </div>
             </div>
           </div>
-          <script>
-            $(document).ready(function() {
-              $('#submit_form').on("submit", function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                //   var img = $('#image').val().split('\\').pop();
-                //   console.log(img);
-                var productname = $('#productname').val();
-                var pdresscription = $('#pdresscription').val();
-                var price = $('#price').val();
-                var category = $('#category').val();
-                // console.log(category);
-                // console.log(productname);
-                var status = $('#status').val();
-                // console.log(status);
-                var sDescription = $('#sDescription').val();
-                var specification = $('specification').val();
-                if (productname == "" || pdresscription == "" || price == "" || sDescription == "" || specification == "") {
-                  $('#response').fadeIn();
-                  $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
-                } else {
-                  //$('#response').html($('#submit_form').serialize());
-                  $.ajax({
-                    url: "product-insertion.php",
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(data) {
-                      $('#submit_form').trigger("reset");
-                      $('#response').fadeIn();
-                      $('#response').removeClass('error-msg').addClass('success-msg').html(data);
-                      // setTimeout(() => {
-                      //     $('#response').fadeOut("slow");
-                      // }, 4000);
-                    }
-                  })
-                }
-              })
-              $('#cancel').click(function() {
-                window.location.href = 'user-insertion.php';
-              })
-            })
-          </script>
-
-
-
         </div>
+
+
+
         <!-- content-wrapper ends -->
         <!-- partial:./partials/_footer.html -->
         <footer class="footer">

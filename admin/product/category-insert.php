@@ -17,10 +17,9 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="../images/favicon.png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+  
 
 </head>
-
 <body>
   <div class="container-scroller d-flex">
     <!-- partial:./partials/_sidebar.html -->
@@ -49,25 +48,25 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="../../admin/user/user-listing.php">USERS</a></li>
-              <li class="nav-item"> <a class="nav-link" href="../../admin/customer/customer-listing.php">CUSTOMERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../user/user-listing.php">USERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../customer/customer-listing.php">CUSTOMERS</a></li>
             </ul>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/order/order-listing.php">
+          <a class="nav-link" href="../pages/forms/basic_elements.html">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/product/product-listing.php">
+          <a class="nav-link" href="category.php">
             <i class="mdi mdi-chart-pie menu-icon"></i>
             <span class="menu-title">CATEGORIES</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/product/product-listing.php">
+          <a class="nav-link" href="product-listing.php">
             <i class="mdi mdi-grid-large menu-icon"></i>
             <span class="menu-title">PRODUCTS</span>
           </a>
@@ -100,8 +99,8 @@
           <p></p>
           <span></span>
         </li>
-
-
+        
+       
       </ul>
     </nav>
     <!-- partial -->
@@ -114,11 +113,11 @@
           </button>
           <div class="navbar-brand-wrapper">
             <a class="navbar-brand brand-logo" href="../index.php"></a>
-            <a class="navbar-brand brand-logo-mini" href="../index.php"><img src="../images/logo-mini.svg" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="../index.php"><img src="../images/logo-mini.svg" alt="logo"/></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1" id="user"></h4>
           <ul class="navbar-nav navbar-nav-right">
-
+            
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="mdi mdi-menu"></span>
@@ -139,14 +138,14 @@
                 <span class="nav-profile-name" id="user1">Bidhu M Renchi</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-
+                
                 <a class="dropdown-item" href="../../admin/pages/samples/login.html" id="logout">
                   <i class="mdi mdi-logout text-primary"></i>
                   Logout
                 </a>
               </div>
             </li>
-
+            
           </ul>
         </div>
       </nav>
@@ -154,122 +153,68 @@
 
       <div class="main-panel">
         <div class="content-wrapper">
-
+          
           <!-- row end -->
-          <script type="text/javascript" src="js/jquery.js"></script>
+         
           <div class="col-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-
-                <p class="card-description">
-                  Add Product
-                </p>
-                <form id="submit_form" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label for="exampleInputName1">Name</label>
-                    <input type="text" class="form-control" id="productname" name="productname">
+              <div class="card">
+                  <div class="card-body">
+                      <h4 class="card-title">New Category</h4>
+                      <form id="submit_form">
+                          <div class="form-group">
+                              <label for="exampleInputName1">Category Name</label>
+                              <input type="text" class="form-control" id="categoryName" name="categoryName" >
+                          </div>
+                          <div class="form-group" id="submit_form">
+                              <label for="exampleInputdescription3">Description</label>
+                              <input type="description" class="form-control" id="description" name="description">
+                          </div>
+                         
+                              <input type="button" class="btn btn-primary mr-2" name="submit" id="submit" value="Submit">
+                              <button type="button" class="btn btn-danger" name = "cancel" id="cancel" > cancel</button>
+                        </form>
+                        <div id="response"></div>
+                      </div>
                   </div>
-                  <div class="form-group">
-                    <label for="exampleTextarea1">Product Description</label>
-                    <textarea class="form-control" id="pdresscription" name="pdescription" rows="2"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="number">price</label>
-                    <input type="number" class="form-control" id="price" name="price">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleSelectGender">Category</label>
-
-                    <select class="form-control" id="category" name="category">
-                      <?php
-                      include 'config.php';
-                      $sql = "SELECT * FROM categories";
-                      $result = $conn->query($sql);
-                      ?>
-                      <option selected>Select a category</option>
-                      <?php
-                      while ($row = $result->fetch_assoc()) {
-                        echo "<option value =" . $row['categoryId'] . ">" . $row['categoryName'] . "</option>";
-                      ?>
-                      <?php
-                      }
-                      ?>
-                    </select>
-                    <div class="form-group">
-                      <label for="exampleSelectGender">Status</label>
-                      <select class="form-control" id="status" name="status">
-                        <option selected>select a status</option>
-                        <option value="0">Out Of Stock</option>
-                        <option value="1">In Stock</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="input-group mb-3">
-                      <input type="file" required class="form-control" id="file" name="files[]" aria-describedby="inputGroupFileAddon03" aria-label="Upload" multiple>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleTextarea1">Short Description</label>
-                    <textarea class="form-control" id="sDescription" name="sDescription" rows="3"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleTextarea1">Specification</label>
-                    <textarea class="form-control" id="specification" name="specification" rows="3"></textarea>
-                  </div>
-                  <input type="submit" name="submit" id="submit" class="btn btn-primary mr-2" value="Submit">
-                  <button type="button" class="btn btn-light" id="cancel">Cancel</button>
-                </form>
-                <div id="response"></div>
               </div>
-            </div>
-          </div>
-          <script>
-            $(document).ready(function() {
-              $('#submit_form').on("submit", function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                //   var img = $('#image').val().split('\\').pop();
-                //   console.log(img);
-                var productname = $('#productname').val();
-                var pdresscription = $('#pdresscription').val();
-                var price = $('#price').val();
-                var category = $('#category').val();
-                // console.log(category);
-                // console.log(productname);
-                var status = $('#status').val();
-                // console.log(status);
-                var sDescription = $('#sDescription').val();
-                var specification = $('specification').val();
-                if (productname == "" || pdresscription == "" || price == "" || sDescription == "" || specification == "") {
-                  $('#response').fadeIn();
-                  $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
-                } else {
-                  //$('#response').html($('#submit_form').serialize());
-                  $.ajax({
-                    url: "product-insertion.php",
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(data) {
-                      $('#submit_form').trigger("reset");
-                      $('#response').fadeIn();
-                      $('#response').removeClass('error-msg').addClass('success-msg').html(data);
-                      // setTimeout(() => {
-                      //     $('#response').fadeOut("slow");
-                      // }, 4000);
-                    }
+              <script>
+                  $(document).ready(function(){
+                      $('#submit').click(function(){
+                          var name = $('#categoryName').val();
+                          var description = $('#description').val();
+                          
+                          if(name =="" || description=="" ){
+                            $('#response').fadeIn();
+                            $('#response').removeClass('success-msg').addClass('error-msg').html('All fields are Required.');
+                            }else{
+                                //$('#response').html($('#submit_form').serialize());
+                                $.ajax({
+                                url: "category-insertion.php",
+                                type:"POST",
+                                data : $('#submit_form').serialize(),
+                                success: function(data){
+                                    $('#submit_form').trigger("reset");
+                                    $('#response').fadeIn();
+                                    $('#response').removeClass('error-msg').addClass('success-msg').html(data);
+
+                                    window.location.href='../../admin/product/category.php';
+                                    // setTimeout(() => {
+                                    //     $('#response').fadeOut("slow");
+                                    // }, 4000);
+                                }
+                            })
+                        }
+                      })
+                      $('#cancel').click(function(){
+                          window.location.href = 'category.php';
+                      })
                   })
-                }
-              })
-              $('#cancel').click(function() {
-                window.location.href = 'user-insertion.php';
-              })
-            })
-          </script>
+              </script>
 
 
+
+        </div>
+          
 
         </div>
         <!-- content-wrapper ends -->
@@ -285,7 +230,7 @@
         </footer>
         <!-- partial -->
       </div>
-
+      
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
@@ -293,22 +238,24 @@
   <!-- container-scroller -->
 
   <script>
+
     var user = sessionStorage.getItem('UserName');
 
-    if (!user) {
-      window.location.href = '/ecommerce/admin/pages/samples/login.html';
+    if(!user){
+      window.location.href='/ecommerce/admin/pages/samples/login.html';
     }
 
-    $('#user').text("Welcome Back - " + user);
+    $('#user').text("Welcome Back - "+user);
     $('#user1').text(user);
 
-    $('#logout').click(function() {
+    $('#logout').click(function(){
+                
+                            sessionStorage.removeItem('UserId');
+                            sessionStorage.removeItem('UserName');
+                            sessionStorage.removeItem('ROLE');
+                        
+            });
 
-      sessionStorage.removeItem('UserId');
-      sessionStorage.removeItem('UserName');
-      sessionStorage.removeItem('ROLE');
-
-    });
   </script>
   <!-- base:js -->
   <script src="../vendors/js/vendor.bundle.base.js"></script>
