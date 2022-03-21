@@ -22,88 +22,88 @@
 </head>
 
 <body>
-    <div class="container-scroller d-flex">
-        <!-- partial:./partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-            <ul class="nav">
-                <li class="nav-item sidebar-category">
-                    <p>Navigation</p>
-                    <span></span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../index.html">
-                        <i class="mdi mdi-view-quilt menu-icon"></i>
-                        <span class="menu-title">Dashboard</span>
-                        <div class="badge badge-info badge-pill"></div>
-                    </a>
-                </li>
-                <li class="nav-item sidebar-category">
-                    <p></p>
-                    <span></span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                        <i class="mdi mdi-account-multiple menu-icon"></i>
-                        <span class="menu-title">MANAGE</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="ui-basic">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="../pages/ui-features/buttons.html">USERS</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="../pages/ui-features/typography.html">CUSTOMERS</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../pages/forms/basic_elements.html">
-                        <i class="mdi mdi-view-headline menu-icon"></i>
-                        <span class="menu-title">ORDERS</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="mdi mdi-chart-pie menu-icon"></i>
-                        <span class="menu-title">CATEGORIES</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../pages/tables/basic-table.html">
-                        <i class="mdi mdi-grid-large menu-icon"></i>
-                        <span class="menu-title">PRODUCTS</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../banner/banner.php">
-                        <i class="mdi mdi-popcorn menu-icon"></i>
-                        <span class="menu-title">BANNERS</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../pages/icons/mdi.html">
-                        <i class="mdi mdi-emoticon menu-icon"></i>
-                        <span class="menu-title">REVIEWS</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../pages/icons/mdi.html">
-                        <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-                        <span class="menu-title">ENQUIRES</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../aboutus/about.php">
-                        <i class="mdi mdi-pulse menu-icon"></i>
-                        <span class="menu-title">ABOUT US</span>
-                    </a>
-                </li>
-                <li class="nav-item sidebar-category">
-                    <p></p>
-                    <span></span>
-                </li>
-
-
+<div class="container-scroller d-flex">
+    <!-- partial:./partials/_sidebar.html -->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <ul class="nav">
+        <li class="nav-item sidebar-category">
+          <p>Navigation</p>
+          <span></span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../index.php">
+            <i class="mdi mdi-view-quilt menu-icon"></i>
+            <span class="menu-title">Dashboard</span>
+            <div class="badge badge-info badge-pill"></div>
+          </a>
+        </li>
+        <li class="nav-item sidebar-category">
+          <p></p>
+          <span></span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <i class="mdi mdi-account-multiple menu-icon"></i>
+            <span class="menu-title">MANAGE</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="ui-basic">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="../user/user-listing.php">USERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../customer/customer-listing.php">CUSTOMERS</a></li>
             </ul>
-        </nav>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../pages/forms/basic_elements.html">
+            <i class="mdi mdi-view-headline menu-icon"></i>
+            <span class="menu-title">ORDERS</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../product/category.php">
+            <i class="mdi mdi-chart-pie menu-icon"></i>
+            <span class="menu-title">CATEGORIES</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../product/product-listing.php">
+            <i class="mdi mdi-grid-large menu-icon"></i>
+            <span class="menu-title">PRODUCTS</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../banner/banner.php">
+            <i class="mdi mdi-popcorn menu-icon"></i>
+            <span class="menu-title">BANNERS</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../reviews/review.php">
+            <i class="mdi mdi-emoticon menu-icon"></i>
+            <span class="menu-title">REVIEWS</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../pages/icons/mdi.html">
+            <i class="mdi mdi-file-document-box-outline menu-icon"></i>
+            <span class="menu-title">ENQUIRES</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../aboutus/about.php">
+            <i class="mdi mdi-pulse menu-icon"></i>
+            <span class="menu-title">ABOUT US</span>
+          </a>
+        </li>
+        <li class="nav-item sidebar-category">
+          <p></p>
+          <span></span>
+        </li>
+        
+       
+      </ul>
+    </nav>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:./partials/_navbar.html -->
@@ -113,8 +113,8 @@
                         <span class="mdi mdi-menu"></span>
                     </button>
                     <div class="navbar-brand-wrapper">
-                        <a class="navbar-brand brand-logo" href="../index.html"></a>
-                        <a class="navbar-brand brand-logo-mini" href="../index.html"><img src="../images/logo-mini.svg" alt="logo" /></a>
+                        <a class="navbar-brand brand-logo" href="../index.php"></a>
+                        <a class="navbar-brand brand-logo-mini" href="../index.php"><img src="../images/logo-mini.svg" alt="logo" /></a>
                     </div>
                     <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1" id="user"></h4>
                     <ul class="navbar-nav navbar-nav-right">
@@ -150,6 +150,7 @@
                     </ul>
                 </div>
             </nav>
+
             <!-- partial -->
 
             <div class="main-panel">
@@ -187,9 +188,23 @@
 
 
                                         <div class="col">
+                                        <form method="post" enctype="multipart/form-data">
+                                            <label>Choose Category</label>
+                                            <select name="reason">
+    <?php
+   
+    
+    $sql4="SELECT * FROM categories";
+    $result = mysqli_query($conn, $sql4);
+    while($row = mysqli_fetch_array($result))
+  {    
+    echo '<option value='.$row['categoryId'].'>'.$row['categoryName'].'</option>';
+      }
+?>
+    </select>
 
                                             <label>Choose banner</label>
-                                            <form method="post" enctype="multipart/form-data">
+                                            
                                                 <input type="file" id="my_image" name="my_image">
                                                 <input type="submit" name="submit" value="Upload">
                                             </form>
@@ -202,7 +217,8 @@
                                         <?php
 
                                         if (isset($_POST['submit'])) {
-
+                                            $catId=$_REQUEST['reason'];
+                                            
                                             $target_dir = "Images/";
                                             $target_file = $target_dir . basename($_FILES["my_image"]["name"]);
                                             $file_name = basename($_FILES["my_image"]["name"]);
@@ -217,17 +233,19 @@
                                                 if (move_uploaded_file($tempname, $target_file)) {
 
                                                     $list = "INSERT INTO banners(bannereId,bannerImage,categoryId)
-                        VALUES(DEFAULT,'$file_name',1)";
-
-                                                    if ($conn->query($list) === TRUE) {
-                                                        echo 'Uploaded';
-                                                    } else {
-                                                        echo "Error: " . $$list . "<br>" . $conn->error;
-                                                    }
-                                                } else {
-                                                    echo "Failed to upload image";
-                                                }
+                        VALUES(DEFAULT,'$file_name',$catId)";    
+                        if ($conn->query($list) === TRUE) {
+                            echo 'Uploaded';
+                            echo "<script type='text/javascript'>window.top.location='banner.php';</script>";
+                        } else {
+                            echo "Error: " . $$list . "<br>" . $conn->error;
+                        }
+                    } else {
+                        echo "Failed to upload image";
+                    }
                                                 $uploadOk = 1;
+                                               
+                                               
                                             } else {
                                                 //echo "File is not an image.";
 
@@ -240,7 +258,10 @@
                                                 $uploadOk = 0;
                                             }
                                         }
-                                        header('Location: banner.php');
+                                    
+                                   
+                                
+                                        // header('Location: banner.php');
                                         $conn->close();
                                         ?>
 
