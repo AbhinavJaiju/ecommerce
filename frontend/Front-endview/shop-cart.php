@@ -233,7 +233,7 @@ $append="";
 
 
                             }}else{
-                                echo "No items in cart";
+                                echo "<tr><td>No items in cart</td></tr>";
                             }
                             echo"
                             </tbody>
@@ -327,7 +327,7 @@ if (isset($_POST['checkout'])) {
            
        }
        else{
-           echo"Cart is empty";
+           echo"<script>alert('Cart is empty')</script>";
        }
        
        
