@@ -97,11 +97,12 @@ include "config.php";
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Order date</th>
+                                    <th>Product Details</th>
                                     <th>Status</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>Order date</th>
+                                    <th>Amount</th>
+                                    
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -134,13 +135,29 @@ include "config.php";
                                             
                                         </div>
                                         
-                                    </td>
-                                    <td>
-                                    <h5>
-                                                {$row["orderdate"]}
-                                            </h5>
+                                    </td>";
+                                    $rs = $fmt->format($row["price"]);
+                                    echo"<td>
+                                                <h5>
+                                               {$row["orderStatus"]}
+                                                </h5>
                                             </td>
-                                    <td class=\"cart__price\" id=\"priceid\">₹ {$row["fileName"]}</td>";
+                                            <td>
+                                                <h5>
+                                                {$row["orderdate"]}
+
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5>
+                                                ₹ $rs
+
+                                                </h5>
+                                            </td>
+                                            ";
+                                    
+                                    
+                                   
 
                                     
                                 }
@@ -175,16 +192,6 @@ include "config.php";
             
                </span>
             </li> </ul>
-
-
-
-
-
-
-
-                         
-
-
                     </div > 
                 </div>
             </div>
