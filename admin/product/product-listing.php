@@ -164,6 +164,9 @@
                                 </p>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
+                                        <a href="../product/product-form.php">
+                                            <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add Product</button>
+                                        </a>
                                         <thead>
                                             <tr>
                                                 <th> # </th>
@@ -201,7 +204,7 @@
                                                     <td> <?php echo $row['shortDescription'] ?> </td>
                                                     <td> <?php echo $row['specification'] ?> </td>
                                                     <td>
-                                                        <img src="productimage/<?php echo $row1['fileName'] ?>" alt="">
+                                                        <img src="../../productImages/<?php echo $row1['fileName'] ?>" alt="">
                                                     </td>
                                                     <td>
                                                         <div>
@@ -221,7 +224,7 @@
                                                             <a href='product-edit.php?productId=<?php echo $row[productId] ?>&fn=<?php echo $row[customerName]; ?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords] ?>&ph=<?php echo $row[phoneNumber] ?>&gd=<?php echo $row[gender] ?>&ad=<?php echo $row[addresss] ?>&im=<?php echo $row[profilePicture] ?>'>
                                                                 <input type="hidden" name="productId" value="<?php echo $row['productId']; ?>">
                                                                 <button type="submit" class="btn btn-sm btn-primary" name="edit" onClick="return Confirm('Are you Sure?')">
-                                                                    <i class="bi bi-file-earmark-medical">Edit</i>
+                                                                    <i class="mdi mdi-lead-pencil"></i>
                                                                 </button>
                                                             </a>
                                                         </div>

@@ -14,7 +14,7 @@
     $filepath = "Images/" . $_FILES["image"]["name"];
 
     //insertion query
-    $sql = "UPDATE customers SET customerName = '{$name}', email = '{$email}', passwords = '{$password}', phoneNumber = '{$phoneNumber}', gender = '{$gender}', addresss = '{$address}',profilePicture = '{$filename}'
+    $sql = "UPDATE customers SET customerName = '{$name}', email = '{$email}', passwords = '{$password}', phoneNumber = '{$phoneNumber}', gender = '{$gender}', address = '{$address}',profilePicture = '{$filename}'
             WHERE customerId = $id";
 
     if($conn->query($sql)===TRUE){
