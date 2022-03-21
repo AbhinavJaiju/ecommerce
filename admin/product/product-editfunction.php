@@ -28,8 +28,8 @@
         $ext = pathinfo($file_name,PATHINFO_EXTENSION);
 
         if(in_array($ext,$extension)){
-            if(!file_exists("../../productImages/".$file_name)){
-                move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"../../productImages/".$file_name); 
+            if(!file_exists("../../frontend/Front-endview/img/product/".$file_name)){
+                move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"../../frontend/Front-endview/img/product/".$file_name); 
                 $sql = "UPDATE productImage SET fileName = '{$file_name}' WHERE productId = $id";
                 if($conn->query($sql)===TRUE){
                     echo "Image uploaded into database";
@@ -40,7 +40,7 @@
             else{
                 $filename = basename($file_name,$ext);
                 $newFileName = $filename.time().".".$ext;
-                move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"../../productImages/".$file_name);
+                move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"../../frontend/Front-endview/img/product/".$file_name);
                 $sql2 = "UPDATE productImage SET fileName = '{$file_name}' WHERE productId = $id";
                 if($conn->query($sql2)===TRUE){
                     echo "Image uploaded into database";

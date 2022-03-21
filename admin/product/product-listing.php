@@ -213,7 +213,7 @@
                                                         while ($row1 = $result1->fetch_assoc()) {
 
                                                         ?>
-                                                            <img src="../../productImages/<?php echo $row1['fileName'] ?>" alt="">
+                                                            <img src="../../frontend/Front-endview/img/product/<?php echo $row1['fileName'] ?>" alt="">
                                                         <?php
                                                         }
                                                         ?>
