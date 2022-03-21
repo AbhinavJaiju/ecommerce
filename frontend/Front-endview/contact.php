@@ -110,8 +110,9 @@
                                 <input type="text" placeholder="Email" name="custemail">
                                 <input type="text" placeholder="phonenumber" name="phonenumber">
                                 <textarea placeholder="Message" name="message"></textarea>
-                                <button type="submit" class="site-btn">Send Message</button>
+                                <button type="submit" class="site-btn" name="submit">Send Message</button>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -140,18 +141,22 @@
     $email = $_POST['custemail'];
     $message = $_POST['message'];
     $phonenumber = $_POST['phonenumber'];
+    if (isset($_POST['submit'])) {
 
-    $sql = "INSERT INTO enquiries (email, name, message,phoneNumber) VALUES ('{$email}', '{$name}', '{$message}', '{$phonenumber}')";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('Enquiry Added')</script>";
-    } else {
-        echo "Error   creating database: ";
+        $sql = "INSERT INTO enquiries (email, name, message,phoneNumber) VALUES ('{$email}', '{$name}', '{$message}', '{$phonenumber}')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "<script>alert('Enquiry Added')</script>";
+        } else {
+            echo "Error   inserting values: ";
+        }
     }
-    $conn->close();
+
+
     ?>
 
-    
+
     <?php include "footer.php"; ?>
     <!-- Search Begin -->
     <?php include "globalsearch.php"; ?>
