@@ -65,7 +65,7 @@ $row = $result->fetch_assoc();
       -webkit-border-radius: 2px;
       -moz-border-radius: 2px;
       border-radius: 2px;
-      font-size: .825rem;
+      font-size: 18px;
       background: #ffffff;
       color: #2e323c;
     }
@@ -90,7 +90,7 @@ $row = $result->fetch_assoc();
             <div class="account-settings">
               <div class="user-profile">
                 <div class="user-avatar">
-                  <img style="margin-top:15%;" src="profilePic/<?php echo $row["profilePicture"]; ?>" alt="Maxwell Admin">
+                  <img style="margin-top:15%;" src="<?php echo $row["profilePicture"]; ?>" alt="Maxwell Admin">
                 </div>
                 <h5 class="user-name"><?php
                                       echo $row["customerName"] ?></h5>
@@ -113,7 +113,6 @@ $row = $result->fetch_assoc();
                  
                    
                   <div class="form-group">
-                  <input type="text" class="form-control" name="id"style="display:none">
                     <label for="fullName">Customer Name</label>
                     <input type="text" class="form-control" value="<?php echo $row["customerName"]; ?>" name="uname" placeholder="Enter full name">
                   </div>
@@ -159,7 +158,7 @@ $row = $result->fetch_assoc();
                   
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                   <div class="text-right">
-                    <button style="margin-right:2%;margin-bottom:2%;" type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+                    <button style="margin-right:2%;margin-bottom:2%;" type="submit" id="submit" name="submit" class="btn btn-danger">Update</button>
                   </div>
                 </div>
               
