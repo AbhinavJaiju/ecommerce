@@ -100,12 +100,23 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
                         <ul>
                             <li class="active"><a href="./index.php">Home</a></li>
 
-                            <li><a href="./shop.php">Shop</a></li>
-                            <li><a href="#">Pages</a>
+                            <li><a href="./shop.php">Shop</a>
                                 <ul class="dropdown">
-                                    <li><a href="./product-details.php">Product Details</a></li>
-                                    <li><a href="./shop-cart.php">Shop Cart</a></li>
-                                    <li><a href="./checkout.php">Checkout</a></li>
+                                    <?php
+
+                                    $seql = "SELECT * FROM categories ";
+                                    //echo $sql;
+                                    $result = $conn->query($seql);
+
+
+                                    if ($result = $conn->query($seql)) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<li><a href=\"./shop.php?id={$row["categoryId"]}\">{$row["categoryName"]}</a></li>";
+                                        }
+                                    } else {
+                                        echo "Server Error ! Please try again later";
+                                    }
+                                    ?>
 
                                 </ul>
                             </li>
