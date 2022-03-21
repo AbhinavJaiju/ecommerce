@@ -17,9 +17,10 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="../images/favicon.png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  
+
 
 </head>
+
 <body>
   <div class="container-scroller d-flex">
     <!-- partial:./partials/_sidebar.html -->
@@ -30,7 +31,7 @@
           <span></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../index.html">
+          <a class="nav-link" href="../index.php">
             <i class="mdi mdi-view-quilt menu-icon"></i>
             <span class="menu-title">Dashboard</span>
             <div class="badge badge-info badge-pill"></div>
@@ -48,8 +49,8 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="../pages/ui-features/buttons.html">USERS</a></li>
-              <li class="nav-item"> <a class="nav-link" href="../pages/ui-features/typography.html">CUSTOMERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../user/user-listing.php">USERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../customer/customer-listing.php">CUSTOMERS</a></li>
             </ul>
           </div>
         </li>
@@ -66,7 +67,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/tables/basic-table.html">
+          <a class="nav-link" href="../product/product-listing.php">
             <i class="mdi mdi-grid-large menu-icon"></i>
             <span class="menu-title">PRODUCTS</span>
           </a>
@@ -99,8 +100,8 @@
           <p></p>
           <span></span>
         </li>
-        
-       
+
+
       </ul>
     </nav>
     <!-- partial -->
@@ -112,12 +113,12 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="../index.html"></a>
-            <a class="navbar-brand brand-logo-mini" href="../index.html"><img src="../images/logo-mini.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo" href="../index.php"></a>
+            <a class="navbar-brand brand-logo-mini" href="../index.php"><img src="../images/logo-mini.svg" alt="logo" /></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1" id="user"></h4>
           <ul class="navbar-nav navbar-nav-right">
-            
+
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="mdi mdi-menu"></span>
@@ -138,14 +139,14 @@
                 <span class="nav-profile-name" id="user1">Bidhu M Renchi</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                
+
                 <a class="dropdown-item" href="../../admin/pages/samples/login.html" id="logout">
                   <i class="mdi mdi-logout text-primary"></i>
                   Logout
                 </a>
               </div>
             </li>
-            
+
           </ul>
         </div>
       </nav>
@@ -153,83 +154,81 @@
 
       <div class="main-panel">
         <div class="content-wrapper">
-          
+
           <!-- row end -->
-         
-         
+
+
 
           <div class="row">
-          <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Category</h4>
-                    <p class="card-description"> List of categories
-                    </p>
-                    <div class="table-responsive">
-                      <table class="table table-bordered">
-                        <a href="../product/category-insert.php">
-                      <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add Category</button>
-                        </a>
-                        <thead>
-                          <tr>
-                            <th> Id </th>
-                            <th> Category Name </th>
-                            <th> Description </th>
-                            <th></th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                include_once 'config.php';
-                                $sql = "SELECT * FROM categories";
-                                $result = $conn->query($sql);
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Category</h4>
+                  <p class="card-description"> List of categories
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <a href="../product/category-insert.php">
+                        <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add Category</button>
+                      </a>
+                      <thead>
+                        <tr>
+                          <th> Id </th>
+                          <th> Category Name </th>
+                          <th> Description </th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        include_once 'config.php';
+                        $sql = "SELECT * FROM categories";
+                        $result = $conn->query($sql);
 
-                                while($row = $result->fetch_assoc()){
+                        while ($row = $result->fetch_assoc()) {
 
-                            ?>
+                        ?>
                           <tr>
                             <td> <?php echo $row['categoryId'] ?> </td>
                             <td> <?php echo $row['categoryName'] ?> </td>
                             <td> <?php echo $row['description'] ?> </td>
                             <td>
-                                <div>
-                                    <form action='category-remove.php?categoryId="<?php echo $row['categoryId'];?>"'method ="post" >
-                                        <input type="hidden" name="categoryId" value = "<?php echo $row['categoryId'];?>">
-                                        <button type="submit" class="btn btn-sm btn-danger" onClick="return confirm('Are you Sure?')" name = "delete" >
-                                        <i class="bi bi-trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                                </svg>
-                                                
-                                            </i>
-                                    </form>
-                                </div>
+                              <div>
+                                <form action='category-remove.php?categoryId="<?php echo $row['categoryId']; ?>"' method="post">
+                                  <input type="hidden" name="categoryId" value="<?php echo $row['categoryId']; ?>">
+                                  <button type="submit" class="btn btn-outline-danger btn-icon" onClick="return confirm('Are you Sure?')" name="delete">
+                                    <i class="mdi mdi-delete-forever">
+
+                                    </i>
+                                </form>
+                              </div>
                             </td>
                             <td>
-                                <div >
-                                    <a href='category-edit.php?categoryId=<?php echo $row[categoryId]?>&fn=<?php echo $row[categoryName];?>&em=<?php echo $row[description] ?>' >
-                                        <input type="hidden" name ="categoryId" value = "<?php echo $row['categoryId'];?>">
-                                        <button type="submit" class="btn btn-sm btn-primary" name="edit" onClick = "return Confirm('Are you Sure?')">
-                                        <i class="bi bi-file-earmark-medical">Edit</i>
-                                        </button>   
+                              <div>
+                                <a href='category-edit.php?categoryId=<?php echo $row[categoryId] ?>&fn=<?php echo $row[categoryName]; ?>&em=<?php echo $row[description] ?>'>
+                                  <input type="hidden" name="categoryId" value="<?php echo $row['categoryId']; ?>">
+                                  <button type="submit" class="btn btn-outline-primary btn-icon" name="edit" onClick="return Confirm('Are you Sure?')">
+                                    <i class="mdi mdi-lead-pencil"></i>
+                                  </button>
                                 </a>
-                                </div>
+                              </div>
                             </td>
                           </tr>
-                                    <?php
-                                }
-                                ?>
-                        </tbody>
-                      </table>
-                    </div>
+                        <?php
+                        }
+                        ?>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-              </div>                  
+              </div>
             </div>
           </div>
-
         </div>
+
+
+
         <!-- content-wrapper ends -->
         <!-- partial:./partials/_footer.html -->
         <footer class="footer">
@@ -243,7 +242,7 @@
         </footer>
         <!-- partial -->
       </div>
-      
+
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
@@ -251,24 +250,22 @@
   <!-- container-scroller -->
 
   <script>
-
     var user = sessionStorage.getItem('UserName');
 
-    if(!user){
-      window.location.href='/ecommerce/admin/pages/samples/login.html';
+    if (!user) {
+      window.location.href = '/ecommerce/admin/pages/samples/login.html';
     }
 
-    $('#user').text("Welcome Back - "+user);
+    $('#user').text("Welcome Back - " + user);
     $('#user1').text(user);
 
-    $('#logout').click(function(){
-                
-                            sessionStorage.removeItem('UserId');
-                            sessionStorage.removeItem('UserName');
-                            sessionStorage.removeItem('ROLE');
-                        
-            });
+    $('#logout').click(function() {
 
+      sessionStorage.removeItem('UserId');
+      sessionStorage.removeItem('UserName');
+      sessionStorage.removeItem('ROLE');
+
+    });
   </script>
   <!-- base:js -->
   <script src="../vendors/js/vendor.bundle.base.js"></script>

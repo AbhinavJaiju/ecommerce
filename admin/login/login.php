@@ -1,5 +1,28 @@
 <?php
-     include "../config.php";
+      $servername = "localhost";
+      $username = "aaa";
+      $password = "Bidhu@123";
+      $dbname = "ecommerce";
+
+      // Create connection
+      $conn = new mysqli($servername, $username, $password, $dbname);
+      // Check connection
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
+//       $servername = "localhost";
+//    $username = "abhinav.jaiju";
+//    $password = "experion@123";
+//    $dbname = "ecommerce";
+
+//    //create connection
+//    $conn = new mysqli($servername,$username,$password, $dbname);
+
+//    //check connection
+//    if($conn -> connect_error){
+//        die("Connection Failed:" . $conn->connect_error);
+//    }
+
       $un=$_POST['username'];
       $ps=$_POST['password'];
 
@@ -7,7 +30,7 @@
       // $ps="bidhu@123";
       // echo $un.$ps;
       // echo '<br>';
-      $sql = "SELECT * FROM users WHERE email='$un' && password=MD5('$ps') ";
+      $sql = "SELECT * FROM users WHERE email='$un' && passwords=MD5('$ps') ";
 
       $result = $conn->query($sql);
       if ($result->num_rows > 0) {
