@@ -75,13 +75,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/icons/mdi.html">
+                    <a class="nav-link" href="../banner/banner.php">
                         <i class="mdi mdi-popcorn menu-icon"></i>
                         <span class="menu-title">BANNERS</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/icons/mdi.html">
+                    <a class="nav-link" href="../reviews/review.php">
                         <i class="mdi mdi-emoticon menu-icon"></i>
                         <span class="menu-title">REVIEWS</span>
                     </a>
@@ -93,7 +93,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/icons/mdi.html">
+                    <a class="nav-link" href="../aboutus/about.php">
                         <i class="mdi mdi-pulse menu-icon"></i>
                         <span class="menu-title">ABOUT US</span>
                     </a>

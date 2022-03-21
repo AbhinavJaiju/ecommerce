@@ -1,4 +1,4 @@
-<?php include 'config-anj.php'; ?>
+<?php include '../config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
