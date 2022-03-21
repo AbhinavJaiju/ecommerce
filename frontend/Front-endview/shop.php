@@ -10,7 +10,7 @@ if (isset($_POST['but_logout'])) {
 
 //get,set values -> from sessions and links
 $search = $_GET['search'];
-echo  $search;
+// echo  $search;
 
 $strValue = $_GET['id'];
 if ($strValue > 0) {
