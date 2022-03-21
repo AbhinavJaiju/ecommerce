@@ -60,7 +60,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 $sql = "SELECT productImage.fileName,productImage.pImageId ,products.productId,products.productname,products.price FROM productImage join products ON productImage.productId = products.productId ORDER BY productImage.pImageId DESC LIMIT 10;";
-$ssql = "SELECT bannerImage FROM `banners` LIMIT 1;";
+$ssql = "SELECT bannerImage FROM `banners`ORDER BY bannereId DESC LIMIT 1;";
 $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,products.productName ,productImage.fileName,products.price FROM products INNER JOIN productImage ON products.productId=productImage.productId INNER JOIN orderDetails on orderDetails.productId=products.productId GROUP by productId ,fileName ORDER BY prdCount DESC LIMIT 5;";
 ?>
 
@@ -175,7 +175,7 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
 
 
 
-                            <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 60%;">
+                            <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 80%;">
                                 <div class="label new">New</div>
 
                                 <!-- Toaster starts -->
@@ -193,11 +193,11 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
                                 <ul class="product__hover">
                                     <li><a href="img/shop/<?php echo $row['fileName'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
                                     <li><a class='wishList' id='<?php echo $row["productId"] ?>'><span class='icon_heart_alt'></span></a></li>
-                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                   <li><a class='cart' id='<?php echo $row["productId"]?>'><span class='icon_bag_alt'></span></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text ">
-                                <h6><a href="#"><?php echo $row["productname"] ?></a></h6>
+                                <h6><a href="product-details.php?id=<?php echo $row["productId"] ?>"><?php echo $row["productname"] ?></a></h6>
 
                                 <div class="product__price">Rs <?php echo $rs ?></div>
                             </div>
@@ -283,7 +283,7 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
 
 
 
-                            <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 60%;">
+                            <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 80%;">
 
                                 <!-- Toaster starts -->
                                 <ul class='product__hover'>
@@ -300,11 +300,11 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
                                 <ul class="product__hover">
                                     <li><a href="img/shop/<?php echo $row['fileName'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
                                     <li><a class='wishList' id='<?php echo $row["productId"] ?>'><span class='icon_heart_alt'></span></a></li>
-                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                    <li><a class='cart' id='<?php echo $row["productId"]?>'><span class='icon_bag_alt'></span></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="#"><?php echo $row["productName"] ?></a></h6>
+                                <h6><a href="product-details.php?id=<?php echo $row["productId"] ?>"><?php echo $row["productName"] ?></a></h6>
 
                                 <div class="product__price">Rs <?php echo $rs ?></div>
                             </div>
@@ -586,6 +586,33 @@ if (isset($_POST['search-input'])) {
                     alert('Product already in wishlist');
                 } else if (response.result == "success") {
                     $('.toast').toast('show');
+                } else {
+                    alert("Something went wrong");
+                    console.log(response);
+                }
+
+            }
+        });
+    });
+    // Adding products to cart
+    
+    
+    $('.cart').click(function() {
+        var product_id = $(this).attr('id');
+        // console.log(product_id);
+        $.ajax({
+            url: "php/addProductToCart.php",
+            method: "POST",
+            data: {
+                productId: product_id
+            },
+            dataType: 'json',
+            success: function(response) {
+                // console.log(response);
+                if (response.result == "exists") {
+                    alert('Quantity updated in cart');
+                } else if (response.result == "success") {
+                    alert('Product added to cart');
                 } else {
                     alert("Something went wrong");
                     console.log(response);
