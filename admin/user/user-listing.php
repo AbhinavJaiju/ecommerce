@@ -165,7 +165,7 @@
                 </p>
                 <div class="table-responsive">
                   <table class="table table-bordered" id="pager">
-                    <a href="../user/user">
+                    <a href="../user/user-form.php">
                       <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add User</button>
                     </a>
                     <thead>

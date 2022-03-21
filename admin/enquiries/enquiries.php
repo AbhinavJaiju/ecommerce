@@ -1,7 +1,6 @@
-<?php include '../config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
-
+<?php include '../config.php'; ?>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -20,12 +19,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
 
 
 
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
 </head>
 
@@ -69,7 +68,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../product//category.php">
+                    <a class="nav-link" href="../product/category.php">
                         <i class="mdi mdi-chart-pie menu-icon"></i>
                         <span class="menu-title">CATEGORIES</span>
                     </a>

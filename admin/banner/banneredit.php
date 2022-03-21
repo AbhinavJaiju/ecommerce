@@ -60,7 +60,7 @@ $catName =  $_GET['fn'];
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/forms/basic_elements.html">
+          <a class="nav-link" href="../orders/orderlisting.php">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
@@ -90,7 +90,7 @@ $catName =  $_GET['fn'];
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../enquiries/enquiries.php">
             <i class="mdi mdi-file-document-box-outline menu-icon"></i>
             <span class="menu-title">ENQUIRES</span>
           </a>

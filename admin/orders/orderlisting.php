@@ -1,6 +1,6 @@
-<?php include '../config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
+<?php include '../config.php'; ?>
 
 <head>
   <!-- Required meta tags -->
@@ -19,11 +19,11 @@
   <link rel="shortcut icon" href="../images/favicon.png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
 
-   
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
 
 </head>
@@ -165,27 +165,25 @@
           <!-- row end -->
           <div class="row">
 
-<div class="col-lg-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Orders</h4>
-            <!-- <p class="card-description">
-
-</p> -->
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Orders</h4>
+                 
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
                         <tr>
-                            <th>orderId</th>
-                            <th>Customer Name</th>
-                            <th>Order Date</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                            
+                          <th>orderId</th>
+                          <th>Customer Name</th>
+                          <th>Order Date</th>
+                          <th>Total</th>
+                          <th>Status</th>
+                          <th>Details</th>
+
                         </tr>
-                    </thead>
-                    <tbody>
+                      </thead>
+                      <tbody>
 
                         <?php
 
@@ -196,8 +194,8 @@
                         $result = $conn->query($sql);
 
                         while ($row = $result->fetch_assoc()) {
-                            $id = $row["orderId"];
-                            echo "
+                          $id = $row["orderId"];
+                          echo "
                         <tr>
                         <td scope='col'>{$row["orderId"]}</td>
                         <td scope='col'>{$row["customerName"]}</td>
@@ -233,17 +231,17 @@
                         }
 
                         if (isset($_POST['edit'])) {
-                            echo "<meta http-equiv='refresh' content='0'>";
-                            //echo $id; //last id
-                            echo $eid = $_POST['id'];
-                            echo $nstatus = $_POST['status'];
-                            $update = "UPDATE orders
+                          echo "<meta http-equiv='refresh' content='0'>";
+                          //echo $id; //last id
+                          echo $eid = $_POST['id'];
+                          echo $nstatus = $_POST['status'];
+                          $update = "UPDATE orders
                                  SET orderStatus ='$nstatus'
                                  WHERE orderId = $eid;";
-                            $uresult = $conn->query($update);
-                            $row1 = $uresult->fetch_assoc();
-                            
-                            //echo "<meta http-equiv='refresh' content='0'>";
+                          $uresult = $conn->query($update);
+                          $row1 = $uresult->fetch_assoc();
+
+                          //echo "<meta http-equiv='refresh' content='0'>";
                         }
 
 
@@ -254,55 +252,55 @@
                         //     $vresult = $conn->query($view);
                         //     $row2 = $vresult->fetch_assoc();
 
-                            
+
                         // }
 
 
 
                         ?>
-                        
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div id="dataModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"></button>
-                <h4 class="modal-title">order Details</h4>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="modal-body" id="employee_detail">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<script>
-    $(document).ready(function() {
-        $('.view_data').click(function() {
-            var order_id = $(this).attr("id");
-            $.ajax({
-                url: "details.php",
-                method: "post",
-                data: {
-                    order_id: order_id
-                },
-                success: function(data) {
-                    $('#employee_detail').html(data);
-                    $('#dataModal').modal("show");
-                }
-            });
-        });
-    });
-</script>
+            <div id="dataModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">order Details</h4>
+                  </div>
+                  <div class="modal-body" id="employee_detail">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script>
+              $(document).ready(function() {
+                $('.view_data').click(function() {
+                  var order_id = $(this).attr("id");
+                  $.ajax({
+                    url: "details.php",
+                    method: "post",
+                    data: {
+                      order_id: order_id
+                    },
+                    success: function(data) {
+                      $('#employee_detail').html(data);
+                      $('#dataModal').modal("show");
+                    }
+                  });
+                });
+              });
+            </script>
           </div>
 
 
@@ -324,10 +322,11 @@
       </div>
 
       <!-- main-panel ends -->
-    </div>
+    
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
+  </div>
 
   <script>
     var user = sessionStorage.getItem('UserName');
