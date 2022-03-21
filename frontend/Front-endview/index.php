@@ -13,6 +13,14 @@ if (isset($_POST['but_logout'])) {
     session_destroy();
     header('Location: login.php');
 }
+
+// Get count of wishlist and cart
+$wishlist = "SELECT COUNT(wishListId) AS wishList FROM wishLists";
+$cart = "SELECT COUNT(productCartId) AS cart FROM productCarts";
+$wishResult = $conn->query($wishlist);
+$cartResult = $conn->query($cart);
+$wishCount = $wishResult->fetch_assoc();
+$cartCount = $cartResult->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -146,11 +154,22 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
                         <ul class="header__right__widget ">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
-
+                            
+                                    <!-- Wish list count badge -->
+                                    <?php
+                                    if ($wishCount['wishList'] > 0) {
+                                        echo '<div class="tip">' . $wishCount['wishList'] . '</div>';
+                                    }
+                                    ?>
                                 </a></li>
                             <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
 
-                                </a></li>
+                                    <!-- Cart count badge -->
+                                    <?php
+                                    if ($cartCount['cart'] > 0) {
+                                        echo '<div class="tip">' . $cartCount['cart'] . '</div>';
+                                    }
+                                    ?>
                             <li>
                                 <form method='post' action="">
                                     <button type="submit" class="btn text-black " name="but_logout">
@@ -255,11 +274,13 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
 
                                 <!-- Toaster starts -->
                                 <ul class='product__hover'>
-                                <li>  <div class='d-flex align-items-center justify-content-center'>
-                                <div class='toast'>
-                                    <i class='fa fa-solid fa-heart'></i>
-                                </div>
-                                </div></li>
+                                    <li>
+                                        <div class='d-flex align-items-center justify-content-center'>
+                                            <div class='toast'>
+                                                <i class='fa fa-solid fa-heart'></i>
+                                            </div>
+                                        </div>
+                                    </li>
                                 </ul>
                                 <!-- Toaster ends -->
 
@@ -358,13 +379,15 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
 
                             <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 60%;">
 
-                            <!-- Toaster starts -->
-                            <ul class='product__hover'>
-                                <li>  <div class='d-flex align-items-center justify-content-center'>
-                                <div class='toast'>
-                                    <i class='fa fa-solid fa-heart'></i>
-                                </div>
-                                </div></li>
+                                <!-- Toaster starts -->
+                                <ul class='product__hover'>
+                                    <li>
+                                        <div class='d-flex align-items-center justify-content-center'>
+                                            <div class='toast'>
+                                                <i class='fa fa-solid fa-heart'></i>
+                                            </div>
+                                        </div>
+                                    </li>
                                 </ul>
                                 <!-- Toaster ends -->
 
@@ -553,7 +576,7 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
                     <div class="footer__widget">
                         <h6>Quick links</h6>
                         <ul>
-                            <li><a href="#">About</a></li>
+                            <li><a href="aboutus.php">About</a></li>
                             <li><a href="#">Blogs</a></li>
                             <li><a href="#">Contact</a></li>
                             <li><a href="#">FAQ</a></li>
@@ -631,7 +654,7 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
 
 
 <?php
-if(isset($_POST['search-input'])){
+if (isset($_POST['search-input'])) {
     $search = $_POST['search-input'];
     echo "<script>window.location.href='shop.php?search=$search'</script>";
 }
@@ -665,5 +688,4 @@ if(isset($_POST['search-input'])){
             }
         });
     });
-
 </script>
