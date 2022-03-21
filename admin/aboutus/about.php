@@ -150,143 +150,130 @@
                     </ul>
                 </div>
             </nav>
-      <!-- partial -->
 
-      <div class="main-panel">
-        <div class="content-wrapper">
+        <div class="main-panel">
+          <div class="content-wrapper">
 
-          <!-- row end -->
+            <!-- row end -->
 
+            <?php
+            include "../config.php";
+            $result = mysqli_query($conn, "SELECT * FROM pages") or die(mysqli_error($conn));
+            if (empty($result)) {
+              echo "no data found";
+            } else {
+              while ($res = mysqli_fetch_array($result)) {
+                $about = $res['content'];
+                $title = $res['title'];
+              }
+            }
+            ?>
 
+            <!-- body -->
+            <div class="content-wrapper">
+              <div class="col-lg-12 grid-margin mt-5 stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">About Us</h4>
+                    <button id="edit" type="button" class="btn btn-icon" style="float: right;"><i class=" mdi mdi-lead-pencil "></i></button>
+                    <form method="post">
+                      <h6>Title</h6>
+                      <input id="inp1" name="title" type="text" value=" <?php echo $title; ?>" disabled style="border: none;outline:none">
+                      <br />
+                      <br />
+                      <blockquote class="blockquote">
+                        <h6>Content</h6>
+                        <input id="inp2" name="review" type="text" value=" <?php echo $about; ?>" disabled style="border: none;outline:none">
+                      </blockquote>
+                      <input type="submit" class="btn btn-outline-dark" value="Update about us" name="update">
+                    </form>
+                    <?php
+                    if (isset($_POST['update'])) {
+                      $about = $_POST['review'];
+                      $tit = $_POST['title'];
+                      $sql2 = "UPDATE pages SET title='$tit',content='$about' WHERE aboutId=1";
+                      // Prepare statement
+                      $stmt = $conn->prepare($sql2);
 
-          <!-- body -->
+                      // execute the query
+                      $stmt->execute();
+                      echo "<meta http-equiv='refresh' content='0'>";
+                      // echo "<script type='text/javascript'>window.top.location='../index.php';</script>";
+                      
+                    }
+                    $conn->close();
 
-          <?php
-          include "../config.php";
-
-          ?>
-          <div class="col-lg-12 grid-margin mt-5 stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <!-- <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href = 'add.php';" style="float: right;">Add a new Review</button> -->
-                <h4 class="card-title">Manage Reviews</h4>
-                <p class="card-description"> Review Request
-
-                </p>
-                <div class="table-responsive">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>User</th>
-                        <th>Product</th>
-                        <th>Posted at</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-
-                      $query = "SELECT rev.review, rev.createdDate,rev.status,cust.customerName,
-                      cust.email,prod.productId,prod.productName,cust.customerId
-                      FROM reviews rev
-                      JOIN customers cust ON cust.customerId = rev.customerId
-                      JOIN products prod ON prod.productId = rev.productId LIMIT 10";
-
-                      $result = $conn->query($query);
-
-                      while ($row = mysqli_fetch_array($result)) {
-
-                      ?>
-                        <tr>
-                          <?php $id = $row['productId']; ?>
-                          <td><?php echo $row['customerName']; ?></td>
-                          <td><?php echo $row['productName'] ?? ''; ?></td>
-                          <td><?php echo $row['createdDate'] ?? ''; ?></td>
-                          <td><?php echo $row['status'] ?? ''; ?></td>
-                          <td><?php echo "<a type='button' class='btn btn-icon btn-lg' href='reviewdata.php?id=$row[customerId]'>" ?><i class="mdi mdi-eye"></i></td>
-                          <!-- <td><button type="button" class="btn btn-primary btn-rounded btn-icon" onClick="document.location.href='reviewdata.php'" > -->
-                          <!-- <i class=" mdi mdi-eye "></i>
-                      </button></td> -->
-                        </tr>
-
-                        <tr>
-                          <td colspan="8">
-                          </td>
-                        <tr>
-                        <?php
-                      }
-                      $conn->close(); ?>
-                    </tbody>
-                  </table>
+                    ?>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <!-- body ends -->
+
+            <script>
+              var el = document.getElementById('edit');
+              el.addEventListener('click', function() {
+                document.getElementById('inp1').disabled = false;
+                document.getElementById('inp2').disabled = false;
+              });
+            </script>
+
+
+            <!-- content-wrapper ends -->
+            <!-- partial:./partials/_footer.html -->
+            <footer class="footer">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © ECOMMERCE 2022</span>
+                  </div>
+                </div>
+              </div>
+            </footer>
+            <!-- partial -->
           </div>
 
-
-
-          <!-- body ends -->
-
-
-
-
-          <!-- content-wrapper ends -->
-          <!-- partial:./partials/_footer.html -->
-          <footer class="footer">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                  <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © ECOMMERCE 2022</span>
-                </div>
-              </div>
-            </div>
-          </footer>
-          <!-- partial -->
+          <!-- main-panel ends -->
         </div>
-
-        <!-- main-panel ends -->
+        <!-- page-body-wrapper ends -->
       </div>
-      <!-- page-body-wrapper ends -->
-    </div>
-    <!-- container-scroller -->
+      <!-- container-scroller -->
 
-     <script>
+      <script>
+        var user = sessionStorage.getItem('UserName');
 
-    var user = sessionStorage.getItem('UserName');
+        if (!user) {
+          window.location.href = '/ecommerce/admin/pages/samples/login.html';
+        }
 
-    if(!user){
-      window.location.href='/ecommerce/admin/pages/samples/login.html';
-    }
+        $('#user').text("Welcome Back - " + user);
+        $('#user1').text(user);
 
-    $('#user').text("Welcome Back - "+user);
-    $('#user1').text(user);
+        $('#logout').click(function() {
 
-    $('#logout').click(function(){
-                
-                            sessionStorage.removeItem('UserId');
-                            sessionStorage.removeItem('UserName');
-                            sessionStorage.removeItem('ROLE');
-                        
-            });
+          sessionStorage.removeItem('UserId');
+          sessionStorage.removeItem('UserName');
+          sessionStorage.removeItem('ROLE');
 
-  </script> 
-    <!-- base:js -->
-    <script src="../vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page-->
-    <script src="../vendors/chart.js/Chart.min.js"></script>
-    <!-- End plugin js for this page-->
-    <!-- inject:js -->
-    <script src="../js/off-canvas.js"></script>
-    <script src="../js/hoverable-collapse.js"></script>
-    <script src="../js/template.js"></script>
-    <!-- endinject -->
-    <!-- plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- Custom js for this page-->
-    <script src="../js/dashboard.js"></script>
-    <!-- End custom js for this page-->
+        });
+      </script>
+      <!-- base:js -->
+      <script src="../vendors/js/vendor.bundle.base.js"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page-->
+      <script src="../vendors/chart.js/Chart.min.js"></script>
+      <!-- End plugin js for this page-->
+      <!-- inject:js -->
+      <script src="../js/off-canvas.js"></script>
+      <script src="../js/hoverable-collapse.js"></script>
+      <script src="../js/template.js"></script>
+      <!-- endinject -->
+      <!-- plugin js for this page -->
+      <!-- End plugin js for this page -->
+      <!-- Custom js for this page-->
+      <script src="../js/dashboard.js"></script>
+      <!-- End custom js for this page-->
 </body>
 
 </html>

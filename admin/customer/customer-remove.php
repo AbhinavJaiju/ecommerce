@@ -1,5 +1,5 @@
 <?php 
-include "config.php";
+include "../config.php";
 
 $id = $_POST['customerId'];
 $sql = "DELETE FROM customers WHERE customerId = $id";
