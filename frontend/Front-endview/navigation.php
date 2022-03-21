@@ -22,26 +22,26 @@ include "config.php";
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="./index.php">Home</a></li>
-                        <li><a href="#">Shop</a>
-                            <ul class="dropdown">
-                                <?php
+                        <li><a href="./shop.php">Shop</a>
+                                <ul class="dropdown">
+                                    <?php
 
-                                $sql = "SELECT * FROM categories ";
-                                //echo $sql;
-                                $result = $conn->query($sql);
+                                    $seql = "SELECT * FROM categories ";
+                                    //echo $sql;
+                                    $result = $conn->query($seql);
 
 
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        echo "<li><a href=\"./shop.php?id={$row["categoryId"]}\">{$row["categoryName"]}</a></li>";
+                                    if ($result = $conn->query($seql)) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<li><a href=\"./shop.php?id={$row["categoryId"]}\">{$row["categoryName"]}</a></li>";
+                                        }
+                                    } else {
+                                        echo "Server Error ! Please try again later";
                                     }
-                                } else {
-                                    echo "Server Error ! Please try again later";
-                                }
-                                ?>
+                                    ?>
 
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
                         <li><a href="./contact.php">Contact</a></li>
                     </ul>
                 </nav>
