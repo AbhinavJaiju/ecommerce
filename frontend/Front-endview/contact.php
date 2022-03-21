@@ -144,6 +144,7 @@
     $sql = "INSERT INTO enquiries (email, name, message,phoneNumber) VALUES ('{$email}', '{$name}', '{$message}', '{$phonenumber}')";
 
     if ($conn->query($sql) === TRUE) {
+        echo "<script>alert('Enquiry Added')</script>";
     } else {
         echo "Error   creating database: ";
     }
