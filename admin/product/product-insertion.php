@@ -30,7 +30,7 @@
 
         if(in_array($ext,$extension)){
             if(!file_exists("productimage/".$file_name)){
-                move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"productimage/".$file_name); 
+                move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"../../productImages/".$file_name); 
                 $sql = "INSERT INTO productImage(fileName,productId) VALUES('$file_tmp',$last_id)";
                 if($conn->query($sql)===TRUE){
                     echo "Image uploaded into database";
