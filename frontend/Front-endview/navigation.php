@@ -10,12 +10,12 @@ include "config.php";
 ?>
 
 
-<header class="header">
+<header class="header ">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-3 col-lg-2">
                 <div class="header__logo">
-                    <a href="./index.php"><img src="img/logo5.png" alt="" style="height: 40px;width: 100px;"></a>
+                    <a href="./index.php"><img src="img/logo5.png" alt="" style="height: 35px;width: 100px;"></a>
                 </div>
             </div>
             <div class="col-xl-6 col-lg-7">
@@ -32,8 +32,6 @@ include "config.php";
 
 
                                 if ($result->num_rows > 0) {
-                                    //echo "inside if";
-
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<li><a href=\"./shop.php?id={$row["categoryId"]}\">{$row["categoryName"]}</a></li>";
                                     }
@@ -44,15 +42,6 @@ include "config.php";
 
                             </ul>
                         </li>
-                        <!-- <li><a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="./product-details.php">Product Details</a></li>
-                                <li><a href="./shop-cart.php">Shop Cart</a></li>
-                                <li><a href="./checkout.php">Checkout</a></li>
-
-                            </ul>
-                        </li> -->
-
                         <li><a href="./contact.php">Contact</a></li>
                     </ul>
                 </nav>
@@ -76,18 +65,24 @@ include "config.php";
                         </a>
                     </div>
 
-                    <ul class="header__right__widget">
+                    <ul class="header__right__widget ">
                         <li><span class="icon_search search-switch"></span></li>
                         <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
+                                
                             </a></li>
                         <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
+                                
                             </a></li>
                         <li>
-                            <form method='post' action="" style="margin-left:1%">
-                                <input type="submit" class="btn btn-default btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
-                            </form>
+                        <form method='post' action=""  >
+                        <button type="submit" class="btn text-black " name="but_logout">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            </svg>
+                        </button>
+                                
+                        </form>
                         </li>
                     </ul>
                 </div>
