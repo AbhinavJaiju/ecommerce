@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -50,48 +49,48 @@
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="../../admin/user/user-listing.php">USERS</a></li>
-              <li class="nav-item"> <a class="nav-link" href="../../admin/customer/customer-listing.php">CUSTOMERS</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../../admin/cutomer/customer-listing.php">CUSTOMERS</a></li>
             </ul>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/order/order-listing.php">
+          <a class="nav-link" href="../orders/orderlisting.php">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/product/category.php">
+          <a class="nav-link" href="../product/category.php">
             <i class="mdi mdi-chart-pie menu-icon"></i>
             <span class="menu-title">CATEGORIES</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/product/product-listing.php">
+          <a class="nav-link" href="../product/product-listing.php">
             <i class="mdi mdi-grid-large menu-icon"></i>
             <span class="menu-title">PRODUCTS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../banner/banner.php">
             <i class="mdi mdi-popcorn menu-icon"></i>
             <span class="menu-title">BANNERS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../reviews/review.php">
             <i class="mdi mdi-emoticon menu-icon"></i>
             <span class="menu-title">REVIEWS</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../enquiries/enquiries.php">
             <i class="mdi mdi-file-document-box-outline menu-icon"></i>
             <span class="menu-title">ENQUIRES</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../aboutus/about.php">
             <i class="mdi mdi-pulse menu-icon"></i>
             <span class="menu-title">ABOUT US</span>
           </a>
@@ -163,13 +162,14 @@
                 <h4 class="card-title">User Registration</h4>
                 <p class="card-description"> User Registration </p>
                 <form id="submit_form">
+                  
                   <div class="form-group">
                     <label for="exampleInputName1">Name</label>
-                    <input type="text" class="form-control" id="userName" name="userName">
+                    <input type="text" class="form-control" id="userName" name="userName" >
                   </div>
                   <div class="form-group" id="submit_form">
                     <label for="exampleInputEmail3">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email">
+                    <input type="email" class="form-control" id="email" name="email" >
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword4">Password</label>
@@ -185,7 +185,7 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputCity1">Phone Number</label>
-                    <input type="number" class="form-control" id="phoneNUmber" name="phoneNumber">
+                    <input type="number" class="form-control" id="phoneNumber" name="phoneNumber">
                   </div>
                   <input type="button" class="btn btn-primary mr-2" name="submit" id="submit" value="Submit">
                   <button type="button" class="btn btn-danger" name="cancel" id="cancel"> cancel</button>
@@ -215,9 +215,11 @@
                       $('#submit_form').trigger("reset");
                       $('#response').fadeIn();
                       $('#response').removeClass('error-msg').addClass('success-msg').html(data);
+                      window.location.href = 'user-listing.php';
                       // setTimeout(() => {
                       //     $('#response').fadeOut("slow");
                       // }, 4000);
+                      window.location.href = 'user-listing.php';
                     }
                   })
                 }

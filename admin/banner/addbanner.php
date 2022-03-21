@@ -201,12 +201,15 @@
     echo '<option value='.$row['categoryId'].'>'.$row['categoryName'].'</option>';
       }
 ?>
-    </select>
+    </select><br />
+    <br />
 
                                             <label>Choose banner</label>
                                             
                                                 <input type="file" id="my_image" name="my_image">
-                                                <input type="submit" name="submit" value="Upload">
+                                                <br /><br />
+                                                <button type="submit" class="btn btn-outline-primary" name="submit">Upload</button>
+                                                <button type="submit" class="btn btn-outline-secondary" name="clear">Cancel</button>
                                             </form>
 
                                             <!-- Submit button -->
@@ -258,7 +261,12 @@
                                                 $uploadOk = 0;
                                             }
                                         }
-                                    
+                                        if (isset($_POST['clear'])) {
+                      
+      
+                                          echo "<script type='text/javascript'>window.top.location='banner.php';</script>";
+                                     
+                                    }
                                    
                                 
                                         // header('Location: banner.php');

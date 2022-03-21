@@ -236,6 +236,7 @@
                   // setTimeout(() => {
                   //     $('#response').fadeOut("slow");
                   // }, 4000);
+                  window.location.href = 'customer-listing.php';
                 }
               })
             }

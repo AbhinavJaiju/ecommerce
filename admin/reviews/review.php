@@ -79,7 +79,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../reviews/review.php">
+          <a class="nav-link" href="#">
             <i class="mdi mdi-emoticon menu-icon"></i>
             <span class="menu-title">REVIEWS</span>
           </a>

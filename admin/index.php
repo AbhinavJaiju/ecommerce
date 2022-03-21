@@ -245,7 +245,7 @@
                       </thead>
                       <tbody>
                         <?php
-                        $sql4 = "SELECT * FROM customers ORDER BY customerId DESC";
+                        $sql4 = "SELECT * FROM customers ORDER BY customerId DESC LIMIT 10";
                         $result4 = $conn->query($sql4);
 
                         while ($row4 = $result4->fetch_assoc()) {

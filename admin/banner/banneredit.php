@@ -206,9 +206,11 @@ $catName =  $_GET['fn'];
     echo '<option value='.$row['categoryId'].'>'.$row['categoryName'].'</option>';
       }
 ?>
-    </select>
-                                                <input type="submit" name="submit" class="btn btn-oultine-primary" value="Upload">
-                                            </form>
+    </select> <br/>
+    <br/>
+                                                <button type="submit" class="btn btn-outline-primary" name="submit">Change category</button>
+                                            <button type="submit" class="btn btn-outline-secondary" name="cancel">Cancel Changes</button>
+                                              </form>
 
                                             
                                         </div>
@@ -224,6 +226,13 @@ $catName =  $_GET['fn'];
                             echo "Error: " . $$list . "<br>" . $conn->error;
                         }
                     }
+                    //cancel button
+                    if (isset($_POST['cancel'])) {
+                      
+      
+                      echo "<script type='text/javascript'>window.top.location='banner.php';</script>";
+                 
+                }
                                                 
                                    
                                 
