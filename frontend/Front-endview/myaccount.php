@@ -33,6 +33,7 @@ $count = count($row);
 
 <head>
   <title>Ashion</title>
+  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -42,8 +43,9 @@ $count = count($row);
     Css Styles -->
   <!-- <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css"> -->
-  <!-- <link rel="stylesheet" href="css/elegant-icons.css" type="text/css"> -->
+  <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
   <link rel="stylesheet" href="css/style.css" type="text/css">
+  
 
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
@@ -73,10 +75,10 @@ $count = count($row);
 
     .nav-pills li.active a {
       background-color: #B7395F;
-      width: 60%;
+      width: 100%;
       padding: 5%;
       margin-top: 10%;
-      margin-left: 20%;
+      margin-left: 10%;
       font-size: larger;
     }
 
@@ -116,32 +118,137 @@ $count = count($row);
       border-radius: 10px;
     }
 
-    body {
+    /* body {
       background-color: #F9EDF0;
-    }
+    } */
   </style>
+  <?php
+session_start();
+if (isset($_POST['but_logout'])) {
+    session_destroy();
+    header('Location: login.php');
+}
+$userId = $_SESSION['cutomerId'];
+
+include "config.php";
+
+// Get count of wishlist and cart
+$wishlist = "SELECT COUNT(wishListId) AS wishList FROM wishLists";
+$cart = "SELECT COUNT(productCartId) AS cart FROM productCarts";
+$wishResult = $conn->query($wishlist);
+$cartResult = $conn->query($cart);
+$wishCount = $wishResult->fetch_assoc();
+$cartCount = $cartResult->fetch_assoc();
+?>
+
+
+<header class="header ">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-3 col-lg-2">
+                <div class="header__logo">
+                    <a href="./index.php"><img src="img/logo5.png" alt="" style="height: 35px;width: 100px;"></a>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-7">
+                <nav class="header__menu">
+                    <ul>
+                        <li class="active"><a href="./index.php">Home</a></li>
+                        <li><a href="./shop.php">Shop</a>
+                                
+                            </li>
+                        <li><a href="./contact.php">Contact</a></li>
+                        <li><a href="./aboutus.php">About Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__right">
+                    <div class="header__right__auth">
+                        <a href="myaccount.php" style="font-weight: bold; font-size: large;">
+                        <?php
+                        if ($_SESSION['uname']) {
+
+                            // echo '<a style="margin-left:10px;font-size:15px" href="http://localhost/ecommerce/frontend/Front-endview/logout.php"><strong>Logout</strong></a>';
+
+                            echo $_SESSION['uname'];
+                        } else {
+                            echo  '<a href="login.php">Login</a>
+                                <a href="#">Register</a>';
+                        }
+
+                        ?>
+                        </a>
+                    </div>
+
+                    <ul class="header__right__widget ">
+                        <li><span class="icon_search search-switch"></span></li>
+                        <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
+
+                        <!-- Wish list count badge -->
+                        <?php
+                        if ($wishCount['wishList'] > 0) {
+                            echo '<div class="tip">'.$wishCount['wishList'].'</div>';
+                        }
+                        ?>
+                            </a></li>
+                        <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
+
+                        <!-- Cart count badge -->
+                        <?php
+                        if ($cartCount['cart'] > 0) {
+                            echo '<div class="tip">'.$cartCount['cart'].'</div>';
+                        }
+                        ?>
+                            </a></li>
+                        <li>
+                        <form method='post' action=""  >
+                        <button type="submit" class="btn text-black " name="but_logout">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            </svg>
+                        </button>
+                                
+                        </form>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="canvas__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</header>
+
+
+
 </head>
 
 <body>
+  
   <div>
 
 
-    <form method='post' action="" style="margin-left:1350px;margin-top:2%;">
+    <!-- <form method='post' action="" style="margin-left:1350px;margin-top:2%;">
       <input type="submit" class="btn btn-danger btn-sm" style="font-size:15px;font-weight:bold" value="home" name="home">
       <input type="submit" class="btn btn-danger btn-sm" style="font-size:15px;font-weight:bold" value="Logout" name="but_logout">
-    </form>
+    </form> -->
 
   </div>
 
   </div>
   </div>
-  <div class="container-fluid">
+  <div class="container-fluid"style="margin-top:2% ;">
     <div class="row content">
-      <div class="col-sm-3 sidenav">
-        <h4 style="margin-top:8%">My Account</h4>
-        <hr>
+      <div class="col-sm-2 sidenav">
+        <h4 style="margin-top:8% ;margin-left:23%; " >My Account</h4>
+       
         <ul class="nav nav-pills nav-stacked" style="margin-top:4%;padding: 1px;">
-          <li class="active" style="margin-top:8%;">
+          <li class="active" style="margin-top:28%;">
             <?php
             session_start();
             include 'config.php';
@@ -168,8 +275,8 @@ $count = count($row);
       </div> -->
       </div>
 
-      <div class="col-sm-9">
-        <div class="container" style="margin-top:15%;">
+      <div class="col-sm-10">
+        <div class="container" style="margin-top:5%;">
           <div class="main-body">
 
             <div class="row gutters-sm">
@@ -249,78 +356,136 @@ $count = count($row);
         </div>
       </div>
     </div>
+  </div>
+<!-- Instagram Begin -->
+<div class="instagram">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic1.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ Eshoppe</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic2.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ Eshoppe</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic3.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ Eshoppe</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic4.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ Eshoppe</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic5.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ Eshoppe</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/pic6.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ Eshoppe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Instagram End -->
 
+    <!-- Footer Section Begin -->
     <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-7">
-            <div class="footer__about">
-              <div class="footer__logo">
-                <a href="./index.php"><img src="img/logo.png" alt=""></a>
-              </div>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                cilisis.</p>
-              <div class="footer__payment">
-                <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
-                <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
-                <a href="#"><img src="img/payment/payment-3.png" alt=""></a>
-                <a href="#"><img src="img/payment/payment-4.png" alt=""></a>
-                <a href="#"><img src="img/payment/payment-5.png" alt=""></a>
-              </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-7">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="./index.php"><img src="img/logo5.png" alt=""></a>
+                        </div>
+                        <p>We provide the products from the best brands with the offer that you will not expect.</p>
+                        <div class="footer__payment">
+                            <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
+                            <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
+                            <a href="#"><img src="img/payment/payment-3.png" alt=""></a>
+                            <a href="#"><img src="img/payment/payment-4.png" alt=""></a>
+                            <a href="#"><img src="img/payment/payment-5.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-5">
+                    <div class="footer__widget">
+                        <h6>Quick links</h6>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Blogs</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="footer__widget">
+                        <h6>Account</h6>
+                        <ul>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Orders Tracking</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Wishlist</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8 col-sm-8">
+                    <div class="footer__newslatter">
+                        <h6>NEWSLETTER</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Email">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-lg-2 col-md-3 col-sm-5">
-            <div class="footer__widget">
-              <h6>Quick links</h6>
-              <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Blogs</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">FAQ</a></li>
-              </ul>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <div class="footer__copyright__text">
+                        <p>Copyright &copy; <script>
+                                document.write(new Date().getFullYear());
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                    </div>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
             </div>
-          </div>
-          <div class="col-lg-2 col-md-3 col-sm-4">
-            <div class="footer__widget">
-              <h6>Account</h6>
-              <ul>
-                <li><a href="#">My Account</a></li>
-                <li><a href="#">Orders Tracking</a></li>
-                <li><a href="#">Checkout</a></li>
-                <li><a href="#">Wishlist</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-8 col-sm-8">
-            <div class="footer__newslatter">
-              <h6>NEWSLETTER</h6>
-              <form action="#">
-                <input type="text" placeholder="Email">
-                <button type="submit" class="site-btn">Subscribe</button>
-              </form>
-              <div class="footer__social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            <div class="footer__copyright__text">
-              <p>Copyright &copy; <script>
-                  document.write(new Date().getFullYear());
-                </script> All rights reserved<i class="fa fa-heart"> </p>
-            </div>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          </div>
-        </div>
-      </div>
     </footer>
+    <!-- Footer Section End -->
 
 </body>
 
