@@ -51,6 +51,7 @@ $cartCount = $cartResult->fetch_assoc();
                                 </ul>
                             </li>
                         <li><a href="./contact.php">Contact</a></li>
+                        <li><a href="./aboutus.php">About Us</a></li>
                     </ul>
                 </nav>
             </div>
