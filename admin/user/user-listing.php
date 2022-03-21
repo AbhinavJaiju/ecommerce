@@ -180,7 +180,7 @@
                     </thead>
                     <tbody>
                       <?php
-                      include_once 'config.php';
+                      include '../config.php';
                       $sql = "SELECT * FROM users";
                       $result = $conn->query($sql);
 
