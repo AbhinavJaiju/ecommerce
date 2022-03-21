@@ -60,7 +60,7 @@ $catName =  $_GET['fn'];
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/forms/basic_elements.html">
+          <a class="nav-link" href="../orders/orderlisting.php">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
@@ -90,7 +90,7 @@ $catName =  $_GET['fn'];
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../enquiries/enquiries.php">
             <i class="mdi mdi-file-document-box-outline menu-icon"></i>
             <span class="menu-title">ENQUIRES</span>
           </a>
@@ -185,14 +185,16 @@ $catName =  $_GET['fn'];
                             <div class="card">
 
                                 <div class="card-body" style="align-content: center;">
-                                    <h4 class="card-title" id="addbanner">Add Banner</h4>
+                                    <h4 class="card-title" id="addbanner">Edit Banner</h4>
 
                                     <!-- <div class="float-child2"> -->
+                                    
 
                                     <div class="container py-5" id="Upload">
 
 
                                         <div class="col">
+
                                         <form method="post" enctype="multipart/form-data">
                                             <label>Choose Category</label>
                                             <select name="reason" value="<?php echo $catName; ?>">
@@ -207,8 +209,11 @@ $catName =  $_GET['fn'];
       }
 ?>
     </select>
-                                                <input type="submit" name="submit" class="btn btn-oultine-primary" value="Upload">
-                                            </form>
+    <br/>
+    <br/>
+                                                <button type="submit" class="btn btn-outline-primary" name="submit">Change category</button>
+                                            <button type="submit" class="btn btn-outline-secondary" name="cancel">Cancel Changes</button>
+                                              </form>
 
                                             
                                         </div>
@@ -224,6 +229,13 @@ $catName =  $_GET['fn'];
                             echo "Error: " . $$list . "<br>" . $conn->error;
                         }
                     }
+                    //cancel button
+                    if (isset($_POST['cancel'])) {
+                      
+      
+      echo "<script type='text/javascript'>window.top.location='banner.php';</script>";
+ 
+}
                                                 
                                    
                                 

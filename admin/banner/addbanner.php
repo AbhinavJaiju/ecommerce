@@ -55,7 +55,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/forms/basic_elements.html">
+          <a class="nav-link" href="../orders/orderlisting.php">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
@@ -85,7 +85,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../pages/icons/mdi.html">
+          <a class="nav-link" href="../enquiries/enquiries.php">
             <i class="mdi mdi-file-document-box-outline menu-icon"></i>
             <span class="menu-title">ENQUIRES</span>
           </a>
@@ -173,7 +173,7 @@
 
                     <!-- body -->
 
-                    <?php include "../config.php"; ?>
+                    
 
                     <div class="content-wrapper">
                         <div class="col-lg-12 grid-margin mt-5 stretch-card">
@@ -202,11 +202,15 @@
       }
 ?>
     </select>
+    <br />
+    <br />
 
                                             <label>Choose banner</label>
                                             
                                                 <input type="file" id="my_image" name="my_image">
-                                                <input type="submit" name="submit" value="Upload">
+                                                <br /><br />
+                                                <button type="submit" class="btn btn-outline-primary" name="submit">Upload</button>
+                                                <button type="submit" class="btn btn-outline-secondary" name="clear">Cancel</button>
                                             </form>
 
                                             <!-- Submit button -->
@@ -238,7 +242,7 @@
                             echo 'Uploaded';
                             echo "<script type='text/javascript'>window.top.location='banner.php';</script>";
                         } else {
-                            echo "Error: " . $$list . "<br>" . $conn->error;
+                            echo "Error: " . $list . "<br>" . $conn->error;
                         }
                     } else {
                         echo "Failed to upload image";
@@ -258,6 +262,13 @@
                                                 $uploadOk = 0;
                                             }
                                         }
+                                        //cancel button
+                    if (isset($_POST['clear'])) {
+                      
+      
+                      echo "<script type='text/javascript'>window.top.location='banner.php';</script>";
+                 
+                }
                                     
                                    
                                 

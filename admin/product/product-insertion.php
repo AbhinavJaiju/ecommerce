@@ -1,6 +1,6 @@
 <?php
     //db connection
-    include_once 'config.php';
+    include_once '../config.php';
 
     $name = $_POST['productname'];
     $pdescription = $_POST['pdescription'];
@@ -31,7 +31,7 @@
         if(in_array($ext,$extension)){
             if(!file_exists("productimage/".$file_name)){
                 move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"../../productImages/".$file_name); 
-                $sql = "INSERT INTO productImage(fileName,productId) VALUES('$file_tmp',$last_id)";
+                $sql = "INSERT INTO productImage(fileName,productId) VALUES('$file_name',$last_id)";
                 if($conn->query($sql)===TRUE){
                     echo "Image uploaded into database";
                 }else{
@@ -41,8 +41,8 @@
             else{
                 $filename = basename($file_name,$ext);
                 $newFileName = $filename.time().".".$ext;
-                move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"productimage/".$newFileName);
-                $sql2 = "INSERT INTO productImage(fileName,productId) VALUES('$file_tmp',$last_id)";
+                move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"../../productImages/".$file_name);
+                $sql2 = "INSERT INTO productImage(fileName,productId) VALUES('$file_name',$last_id)";
                 if($conn->query($sql2)===TRUE){
                     echo "Image uploaded into database";
                 }else{
