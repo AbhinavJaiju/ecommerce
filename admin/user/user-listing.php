@@ -31,7 +31,7 @@
           <span></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../index.html">
+          <a class="nav-link" href="../index.php">
             <i class="mdi mdi-view-quilt menu-icon"></i>
             <span class="menu-title">Dashboard</span>
             <div class="badge badge-info badge-pill"></div>
@@ -113,8 +113,8 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="../index.html"></a>
-            <a class="navbar-brand brand-logo-mini" href="../index.html"><img src="../images/logo-mini.svg" alt="logo" /></a>
+            <a class="navbar-brand brand-logo" href="../index.php"></a>
+            <a class="navbar-brand brand-logo-mini" href="../index.php"><img src="../images/logo-mini.svg" alt="logo" /></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1" id="user"></h4>
           <ul class="navbar-nav navbar-nav-right">
@@ -164,18 +164,18 @@
                 </p>
                 <div class="table-responsive">
                   <table class="table table-bordered">
-                  <a href="../user/user-form.php">
+                    <a href="../user/user-form.php">
                       <button type="button" class="btn btn-outline-primary btn-fw" style="float: right;margin-bottom:6px">Add User</button>
                     </a>
                     <thead>
                       <tr>
-                        <th> # </th>
+                        <th> Id </th>
                         <th> Name </th>
                         <th> Email </th>
-                        <th> Password </th>
                         <th> PhoneNumber </th>
                         <th> Gender </th>
-                        <th> Action </th>
+                        <th>  </th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -191,28 +191,26 @@
                           <td> <?php echo $row['userId'] ?> </td>
                           <td> <?php echo $row['userName'] ?> </td>
                           <td> <?php echo $row['email'] ?></td>
-                          <td> <?php echo $row['passwords'] ?> </td>
                           <td> <?php echo $row['phoneNumber'] ?> </td>
                           <td> <?php echo $row['gender'] ?> </td>
                           <td>
                             <div>
                               <form action='user-remove.php?userId="<?php echo $row['userId']; ?>"' method="post">
                                 <input type="hidden" name="userId" value="<?php echo $row['userId']; ?>">
-                                <button type="submit" class="btn btn-danger" onClick="return confirm('Are you Sure?')" name="delete">
-                                  <i class="bi bi-trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                    </svg>
-                                    
+                                <button type="submit" class="btn btn-outline-danger btn-icon" onClick="return confirm('Are you Sure?')" name="delete">
+                                  <i class="mdi mdi-delete-forever">
+
                                   </i>
                                 </button>
                               </form>
                             </div>
+                          </td>
+                          <td>
                             <div>
                               <a href='user-edit.php?userId=<?php echo $row[userId] ?>&fn=<?php echo $row[userName]; ?>&em=<?php echo $row[email] ?>&ps=<?php echo $row[passwords] ?>&ph=<?php echo $row[phoneNumber] ?>&gd=<?php echo $row[gender] ?>'>
                                 <input type="hidden" name="userId" value="<?php echo $row['userId']; ?>">
-                                <button type="submit" class="btn btn-primary" name="edit" onClick="return Confirm('Are you Sure?')">
-                                  <i class="bi bi-file-earmark-medical">Edit</i>
+                                <button type="submit" class="btn btn-outline-primary btn-icon" name="edit" onClick="return Confirm('Are you Sure?')">
+                                  <i class="mdi mdi-lead-pencil"></i>
                                 </button>
                               </a>
                             </div>
@@ -227,29 +225,29 @@
               </div>
             </div>
           </div>
+
+
+
+
+
         </div>
-
-
-
-
-      </div>
-      <!-- content-wrapper ends -->
-      <!-- partial:./partials/_footer.html -->
-      <footer class="footer">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © ECOMMERCE 2022</span>
+        <!-- content-wrapper ends -->
+        <!-- partial:./partials/_footer.html -->
+        <footer class="footer">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © ECOMMERCE 2022</span>
+              </div>
             </div>
           </div>
-        </div>
-      </footer>
-      <!-- partial -->
-    </div>
+        </footer>
+        <!-- partial -->
+      </div>
 
-    <!-- main-panel ends -->
-  </div>
-  <!-- page-body-wrapper ends -->
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
 

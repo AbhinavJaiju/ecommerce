@@ -31,18 +31,16 @@
     }
 
     $result2 = $conn->query($sql2);
-    $row2 = $result2->fetch_assoc();
     while($row2 = $result2->fetch_assoc()) {
       $cc1 = $row2['ordercount'];
     }
 
     $result3 = $conn->query($sql3);
-    $row3 = $result3->fetch_assoc();
     while($row3 = $result3->fetch_assoc()) {
       $cc3 = $row3['usercount'];
     }
 
-    $conn->close();
+    
 
   ?>
   
@@ -58,7 +56,7 @@
           <span></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="index.php">
             <i class="mdi mdi-view-quilt menu-icon"></i>
             <span class="menu-title">Dashboard</span>
             <div class="badge badge-info badge-pill"></div>
@@ -140,8 +138,8 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="index.html"></a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo" href="index.php"></a>
+            <a class="navbar-brand brand-logo-mini" href="index.php"><img src="images/logo-mini.svg" alt="logo"/></a>
           </div>
           <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1" id="user"></h4>
           <ul class="navbar-nav navbar-nav-right">
@@ -230,29 +228,41 @@
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">ORDERS</h4>
-                  <p class="card-description">
-                    <!-- Add class <code>.table-hover</code> -->
+                  <h4 class="card-title">Recent Customers Who Joined Our Family</h4>
+                  <p class="card-description"> Customers
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-bordered">
+                      
                       <thead>
                         <tr>
-                          <th>User</th>
-                          <th>Product</th>
-                          <!-- <th>Sale</th> -->
-                          <th>Status</th>
+                          <th> Id </th>
+                          <th> Name </th>
+                          <th> Gender </th>
+                          <th> Address </th>
+                          <th> Email </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Jacob</td>
-                          <td>Photoshop</td>
-                          <!-- <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td> -->
-                          <td>Pending</label></td>
-                        </tr>
-                      
-                       
+                        <?php
+                        $sql4 = "SELECT * FROM customers ORDER BY customerId DESC";
+                        $result4 = $conn->query($sql4);
+
+                        while ($row4 = $result4->fetch_assoc()) {
+
+                        ?>
+                          <tr>
+                            <td> <?php echo $row4['customerId'] ?> </td>
+                            <td> <?php echo $row4['customerName'] ?> </td>
+                            <td> <?php echo $row4['gender'] ?> </td>
+                            <td> <?php echo $row4['address'] ?> </td>
+                            <td> <?php echo $row4['email'] ?> </td>
+                            
+                          </tr>
+                        <?php
+                        $conn->close();
+                        }
+                        ?>
                       </tbody>
                     </table>
                   </div>
