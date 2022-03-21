@@ -252,9 +252,20 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
 
                             <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 60%;">
                                 <div class="label new">New</div>
+
+                                <!-- Toaster starts -->
+                                <ul class='product__hover'>
+                                <li>  <div class='d-flex align-items-center justify-content-center'>
+                                <div class='toast'>
+                                    <i class='fa fa-solid fa-heart'></i>
+                                </div>
+                                </div></li>
+                                </ul>
+                                <!-- Toaster ends -->
+
                                 <ul class="product__hover">
                                     <li><a href="img/shop/<?php echo $row['fileName'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    <li><a class='wishList' id='<?php echo $row["productId"] ?>'><span class='icon_heart_alt'></span></a></li>
                                     <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                 </ul>
                             </div>
@@ -347,9 +358,19 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
 
                             <div class="product__item__pic set-bg" data-setbg="img/shop/<?php echo $row['fileName'] ?>" style="width: 60%;">
 
+                            <!-- Toaster starts -->
+                            <ul class='product__hover'>
+                                <li>  <div class='d-flex align-items-center justify-content-center'>
+                                <div class='toast'>
+                                    <i class='fa fa-solid fa-heart'></i>
+                                </div>
+                                </div></li>
+                                </ul>
+                                <!-- Toaster ends -->
+
                                 <ul class="product__hover">
                                     <li><a href="img/shop/<?php echo $row['fileName'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    <li><a class='wishList' id='<?php echo $row["productId"] ?>'><span class='icon_heart_alt'></span></a></li>
                                     <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                 </ul>
                             </div>
@@ -586,8 +607,8 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
             <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
+            <form class="search-model-form" method="POST">
+                <input type="text" name="search-input" placeholder="Search here.....">
             </form>
         </div>
     </div>
@@ -607,3 +628,42 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
 </body>
 
 </html>
+
+
+<?php
+if(isset($_POST['search-input'])){
+    $search = $_POST['search-input'];
+    echo "<script>window.location.href='shop.php?search=$search'</script>";
+}
+?>
+
+<script>
+    // Adding products to wishlist
+    $('.wishList').click(function() {
+        var product_id = $(this).attr('id');
+
+
+        // console.log(product_id);
+        $.ajax({
+            url: "php/add-to-wishlist.php",
+            method: "POST",
+            data: {
+                productId: product_id
+            },
+            dataType: 'json',
+            success: function(response) {
+                // console.log(response);
+                if (response.result == "exists") {
+                    alert('Product already in wishlist');
+                } else if (response.result == "success") {
+                    $('.toast').toast('show');
+                } else {
+                    alert("Something went wrong");
+                    console.log(response);
+                }
+
+            }
+        });
+    });
+
+</script>
