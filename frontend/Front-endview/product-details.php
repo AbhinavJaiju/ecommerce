@@ -190,7 +190,7 @@ $_SESSION["ProductName"] = $row['productName'];
                         
                             <ul>
                                 <li><a class='wishList' id='$strValue'><span class=\"icon_heart_alt\"></span></a></li>
-                                <li><a href=\"#\"><span class=\"icon_adjust-horiz\"></span></a></li>
+                                
                             </ul>
                         </div>
                         <div class=\"product__details__widget\">
