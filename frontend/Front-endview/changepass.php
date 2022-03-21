@@ -60,7 +60,7 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-12">
-<h1 style="text-aign:center;margin-left:40%;margin-top:16%;margin-bottom:1%">Change Password</h1>
+<h1 style="text-align:center;margin-left:40%;margin-top:16%;margin-bottom:1%">Change Password</h1>
 </div>
 </div>
 <div class="row">
