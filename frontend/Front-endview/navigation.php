@@ -60,6 +60,7 @@ include "config.php";
             <div class="col-lg-3">
                 <div class="header__right">
                     <div class="header__right__auth">
+                        <a href="myaccount.php" style="font-weight: bold; font-size: large;">
                         <?php
                         if ($_SESSION['uname']) {
 
@@ -72,7 +73,7 @@ include "config.php";
                         }
 
                         ?>
-
+                        </a>
                     </div>
 
                     <ul class="header__right__widget">
@@ -99,3 +100,5 @@ include "config.php";
         </div>
     </div>
 </header>
+
+
