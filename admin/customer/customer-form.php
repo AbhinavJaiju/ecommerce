@@ -55,7 +55,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../../admin/order/order-listing.php">
+          <a class="nav-link" href="../../admin/order/orders.php">
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>

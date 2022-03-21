@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include("config.php");
+include("../config.php");
 $id = $_GET['userId'];
 $name =  $_GET['fn'];
 $email = $_GET['em'];

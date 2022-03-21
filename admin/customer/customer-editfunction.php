@@ -1,6 +1,6 @@
 <?php
     //inluding db connection file 
-    include_once 'config.php';
+    include_once '../config.php';
 
     $id = $_POST['customerId'];
     $name = $_POST['username'];
@@ -22,7 +22,7 @@
     }else{
         echo "Could not save your data";
     }
-    unlink('/var/www/html/ecommerce/admin/customer/Images/' . $image);
+    unlink('/var/www/html/ecommerce/admin/customerImages/' . $image);
     if(move_uploaded_file($_FILES["image"]["tmp_name"], $filepath))
     {
         echo "Images Uploaded";
