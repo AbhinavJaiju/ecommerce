@@ -55,11 +55,7 @@
           </div>
         </li>
         <li class="nav-item">
-<<<<<<< HEAD
           <a class="nav-link" href="../orders/orderlisting.php">
-=======
-          <a class="nav-link" href="../../admin/order/orders.php">
->>>>>>> ad1c59d581b54f043cfd428ab39bfa0ec4815224
             <i class="mdi mdi-view-headline menu-icon"></i>
             <span class="menu-title">ORDERS</span>
           </a>
