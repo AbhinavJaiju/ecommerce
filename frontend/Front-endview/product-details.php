@@ -7,19 +7,21 @@ if(isset($_POST['but_logout'])){
 
 include "config.php";
 $customerId = $_SESSION['cutomerId'];
-// $categoryId = 3;
+$categoryId = $_SESSION['CategoryId'];
+$categoryName=$_SESSION["CategoryName"];
 
 
 
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 $strValue = $_GET['id'];
 $_SESSION["ProductId"] = $strValue;
 $catnam = $_SESSION["Category"];
+$sql = "SELECT productName FROM products
+WHERE productId=$strValue";
+$result = $conn->query($sql);
+
+$row = $result->fetch_assoc() ;
+$_SESSION["ProductName"] = $row['productName'];
 
 ?>
 
@@ -34,7 +36,7 @@ $catnam = $_SESSION["Category"];
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ashion | Template</title>
+    <title>Eshop</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
@@ -95,8 +97,8 @@ $catnam = $_SESSION["Category"];
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="./index.php"><i class="fa fa-home"></i> Home</a>
-                        <a href="#"><?php echo $catnam; ?> </a>
-                        <span>Essential structured blazer</span>
+                        <a href="shop.php?id=<?php echo $categoryId; ?>"><?php echo $categoryName; ?></a>
+                        <span><?php echo $_SESSION["ProductName"];?></span>
                     </div>
                 </div>
             </div>
@@ -132,7 +134,7 @@ $catnam = $_SESSION["Category"];
 
 
                         $reviewcount = "SELECT count(reviewId) as count FROM reviews
-                        WHERE productId=$strValue ";
+                        WHERE productId=$strValue && status = 1";
 
                         $reviewcountvalue = $conn->query($reviewcount);
                         $rcount = $reviewcountvalue->fetch_assoc();
@@ -242,12 +244,29 @@ $catnam = $_SESSION["Category"];
                             <form  method=\"post\" enctype=\"multipart/form-data\">
 
                                 <textarea placeholder=\"Review\" name=\"message\"></textarea>
-                                <button type=\"submit\" class=\"site-btn\">SUBMIT</button>
+                                <button type=\"submit\" name=\"review\" class=\"site-btn\">SUBMIT</button>
                             </form>
                         </div><br><br>";
-                        echo $message = $_POST['message'];
+                        if (isset($_POST['review'])) {
+                            
+                            $message = $_POST['message'];
+                            date_default_timezone_set("Asia/Calcutta");   //India time (GMT+5:30)
+                            $today= date('Y-m-d');
+                            $status=0;
 
-                        $sql = "SELECT *  FROM reviews where productId=$strValue";
+                            $sql = "INSERT INTO reviews (review, createdDate, status,customerId,productId) 
+                            VALUES (\"$message\", \"$today\", $status, $customerId,$strValue)";
+
+                            if ($conn->query($sql) === TRUE) {
+
+                                //echo "Review submitted";
+                            } else {
+                                echo "Server Error ! Please try again later";
+                            }
+                        }
+                        
+
+                        $sql = "SELECT *  FROM reviews where productId=$strValue && status=1";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
