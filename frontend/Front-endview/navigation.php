@@ -8,6 +8,7 @@ $userId = $_SESSION['cutomerId'];
 
 include "config.php";
 
+if($userId>0){
 // Get count of wishlist and cart
 $wishlist = "SELECT COUNT(wishListId) AS wishList FROM wishLists where customerId=$userId";
 $cart = "SELECT COUNT(productCartId) AS cart FROM productCarts where customerId=$userId";
@@ -15,6 +16,12 @@ $wishResult = $conn->query($wishlist);
 $cartResult = $conn->query($cart);
 $wishCount = $wishResult->fetch_assoc();
 $cartCount = $cartResult->fetch_assoc();
+}
+else{
+    $wishCount=0;
+    $cartCount=0;
+}
+
 ?>
 
 

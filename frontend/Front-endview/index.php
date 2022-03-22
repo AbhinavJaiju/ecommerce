@@ -88,7 +88,7 @@ $rsql = "SELECT products.productId, COUNT(orderDetails.productId)  as prdCount,p
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
-            <a href="#">Login</a>
+            <a href="login.php">Login</a>
             <a href="#">Register</a>
         </div>
     </div>

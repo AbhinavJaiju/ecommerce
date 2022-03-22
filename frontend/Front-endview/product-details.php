@@ -208,6 +208,11 @@ $_SESSION["ProductName"] = $row['productName'];
                                 }
                                 
                             }
+                            else{
+                                echo "<script>alert(\"Please login to E-Commerce \")</script>";
+                                echo "<script>window.location.href='index.php';</script>";
+                                exit;
+                            }
                         }
                         echo "   
                         
