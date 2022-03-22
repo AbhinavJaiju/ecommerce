@@ -8,6 +8,11 @@ if(isset($_POST['but_logout'])){
 //$categoryId = 3;
 
 $userId=$_SESSION['cutomerId'];
+if($userId<1){
+    echo "<script>alert(\"Please login to E-Commerce\")</script>";
+    echo "<script>window.location.href='index.php';</script>";
+    exit;
+}
 $sum=0;
 $categoryId = $_SESSION["CategoryId"];
 

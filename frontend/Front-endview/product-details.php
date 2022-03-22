@@ -23,6 +23,7 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc() ;
 $_SESSION["ProductName"] = $row['productName'];
 
+
 ?>
 
 
@@ -126,11 +127,9 @@ $_SESSION["ProductName"] = $row['productName'];
                         $sql2 = "SELECT fileName FROM productImage
                         WHERE productId=$strValue";
                         $result1 = $conn->query($sql2);
-                        $file = $result1->fetch_assoc();
-                        $original = (int)($row["price"]) + ((int)($row["price"]) * 5 / 10);
+                        $file = $result1->fetch_assoc();       
                         $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
                         $rs = $fmt->format($row["price"]);
-                        $oldvalue = $fmt->format($original);
 
 
                         $reviewcount = "SELECT count(reviewId) as count FROM reviews
@@ -158,7 +157,7 @@ $_SESSION["ProductName"] = $row['productName'];
                             
                             <span>Reviews ( $count )</span>
                         </div>
-                        <div class=\"product__details__price\">₹$rs <span>₹ $oldvalue</span></div>
+                        <div class=\"product__details__price\">₹$rs </div>
                         <p>{$row["productDescription"]}</p>
                         <div class=\"product__details__button\">
 
@@ -179,10 +178,12 @@ $_SESSION["ProductName"] = $row['productName'];
                             $_SESSION["Quantity"] = $qty;
                             if ($customerId > 0) {
                                 $check="SELECT quantity FROM productCarts where customerId=$customerId and productId=$strValue;";
+                                
                                 //$conn->query($check);
                                 $result = $conn->query($check);
                                 $row = $result->fetch_assoc();
-                                if($row['quantity']>0)
+                                if($check==1){
+                                    if($row['quantity']>0)
                                 {
                                     $qty=$qty+$row['quantity'];
                                     $update="UPDATE productCarts
@@ -201,6 +202,11 @@ $_SESSION["ProductName"] = $row['productName'];
                             { timeOut: 1 },{positionClass: \'toast-bottom-right\'}\")</script>";
                                 echo "<script>alert(\"Product added to cart\")</script>";
                                 } 
+                                }
+                                else{
+                                    echo "<script>alert(\"Product Out of stock\")</script>";
+                                }
+                                
                             }
                         }
                         echo "   

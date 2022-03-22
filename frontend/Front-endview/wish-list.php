@@ -7,6 +7,11 @@ if (isset($_POST['but_logout'])) {
     header('Location: login.php');
 }
 $userId = $_SESSION['cutomerId'];
+if($userId<1){
+    echo "<script>alert(\"Please login to E-Commerce\")</script>";
+    echo "<script>window.location.href='index.php';</script>";
+    exit;
+}
 
 
 $sql = "SELECT wishLists.wishListId,wishLists.productId,

@@ -10,8 +10,6 @@ if (isset($_POST['but_logout'])) {
 
 //get,set values -> from sessions and links
 $search = $_GET['search'];
-// echo  $search;
-
 $strValue = $_GET['id'];
 if ($strValue > 0) {
     $categoryId = $strValue;
@@ -81,7 +79,6 @@ $_SESSION["CategoryName"] = $categoryName;
             <li><a href="wish-list.php"><span class="icon_heart_alt"></span>
                     <div class="tip">2</div>
                 </a></li>
-
             <li><a href="shop-cart.php"><span class="icon_bag_alt"></span>
                     <div class="tip">2</div>
                 </a></li>
@@ -141,13 +138,14 @@ $_SESSION["CategoryName"] = $categoryName;
                                     $sql = "SELECT * FROM categories ";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
+                                        while ($row = $result->fetch_assoc()) 
+                                        {
                                             echo "  <div class='card'>
-                                        <div class='card-heading active'>
-                                            <a href=\"shop.php?id={$row["categoryId"]}\">{$row["categoryName"]}</a>
-                                        </div>
-                                    </div>
-                                    ";
+                                                    <div class='card-heading active'>
+                                                    <a href=\"shop.php?id={$row["categoryId"]}\">{$row["categoryName"]}</a>
+                                                    </div>
+                                                    </div>
+                                                    ";
                                         }
                                     }
                                     ?>
