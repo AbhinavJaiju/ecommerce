@@ -566,6 +566,12 @@ if (isset($_POST['search-input'])) {
 }
 ?>
 
+<!-- Fetch wishlisted products id for keeping the heart icon red -->
+<?php
+$sqWL = "SELECT productId FROM wishLists where customerId=" . $_SESSION['cutomerId'];
+$resWL = $conn->query($sqWL);
+?>
+
 <script>
     // Adding products to wishlist
     $('.wishList').click(function() {
@@ -620,5 +626,17 @@ if (isset($_POST['search-input'])) {
 
             }
         });
+    });
+
+    // Keep the heart icon of wishlisted items red
+    $(document).ready(function() {
+        <?php
+        foreach ($resWL as $rowWL) {
+        ?>
+            $('.wishList').filter('#' + <?php echo $rowWL["productId"]; ?>)
+                .css({"color":"white","background":"red"});
+        <?php
+        }
+        ?>
     });
 </script>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_POST['but_logout'])){
+if (isset($_POST['but_logout'])) {
     session_destroy();
     header('Location: login.php');
 }
@@ -8,7 +8,7 @@ if(isset($_POST['but_logout'])){
 include "config.php";
 $customerId = $_SESSION['cutomerId'];
 $categoryId = $_SESSION['CategoryId'];
-$categoryName=$_SESSION["CategoryName"];
+$categoryName = $_SESSION["CategoryName"];
 
 
 
@@ -20,7 +20,7 @@ $sql = "SELECT productName FROM products
 WHERE productId=$strValue";
 $result = $conn->query($sql);
 
-$row = $result->fetch_assoc() ;
+$row = $result->fetch_assoc();
 $_SESSION["ProductName"] = $row['productName'];
 
 ?>
@@ -86,8 +86,8 @@ $_SESSION["ProductName"] = $row['productName'];
 
     <!-- Header Section Begin -->
     <?php
-        include "navigation.php";
-        ?>
+    include "navigation.php";
+    ?>
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
@@ -98,7 +98,7 @@ $_SESSION["ProductName"] = $row['productName'];
                     <div class="breadcrumb__links">
                         <a href="./index.php"><i class="fa fa-home"></i> Home</a>
                         <a href="shop.php?id=<?php echo $categoryId; ?>"><?php echo $categoryName; ?></a>
-                        <span><?php echo $_SESSION["ProductName"];?></span>
+                        <span><?php echo $_SESSION["ProductName"]; ?></span>
                     </div>
                 </div>
             </div>
@@ -172,35 +172,33 @@ $_SESSION["ProductName"] = $row['productName'];
                             <input type=\"submit\" name=\"qtysubmit\" value=\"Add to cart\" class=\"cart-btn\" >
                         </form>
                         ";
-                       
+
 
                         if (isset($_POST['qtysubmit'])) {
                             $qty = $_POST['quantity'];
                             $_SESSION["Quantity"] = $qty;
                             if ($customerId > 0) {
-                                $check="SELECT quantity FROM productCarts where customerId=$customerId and productId=$strValue;";
+                                $check = "SELECT quantity FROM productCarts where customerId=$customerId and productId=$strValue;";
                                 //$conn->query($check);
                                 $result = $conn->query($check);
                                 $row = $result->fetch_assoc();
-                                if($row['quantity']>0)
-                                {
-                                    $qty=$qty+$row['quantity'];
-                                    $update="UPDATE productCarts
+                                if ($row['quantity'] > 0) {
+                                    $qty = $qty + $row['quantity'];
+                                    $update = "UPDATE productCarts
                                     SET quantity=$qty
                                     WHERE customerId=$customerId and productId=$strValue; ";
                                     $conn->query($update);
                                     echo "<script type=\"text/javascript\">toastr.success(\"Product added to cart ,
                                 { timeOut: 1 },{positionClass: \'toast-bottom-right\'}\")</script>";
                                     echo "<script>alert(\"Quantity updated in cart\")</script>";
-                                }
-                                else{
+                                } else {
                                     $insert = "INSERT into productCarts(quantity, customerId, productId)
                             VALUES ($qty, $customerId, $strValue);";
-                                $conn->query($insert);
-                                echo "<script type=\"text/javascript\">toastr.success(\"Product added to cart ,
+                                    $conn->query($insert);
+                                    echo "<script type=\"text/javascript\">toastr.success(\"Product added to cart ,
                             { timeOut: 1 },{positionClass: \'toast-bottom-right\'}\")</script>";
-                                echo "<script>alert(\"Product added to cart\")</script>";
-                                } 
+                                    echo "<script>alert(\"Product added to cart\")</script>";
+                                }
                             }
                         }
                         echo "   
@@ -255,7 +253,7 @@ $_SESSION["ProductName"] = $row['productName'];
                             </div>
                             <div class=\"tab-pane\" id=\"tabs-3\" role=\"tabpanel\">
                                 <h6>Reviews ( $count )</h6>";
-                                echo"
+                        echo "
                              <div class=\"contact__form\">
                             <h5>ADD A REVIEW</h5>
                             
@@ -266,11 +264,11 @@ $_SESSION["ProductName"] = $row['productName'];
                             </form>
                         </div><br><br>";
                         if (isset($_POST['review'])) {
-                            
+
                             $message = $_POST['message'];
                             date_default_timezone_set("Asia/Calcutta");   //India time (GMT+5:30)
-                            $today= date('Y-m-d');
-                            $status=0;
+                            $today = date('Y-m-d');
+                            $status = 0;
 
                             $sql = "INSERT INTO reviews (review, createdDate, status,customerId,productId) 
                             VALUES (\"$message\", \"$today\", $status, $customerId,$strValue)";
@@ -282,7 +280,7 @@ $_SESSION["ProductName"] = $row['productName'];
                                 echo "Server Error ! Please try again later";
                             }
                         }
-                        
+
 
                         $sql = "SELECT *  FROM reviews where productId=$strValue && status=1";
                         $result = $conn->query($sql);
@@ -297,8 +295,6 @@ $_SESSION["ProductName"] = $row['productName'];
                                         <p>{$row["review"]}</p>";
                             }
                         } else {
-                            
-                           
                         }
                         ?></div>
                 </div>
@@ -366,11 +362,11 @@ $_SESSION["ProductName"] = $row['productName'];
     </section>
     <!-- Product Details Section End -->
 
-    
+
     <?php
     include "footer.php"
     ?>
-    
+
 
     <!-- Search Begin -->
     <?php include "globalsearch.php"; ?>
@@ -387,10 +383,18 @@ $_SESSION["ProductName"] = $row['productName'];
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.nicescroll.min.js"></script>
     <script src="js/main.js"></script>
-    
+
 </body>
+</html>
+
+<!-- Fetch wishlisted products id for keeping the heart icon red -->
+<?php
+$sqWL = "SELECT productId FROM wishLists where customerId=" . $_SESSION['cutomerId'];
+$resWL = $conn->query($sqWL);
+?>
+
 <script>
-// Adding products to cart
+    // Adding products to cart
     $('.cart').click(function() {
         var product_id = $(this).attr('id');
 
@@ -444,35 +448,27 @@ $_SESSION["ProductName"] = $row['productName'];
             }
         });
     });
-    </script>
 
+    // Keep the heart icon of wishlisted items red
+    $(document).ready(function() {
+        <?php
+        foreach ($resWL as $rowWL) {
+        ?>
+            $('.wishList').filter('#' + <?php echo $rowWL["productId"]; ?>)
+                .css({"color":"white","background":"red"});
+        <?php
+        }
+        ?>
+    });
+</script>
 
-</html>
 <style>
- 
- 
-.toast {
- 
- 
-position: absolute;
- 
- 
-color: red;
- 
- 
-background: none;
- 
- 
-font-size: 50px;
- 
- 
-bottom: 45%;
- 
- 
-left: 85%;
- 
- 
-}
- 
- 
+    .toast {
+        position: absolute;
+        color: red;
+        background: none;
+        font-size: 50px;
+        bottom: 45%;
+        left: 85%;
+    }
 </style>

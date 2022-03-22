@@ -15,8 +15,7 @@ $search = $_GET['search'];
 $strValue = $_GET['id'];
 if ($strValue > 0) {
     $categoryId = $strValue;
-} 
-else {
+} else {
     $categoryId = 1;
 }
 
@@ -164,11 +163,10 @@ $_SESSION["CategoryName"] = $categoryName;
                             // $categoryId = 0;
                             $sql = "SELECT * FROM products where productName like '%$search%'";
                             $result = $conn->query($sql);
-                            }
-                            else{
-                        $sql = "SELECT * FROM products where categoryId=$categoryId";
-                        $result = $conn->query($sql);
-                            }
+                        } else {
+                            $sql = "SELECT * FROM products where categoryId=$categoryId";
+                            $result = $conn->query($sql);
+                        }
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $id = $row["productId"];
@@ -180,7 +178,7 @@ $_SESSION["CategoryName"] = $categoryName;
                                 $filename = $location . $file["fileName"];
                                 $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
                                 $rs = $fmt->format($row["price"]);
-                                
+
                                 echo "<div class='col-lg-4 col-md-6'>
                                 <div class='product__item'>
                                 <div class='product__item__pic set-bg' data-setbg='img/shop/{$file["fileName"]}'>
@@ -233,7 +231,7 @@ $_SESSION["CategoryName"] = $categoryName;
     <?php
     include "footer.php"
     ?>
-    
+
 
 
     <!-- Search Begin -->
@@ -255,6 +253,11 @@ $_SESSION["CategoryName"] = $categoryName;
 
 </html>
 
+<!-- Fetch wishlisted products id for keeping the heart icon red -->
+<?php
+$sqWL = "SELECT productId FROM wishLists where customerId=" . $_SESSION['cutomerId'];
+$resWL = $conn->query($sqWL);
+?>
 
 <script>
     // Adding products to wishlist
@@ -286,8 +289,8 @@ $_SESSION["CategoryName"] = $categoryName;
     });
 
     // Adding products to cart
-    
-    
+
+
     $('.cart').click(function() {
         var product_id = $(this).attr('id');
         // console.log(product_id);
@@ -332,6 +335,18 @@ $_SESSION["CategoryName"] = $categoryName;
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 
         });
+    });
+
+    // Keep the heart icon of wishlisted items red
+    $(document).ready(function() {
+        <?php
+        foreach ($resWL as $rowWL) {
+        ?>
+            $('.wishList').filter('#' + <?php echo $rowWL["productId"]; ?>)
+                .css({"color":"white","background":"red"});
+        <?php
+        }
+        ?>
     });
 </script>
 
