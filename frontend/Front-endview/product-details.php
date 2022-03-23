@@ -177,10 +177,10 @@ $_SESSION["ProductName"] = $row['productName'];
                             $qty = $_POST['quantity'];
                             $_SESSION["Quantity"] = $qty;
                             if ($customerId > 0) {
-                                $check="SELECT quantity FROM productCarts where customerId=$customerId and productId=$strValue;";
+                                $check1="SELECT quantity FROM productCarts where customerId=$customerId and productId=$strValue;";
                                 
                                 //$conn->query($check);
-                                $result = $conn->query($check);
+                                $result = $conn->query($check1);
                                 $row = $result->fetch_assoc();
                                 if($check==1){
                                     if($row['quantity']>0)
